@@ -11,8 +11,9 @@ The vernacular shared by every Jonesco site. These say *how it should feel*; `sy
 - **No shadows or gradients on UI.** The only shadow is a soft one under a photographed product, like a book cover.
 
 ## Type
-- **Headlines:** Trade Gothic Bold Condensed No. 20, all caps, tight (`-.01em`), big. Condensed type reads small, so size it up.
-- **Labels:** Trade Gothic Bold No. 2, all caps, slightly open (`.03em`): nav, buttons, tags, list labels, footer links.
+- **One hero per page in caps.** The page's main title (and big display moments like a section heading or a video slam) is Trade Gothic Bold Condensed No. 20, all caps, tight (`-.01em`), big. Condensed type reads small, so size it up.
+- **Titles you read, sentence case.** Titles that sit in groups or inside content (tile titles, headings within a page, list item titles) are Trade Gothic Bold No. 2 in sentence case. Too many caps shouts.
+- **Labels:** Trade Gothic Bold No. 2, all caps, small and slightly open (`.03em`): nav, buttons, tags, list labels, footer links. Labels are short, so caps work.
 - **Body:** Libre Franklin. Plain, readable, sentence case.
 - **Curly quotes and apostrophes** in copy (’ “ ”). Straight ones only in code.
 - **American spelling.**

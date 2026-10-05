@@ -10,6 +10,10 @@
 .sys-display { font-family: var(--font-display); font-weight: 700; text-transform: uppercase; letter-spacing: var(--track-display); line-height: .95; }
 .sys-label { font-family: var(--font-label); font-weight: 700; text-transform: uppercase; letter-spacing: var(--track-label); font-size: var(--size-label); }
 
+/* Sentence-case title: for titles read in groups or inside content (tiles, in-page headings, list titles).
+   The page hero stays .sys-display / condensed caps. */
+.sys-title { font-family: var(--font-label); font-weight: 700; text-transform: none; letter-spacing: 0; line-height: 1.15; }
+
 /* ---------- Header: black bar, white wordmark, label nav ----------
    <header class="sys-header"><div class="sys-wrap sys-bar">
      <a class="sys-brand" href="/">…wordmark…</a>
@@ -60,8 +64,8 @@
 .sys-tile__art img { width: 100%; height: 100%; object-fit: cover; object-position: top; transition: transform .25s; }
 .sys-tile:hover .sys-tile__art img { transform: scale(1.04); }
 .sys-tile__id { margin: 14px 0 6px; font-family: var(--font-label); font-weight: 700; font-size: var(--size-tag); letter-spacing: var(--track-label); color: #888; }
-.sys-tile__title { margin: 0; padding-bottom: 12px; border-bottom: var(--rule); font-family: var(--font-display); font-weight: 700;
-  text-transform: uppercase; letter-spacing: var(--track-display); font-size: 30px; line-height: .95; transition: color var(--quick); }
+.sys-tile__title { margin: 0; padding-bottom: 12px; border-bottom: var(--rule); font-family: var(--font-label); font-weight: 700;
+  text-transform: none; letter-spacing: 0; font-size: 26px; line-height: 1.15; transition: color var(--quick); }
 .sys-tile:hover .sys-tile__title { color: var(--accent); }
 .sys-tile__text { margin: 12px 0 0; font-size: 15px; line-height: 1.45; color: var(--muted); }
 
