@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Color · Jonesco System</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../system.css">
+  <link rel="stylesheet" href="../patterns.css">
+  <link rel="stylesheet" href="../docs/docs.css">
+</head>
+<body data-root="../" data-page="foundations/color">
+<main class="docs-main">
+<h1>Color</h1>
+<p class="lead">Black, white and cream do the work. One accent and one highlight carry meaning.</p>
+<div class="swatches">
+<div class="swatch"><i style="background:var(--ink)"></i><div><b>Ink</b><code>--ink</code> #000<br>Text, rules, header, footer, bands.</div></div>
+<div class="swatch"><i style="background:var(--paper)"></i><div><b>Paper</b><code>--paper</code> #fff<br>Page background.</div></div>
+<div class="swatch"><i style="background:var(--cream)"></i><div><b>Cream</b><code>--cream</code> #fdf8dc<br>Behind artwork; ghost buttons.</div></div>
+<div class="swatch"><i style="background:var(--accent)"></i><div><b>Accent</b><code>--accent</code> #e4148c<br>Hover on white; the one active thing.</div></div>
+<div class="swatch"><i style="background:var(--highlight)"></i><div><b>Highlight</b><code>--highlight</code> #ffe500<br>Tags, hover on black, selection.</div></div>
+<div class="swatch"><i style="background:var(--muted)"></i><div><b>Muted</b><code>--muted</code> #555<br>Secondary text.</div></div>
+</div>
+<h2>Usage</h2>
+<div class="dodont"><div><b>Do</b><p>Use the accent for the one thing that’s active or hovered: a tile title, a chosen size, a pressed button.</p></div><div class="dont"><b>Don’t</b><p>Use the accent as decoration, or put two accent-colored things side by side.</p></div></div>
+<div class="dodont"><div><b>Do</b><p>Put scanned line art on cream with <code>mix-blend-mode: multiply</code> so the paper reads as paper.</p></div><div class="dont"><b>Don’t</b><p>Use cream as a page or section background.</p></div></div>
+<h2>Site variations</h2>
+<table><tr><th>Site</th><th>Variation</th><th>Why</th></tr><tr><td>All current sites</td><td>Accent stays magenta</td><td>Shared Jonesco identity across Art Dept and the portfolio.</td></tr></table>
+</main>
+<script src="../docs/docs.js"></script>
+</body>
+</html>

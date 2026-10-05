@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Typography · Jonesco System</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../system.css">
+  <link rel="stylesheet" href="../patterns.css">
+  <link rel="stylesheet" href="../docs/docs.css">
+</head>
+<body data-root="../" data-page="foundations/type">
+<main class="docs-main">
+<h1>Typography</h1>
+<p class="lead">Two weights of Trade Gothic for headlines and labels, Libre Franklin for reading.</p>
+<div class="demo"><div class="demo-stage ">
+<div class="sys-display" style="font-size:88px">Display headline</div>
+<div class="sys-display" style="font-size:44px;margin-top:16px">Section heading</div>
+<p class="sys-label" style="margin:20px 0 0">Label · nav · button · tag</p>
+<p style="font-size:17px;max-width:36em">Body copy is Libre Franklin at 17px with 1.55 line height. Sentence case, curly quotes, American spelling.</p>
+</div></div>
+<h2>Tokens</h2>
+<table>
+<tr><th>Token</th><th>Value</th><th>Use</th></tr>
+<tr><td><code>--font-display</code></td><td>Trade Gothic Bold Cond 20</td><td>Headlines, wordmarks, tile titles</td></tr>
+<tr><td><code>--font-label</code></td><td>Trade Gothic Bold 2</td><td>Nav, buttons, tags, list labels</td></tr>
+<tr><td><code>--font-body</code></td><td>Libre Franklin</td><td>Everything you read</td></tr>
+<tr><td><code>--track-display</code></td><td>-.01em</td><td>Headlines</td></tr>
+<tr><td><code>--track-label</code></td><td>.03em</td><td>Labels</td></tr>
+<tr><td><code>--size-h1</code> / <code>--size-h2</code> / <code>--size-section</code></td><td>clamp(44–88) / clamp(30–44) / clamp(36–58)</td><td>Page title / sub head / section heading</td></tr>
+</table>
+<h2>Stipulations</h2>
+<ul>
+<li>Condensed caps read smaller than their size: set headlines larger than you would a regular face.</li>
+<li>The fonts carry a metric fix so caps sit centered in their boxes; don’t nudge them with padding.</li>
+<li>Characters outside the trimmed font (like Ō) fall back to Libre Franklin. The Art Dept fonts include a custom Ō.</li>
+</ul>
+</main>
+<script src="../docs/docs.js"></script>
+</body>
+</html>

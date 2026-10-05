@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Layout & spacing · Jonesco System</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../system.css">
+  <link rel="stylesheet" href="../patterns.css">
+  <link rel="stylesheet" href="../docs/docs.css">
+</head>
+<body data-root="../" data-page="foundations/layout">
+<main class="docs-main">
+<h1>Layout &amp; spacing</h1>
+<p class="lead">One centered column. Everything lines up on its edges.</p>
+<table>
+<tr><th>Token</th><th>Value</th><th>Use</th></tr>
+<tr><td><code>--wrap</code></td><td>1200px</td><td>Column width</td></tr>
+<tr><td><code>--gutter</code> / <code>--gutter-sm</code></td><td>24px / 16px</td><td>Side padding, desktop / phones</td></tr>
+<tr><td><code>--space-section</code></td><td>56px (40 on phones)</td><td>From a rule to a section heading</td></tr>
+<tr><td><code>--space-head</code></td><td>32px (24 on phones)</td><td>From a section heading to its content</td></tr>
+</table>
+<h2>Stipulations</h2>
+<ul>
+<li>Full-width bands sit outside the column and put their content back in a <code>.sys-wrap</code>, so the edges match the sections around them. Avoid <code>100vw</code> tricks; they include the scrollbar and shift content.</li>
+<li>Stacked tiles on phones get twice the desktop gap (80px).</li>
+</ul>
+</main>
+<script src="../docs/docs.js"></script>
+</body>
+</html>

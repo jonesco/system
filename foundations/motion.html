@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Motion · Jonesco System</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../system.css">
+  <link rel="stylesheet" href="../patterns.css">
+  <link rel="stylesheet" href="../docs/docs.css">
+</head>
+<body data-root="../" data-page="foundations/motion">
+<main class="docs-main">
+<h1>Motion</h1>
+<p class="lead">Quiet. Color changes are quick; the only larger move is the header shrinking.</p>
+<table>
+<tr><th>Token</th><th>Value</th><th>Use</th></tr>
+<tr><td><code>--quick</code></td><td>.15s</td><td>Hover color changes</td></tr>
+<tr><td><code>--shrink</code></td><td>.25s ease</td><td>Header resize on scroll</td></tr>
+<tr><td><code>--lift</code></td><td>700ms cubic-bezier(.32,.72,0,1)</td><td>Choosing between items (size picker, interactive figures)</td></tr>
+</table>
+<h2>Stipulations</h2><ul><li>Anything that moves stops under <code>prefers-reduced-motion</code>.</li><li>Images in tiles scale to 1.04 on hover, no more.</li></ul>
+</main>
+<script src="../docs/docs.js"></script>
+</body>
+</html>

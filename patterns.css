@@ -1,0 +1,107 @@
+/* Jonesco system: opt-in patterns. Load after system.css.
+   Each pattern is a small, proven block from jonescoartdept.com or wesjones.info,
+   under a sys- prefix so it never collides with a site's own classes.
+   Use what fits; restyle freely in the site's stylesheet. */
+
+/* ---------- Wrap: the centered column ---------- */
+.sys-wrap { max-width: var(--wrap); margin: 0 auto; padding: 0 var(--gutter); }
+
+/* ---------- Type helpers ---------- */
+.sys-display { font-family: var(--font-display); font-weight: 700; text-transform: uppercase; letter-spacing: var(--track-display); line-height: .95; }
+.sys-label { font-family: var(--font-label); font-weight: 700; text-transform: uppercase; letter-spacing: var(--track-label); font-size: var(--size-label); }
+
+/* ---------- Header: black bar, white wordmark, label nav ----------
+   <header class="sys-header"><div class="sys-wrap sys-bar">
+     <a class="sys-brand" href="/">…wordmark…</a>
+     <nav class="sys-nav"><a href="…">Work</a>…</nav>
+   </div></header>
+   Add .sys-header--grow and toggle .is-scrolled on <html> for the big-then-shrink home header. */
+.sys-header { position: sticky; top: 0; z-index: 10; background: var(--ink); color: var(--paper); }
+.sys-bar { display: flex; align-items: center; justify-content: space-between; gap: 16px; height: var(--hdr); }
+.sys-brand { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+.sys-brand img { height: 52px; width: auto; filter: brightness(0) invert(1); }   /* dark logo art, shown pure white */
+.sys-brand span { font-family: var(--font-display); font-weight: 700; text-transform: uppercase; font-size: 32px; line-height: 1; white-space: nowrap; padding-top: 1px; }
+.sys-nav { display: flex; gap: 28px; }
+/* transparent top border balances the hover underline so the text stays vertically centered */
+.sys-nav a { font-family: var(--font-label); font-weight: 700; font-size: var(--size-label); letter-spacing: var(--track-label);
+  text-transform: uppercase; text-decoration: none; padding: 5px 0 3px; border-top: 3px solid transparent; border-bottom: 3px solid transparent; }
+.sys-nav a:hover { color: var(--highlight); border-bottom-color: var(--highlight); }
+.sys-header--grow { --hdr: 192px; }
+.sys-header--grow .sys-bar, .sys-header--grow .sys-brand img { transition: height var(--shrink); }
+.sys-header--grow .sys-brand img { height: 82px; }
+.is-scrolled .sys-header--grow .sys-bar { height: 80px; }
+.is-scrolled .sys-header--grow .sys-brand img { height: 34px; }
+@media (prefers-reduced-motion: reduce) { .sys-header--grow .sys-bar, .sys-header--grow .sys-brand img { transition: none; } }
+
+/* ---------- Section heading ---------- */
+.sys-section-head { padding: var(--space-section) 0 var(--space-head); }
+.sys-section-head h2 { font-family: var(--font-display); font-weight: 700; text-transform: uppercase; letter-spacing: var(--track-display);
+  font-size: var(--size-section); line-height: .95; margin: 0; }
+.sys-section-head p { margin: 8px 0 0; font-family: var(--font-label); font-weight: 700; text-transform: uppercase; letter-spacing: var(--track-label); font-size: var(--size-label); }
+
+/* ---------- Tag: black block, yellow label ---------- */
+.sys-tag { display: inline-block; background: var(--ink); color: var(--highlight); padding: 6px 12px;
+  font-family: var(--font-label); font-weight: 700; font-size: var(--size-tag); letter-spacing: var(--track-label); text-transform: uppercase; }
+
+/* ---------- Button: black block; magenta on hover; ghost is cream ---------- */
+.sys-btn { display: inline-flex; align-items: center; justify-content: space-between; gap: 24px; min-height: 64px; padding: 10px 18px;
+  background: var(--ink); color: var(--paper); border: var(--thin); cursor: pointer; text-decoration: none;
+  font-family: var(--font-label); font-weight: 700; font-size: 15px; letter-spacing: var(--track-label); text-transform: uppercase;
+  transition: background var(--quick), color var(--quick), border-color var(--quick); }
+.sys-btn:hover { background: var(--accent); border-color: var(--accent); }
+.sys-btn--ghost { background: var(--cream); color: var(--ink); }
+.sys-btn--ghost:hover { background: var(--ink); border-color: var(--ink); color: var(--paper); }
+.sys-btn .plus { font-size: 28px; font-weight: 400; line-height: 1; }
+
+/* ---------- Tile: bordered image, small id, title over a thick rule ---------- */
+.sys-tiles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; }
+.sys-tile { display: flex; flex-direction: column; text-decoration: none; color: inherit; }
+.sys-tile__art { aspect-ratio: 4 / 3; border: var(--rule); overflow: hidden; background: var(--ink); }
+.sys-tile__art img { width: 100%; height: 100%; object-fit: cover; object-position: top; transition: transform .25s; }
+.sys-tile:hover .sys-tile__art img { transform: scale(1.04); }
+.sys-tile__id { margin: 14px 0 6px; font-family: var(--font-label); font-weight: 700; font-size: var(--size-tag); letter-spacing: var(--track-label); color: #888; }
+.sys-tile__title { margin: 0; padding-bottom: 12px; border-bottom: var(--rule); font-family: var(--font-display); font-weight: 700;
+  text-transform: uppercase; letter-spacing: var(--track-display); font-size: 30px; line-height: .95; transition: color var(--quick); }
+.sys-tile:hover .sys-tile__title { color: var(--accent); }
+.sys-tile__text { margin: 12px 0 0; font-size: 15px; line-height: 1.45; color: var(--muted); }
+
+/* ---------- Spec list: label / value rows on thin rules ---------- */
+.sys-specs { list-style: none; margin: 0; padding: 0; }
+.sys-specs li { display: flex; justify-content: space-between; gap: 16px; padding: 10px 0; border-bottom: var(--thin); font-size: 15px; }
+.sys-specs b { font-family: var(--font-label); font-weight: 700; font-size: var(--size-tag); letter-spacing: var(--track-label); text-transform: uppercase; padding-top: 2px; }
+
+/* ---------- Paper: cream panel; scanned line art multiplies onto it ---------- */
+.sys-paper { background: var(--cream); border: var(--rule); }
+.sys-paper img { mix-blend-mode: multiply; }
+
+/* ---------- Band: full-width black block that runs into the footer ---------- */
+.sys-band { background: var(--ink); color: var(--paper); border-bottom: 1px solid var(--line-dark); }
+.sys-band--next { display: block; text-decoration: none; }
+.sys-band--next .sys-wrap { display: flex; flex-direction: column; align-items: flex-start; gap: 16px; padding-top: 48px; padding-bottom: 44px; min-height: 292px; }
+.sys-band--next .sys-label { line-height: 1; }
+.sys-band--next .sys-display { font-size: clamp(32px, 4.4vw, 56px); transition: color var(--quick); }
+.sys-band--next:hover .sys-display, .sys-band--next:hover .sys-label { color: var(--highlight); }
+
+/* ---------- Footer: black, label links, small © ---------- */
+.sys-footer { background: var(--ink); color: var(--paper); }
+.sys-footer .sys-wrap { display: flex; justify-content: space-between; align-items: center; gap: 24px; flex-wrap: wrap; padding-top: 32px; padding-bottom: 32px; }
+.sys-footer .links { display: flex; gap: 28px; flex-wrap: wrap; }
+.sys-footer a { font-family: var(--font-label); font-weight: 700; font-size: var(--size-label); letter-spacing: var(--track-label); text-transform: uppercase; text-decoration: none; }
+.sys-footer a:hover { color: var(--highlight); }
+.sys-footer small { font-size: 13px; }
+
+/* ---------- Phones ---------- */
+@media (max-width: 900px) { .sys-tiles { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 640px) {
+  :root { --gutter: var(--gutter-sm); --hdr: var(--hdr-sm); --space-section: 40px; --space-head: 24px; }
+  .sys-tiles { grid-template-columns: 1fr; row-gap: 80px; }
+  .sys-nav { gap: 16px; }
+  .sys-nav .opt { display: none; }
+  .sys-brand span { font-size: 22px; }
+  .sys-brand img { height: 42px; }
+  .sys-header--grow { --hdr: 115px; }
+  .sys-header--grow .sys-brand img { height: 43px; }
+  .is-scrolled .sys-header--grow .sys-bar { height: 64px; }
+  .is-scrolled .sys-header--grow .sys-brand img { height: 24px; }
+  .sys-band--next .sys-wrap { padding-top: 36px; padding-bottom: 32px; min-height: 290px; }
+}

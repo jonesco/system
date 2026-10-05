@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Header · Jonesco System</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../system.css">
+  <link rel="stylesheet" href="../patterns.css">
+  <link rel="stylesheet" href="../docs/docs.css">
+</head>
+<body data-root="../" data-page="components/header">
+<main class="docs-main">
+<h1>Header</h1>
+<p class="lead">A black bar with a white wordmark on the left and label nav on the right. Sticky.</p>
+<div class="demo"><div class="demo-stage flush">
+<header class="sys-header" style="position:relative">
+  <div class="sys-wrap sys-bar">
+    <a class="sys-brand" href="#"><span>Jonesco Art Dept.</span></a>
+    <nav class="sys-nav"><a href="#">Work</a><a href="#">Contact</a><a class="opt" href="#">Resumé</a></nav>
+  </div>
+</header>
+</div></div>
+<h2>Variants</h2>
+<table>
+<tr><th>Variant</th><th>Class</th><th>When</th></tr>
+<tr><td>Compact</td><td><code>.sys-header</code></td><td>Default, and every inner page.</td></tr>
+<tr><td>Grow, then shrink</td><td><code>.sys-header--grow</code> + <code>.is-scrolled</code> on &lt;html&gt;</td><td>A home page that opens with the wordmark. 192px tall, shrinks to 80px after 40px of scroll.</td></tr>
+<tr><td>Seal + wordmark</td><td><code>.sys-brand</code> with an <code>img</code> and a <code>span</code></td><td>A brand with a mark (Art Dept’s seal).</td></tr>
+</table>
+<h2>Stipulations</h2>
+<ul>
+<li>No bottom border on the bar: black on black adds height and puts the contents above center.</li>
+<li>Logo art is reversed with <code>filter: brightness(0) invert(1)</code> so it’s pure white, not gray.</li>
+<li>Nav links carry a transparent top border to balance the hover underline.</li>
+<li>Inner pages use the compact header; only home grows.</li>
+</ul>
+<h2>Site variations</h2>
+<table><tr><th>Site</th><th>Variation</th><th>Why</th></tr><tr><td>Art Dept</td><td>Seal + text wordmark; static, 80px</td><td>The seal is the brand mark.</td></tr><tr><td>wesjones.info</td><td>Image wordmark; grows on home, compact on case studies</td><td>Home opens on the name; case studies get straight to work.</td></tr></table>
+</main>
+<script src="../docs/docs.js"></script>
+</body>
+</html>

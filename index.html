@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Introduction · Jonesco System</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="system.css">
+  <link rel="stylesheet" href="patterns.css">
+  <link rel="stylesheet" href="docs/docs.css">
+</head>
+<body data-root="" data-page="index">
+<main class="docs-main">
+<h1>Jonesco System</h1>
+<p class="lead">The shared design language for Jonesco sites: jonescoartdept.com, wesjones.info and, next, jonesco.com. Black, white and cream; Trade Gothic; thick rules; square corners; one accent per site.</p>
+<h2>Three layers</h2>
+<table>
+<tr><th>Layer</th><th>What it is</th><th>How strict</th></tr>
+<tr><td><a href="principles.html">Principles</a></td><td>How it should feel: the vernacular.</td><td>Firm direction. Bend it with a written reason.</td></tr>
+<tr><td><a href="foundations/color.html">Foundations</a> · <code>system.css</code></td><td>Tokens (color, type, rules, spacing, motion), the fonts and a minimal base.</td><td>Every site loads it. A site overrides only the tokens it needs.</td></tr>
+<tr><td><a href="components/header.html">Components</a> · <code>patterns.css</code></td><td>Proven pieces: header, footer, tag, button, tile, band…</td><td>Opt in. Use what fits; restyle in the site.</td></tr>
+</table>
+<h2>Sites</h2>
+<p>Each site documents how it departs from the defaults, and why, under <a href="sites/artdept.html">Sites</a>. When a variation shows up on two sites, it’s a candidate to become a component variant.</p>
+<h2>Adding to the system</h2>
+<ul>
+<li>A new <b>variation</b> on one site: note it on that site’s page.</li>
+<li>A <b>stipulation</b> (a rule about when or how to use something): add it to the component’s page.</li>
+<li>A new <b>component</b> or token: add it to <code>patterns.css</code> or <code>system.css</code>, give it a page here, note it in the <a href="changelog.html">changelog</a>, and release a new version.</li>
+</ul>
+</main>
+<script src="docs/docs.js"></script>
+</body>
+</html>

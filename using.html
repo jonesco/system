@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Using the system · Jonesco System</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="system.css">
+  <link rel="stylesheet" href="patterns.css">
+  <link rel="stylesheet" href="docs/docs.css">
+</head>
+<body data-root="" data-page="using">
+<main class="docs-main">
+<h1>Using the system</h1>
+<p class="lead">Load the foundation, optionally the patterns, then the site’s own stylesheet, which overrides what it needs.</p>
+<h2>Link it</h2>
+<p>Pin an exact version so a change to the system never changes a site until you choose to update it.</p>
+<div class="demo" data-nocode><pre><code>&lt;link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@400;600;700&amp;display=swap" rel="stylesheet"&gt;
+&lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jonesco/system@1.0.0/system.css"&gt;
+&lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jonesco/system@1.0.0/patterns.css"&gt;  &lt;!-- optional --&gt;
+&lt;link rel="stylesheet" href="/css/site.css"&gt;   &lt;!-- the site’s own, last --&gt;</code></pre></div>
+<h2>Override a token</h2>
+<p>In the site’s stylesheet, set only what differs, with a comment saying why.</p>
+<div class="demo" data-nocode><pre><code>:root {
+  --accent: #1f6feb;   /* jonesco.com uses blue for its accent */
+  --size-body: 16px;
+}</code></pre></div>
+<h2>Versions</h2>
+<ul>
+<li><b>Patch</b> (1.0.<i>x</i>): fixes that don’t change how anything looks.</li>
+<li><b>Minor</b> (1.<i>x</i>.0): new tokens or components; existing ones unchanged.</li>
+<li><b>Major</b> (<i>x</i>.0.0): something existing looks or behaves differently.</li>
+</ul>
+<div class="note">The Trade Gothic files are the desktop versions. If Trade Gothic becomes permanent across sites, get the web license and swap the files in <code>fonts/</code>; nothing else changes.</div>
+</main>
+<script src="docs/docs.js"></script>
+</body>
+</html>

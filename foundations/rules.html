@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Rules & corners · Jonesco System</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../system.css">
+  <link rel="stylesheet" href="../patterns.css">
+  <link rel="stylesheet" href="../docs/docs.css">
+</head>
+<body data-root="../" data-page="foundations/rules">
+<main class="docs-main">
+<h1>Rules &amp; corners</h1>
+<p class="lead">Rules carry the structure. Corners stay square.</p>
+<div class="demo"><div class="demo-stage ">
+<div style="border-bottom:var(--rule);padding-bottom:10px" class="sys-display">Thick rule · 4px · structure</div>
+<ul class="sys-specs" style="margin-top:24px"><li><b>Thin rule</b><span>2px · list rows</span></li><li><b>Example</b><span>Spec list</span></li></ul>
+</div></div>
+<h2>Stipulations</h2>
+<ul>
+<li>A bordered element never gets <code>border-radius</code>.</li>
+<li>Don’t draw a border where black meets black. It makes the block taller and throws off vertical centering.</li>
+<li>Don’t stack a rule on top of a color change; one or the other separates sections.</li>
+</ul>
+</main>
+<script src="../docs/docs.js"></script>
+</body>
+</html>
