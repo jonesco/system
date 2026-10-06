@@ -1,6 +1,6 @@
 # Jonesco System
 
-The shared design language for Jonesco sites (jonescoartdept.com, wesjones.info, jonesco.com).
+The shared design language for Jonesco sites (jonescoartdept.com and jonesco.com).
 
 **Docs:** https://jonesco.github.io/system/
 
