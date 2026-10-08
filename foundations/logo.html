@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/svg+xml" href="../icons/jonesco-system.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="../icons/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="../icons/favicon-96.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="../icons/apple-touch-icon.png">
+  <link rel="manifest" href="../manifest.webmanifest">
+  <meta name="theme-color" content="#000000">
+  <title>Logo · Jonesco System</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../system.css">
+  <link rel="stylesheet" href="../patterns.css">
+  <link rel="stylesheet" href="../docs/docs.css">
+</head>
+<body data-root="../" data-page="foundations/logo">
+<main class="docs-main">
+<h1>Logo</h1>
+<p class="lead">JONES© in three widths. Same letters, same ©; pick the widest one that fits.</p>
+
+<h2>Versions</h2>
+<div class="demo" data-nocode><div class="demo-stage logo-stage">
+<figure><img src="../logos/jonesco-black.svg" alt="JONES©" style="height:72px"><figcaption><b>Full</b> · JONES© · <code>jonesco-black.svg</code></figcaption></figure>
+<figure><img src="../logos/jonesco-jns-black.svg" alt="JNS©" style="height:72px"><figcaption><b>Short</b> · JNS© · <code>jonesco-jns-black.svg</code></figcaption></figure>
+<figure><img src="../logos/jonesco-j-black.svg" alt="J©" style="height:72px"><figcaption><b>Mark</b> · J© · <code>jonesco-j-black.svg</code></figcaption></figure>
+</div></div>
+<table><tr><th>Version</th><th>Use</th><th>Ratio</th></tr>
+<tr><td>Full · JONES©</td><td>The default, wherever it fits: site headers, documents, invoices, merch.</td><td>3.47 : 1</td></tr>
+<tr><td>Short · JNS©</td><td>When the full logo would drop below its minimum size, such as narrow headers.</td><td>2.41 : 1</td></tr>
+<tr><td>Mark · J©</td><td>Square and tiny spaces: favicons, app and home-screen icons, avatars, stamps.</td><td>1.35 : 1</td></tr>
+</table>
+
+<h2>Black and white</h2>
+<p>Black on light backgrounds, white on black. Those are the only two colors for the logo itself.</p>
+<div class="demo" data-nocode><div class="demo-stage logo-stage logo-on-black">
+<img src="../logos/jonesco-white.svg" alt="JONES©" style="height:56px">
+<img src="../logos/jonesco-jns-white.svg" alt="JNS©" style="height:56px">
+<img src="../logos/jonesco-j-white.svg" alt="J©" style="height:56px">
+</div></div>
+<p>The mark can sit on a solid accent block as an icon: the docs’ own favicon is the white J© on magenta (<code>icons/</code>).</p>
+
+<h2>Space and size</h2>
+<ul>
+<li><b>Clear space:</b> at least a quarter of the logo’s height on every side.</li>
+<li><b>Minimum size:</b> Full 24px tall on screen, Short 20px, Mark 16px. Below that, step down a version.</li>
+<li>All three files share one height, so swapping versions keeps the baseline and the © in place.</li>
+</ul>
+
+<div class="dodont"><div><b>Do</b><p>Use the SVG files as they are, scaled evenly, in black or white.</p></div><div class="dont"><b>Don’t</b><p>Stretch, outline, recolor, add effects, or retype the letters. Don’t put the logo in a rounded box.</p></div></div>
+
+<h2>Files</h2>
+<p>In <code>logos/</code>, black and white for each version: <code>jonesco-black.svg</code>, <code>jonesco-white.svg</code>, <code>jonesco-jns-black.svg</code>, <code>jonesco-jns-white.svg</code>, <code>jonesco-j-black.svg</code>, <code>jonesco-j-white.svg</code>. From a pinned release:</p>
+<pre><code>https://cdn.jsdelivr.net/gh/jonesco/system@1.5.0/logos/jonesco-black.svg</code></pre>
+</main>
+<script src="../docs/docs.js"></script>
+</body>
+</html>

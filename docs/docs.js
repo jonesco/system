@@ -9,6 +9,7 @@ const NAV = [
     ["using", "Using the system"],
   ]],
   ["Foundations", [
+    ["foundations/logo", "Logo"],
     ["foundations/color", "Color"],
     ["foundations/type", "Typography"],
     ["foundations/layout", "Layout & spacing"],
@@ -91,6 +92,6 @@ const NAV = [
 
   const foot = document.createElement("div");
   foot.className = "docs-foot";
-  foot.innerHTML = `Jonesco System · v1.4.0 · <a href="${root}changelog.html">Changelog</a>`;
+  foot.innerHTML = `Jonesco System · v1.5.0 · <a href="${root}changelog.html">Changelog</a>`;
   main.append(foot);
 })();

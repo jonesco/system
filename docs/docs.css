@@ -47,3 +47,9 @@ body { font-size: 16px; }
   .docs-main { padding: 32px var(--gutter) 72px; }
   .dodont { grid-template-columns: 1fr; }
 }
+
+/* logo page */
+.logo-stage { display: flex; flex-wrap: wrap; gap: 40px 56px; align-items: flex-end; }
+.logo-stage figure { margin: 0; display: flex; flex-direction: column; gap: 12px; }
+.logo-stage figcaption { font-size: 14px; color: var(--muted); }
+.logo-on-black { background: var(--ink); padding: 32px; }
