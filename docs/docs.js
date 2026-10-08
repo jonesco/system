@@ -55,7 +55,7 @@ const NAV = [
   const header = document.createElement("header");
   header.className = "sys-header";
   header.innerHTML = `<div class="sys-bar" style="padding:0 24px"><a class="sys-brand" href="${root}index.html"><span>Jonesco System</span></a>
-    <nav class="sys-nav"><a href="${root}foundations/color.html">Foundations</a><a href="${root}components/header.html">Components</a><a class="opt" href="https://github.com/jonesco/system">GitHub</a></nav></div>`;
+    <nav class="sys-nav"><a href="${root}foundations/logo.html">Foundations</a><a href="${root}components/header.html">Components</a><a class="opt" href="https://github.com/jonesco/system">GitHub</a></nav></div>`;
 
   // sidebar
   const side = document.createElement("aside");
