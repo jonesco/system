@@ -36,7 +36,7 @@ const NAV = [
   ["Sites", [
     ["sites/artdept", "Jonesco Art Dept."],
     ["sites/jonesco", "jonesco.com"],
-    ["sites/dashboard", "Financial dashboard"],
+    ["sites/financial-dashboard", "Financial Dashboard"],
   ]],
   ["Reference", [
     ["changelog", "Changelog"],
@@ -80,6 +80,6 @@ const NAV = [
 
   const foot = document.createElement("div");
   foot.className = "docs-foot";
-  foot.innerHTML = `Jonesco System · v1.2.0 · <a href="${root}changelog.html">Changelog</a>`;
+  foot.innerHTML = `Jonesco System · v1.2.1 · <a href="${root}changelog.html">Changelog</a>`;
   main.append(foot);
 })();
