@@ -35,6 +35,8 @@
   /* data: one chart color in four steps. --data is the main mark and the darkest;
      lighter steps are for remainders and second segments. Cyan (IBM Carbon's
      cyan 50 to 20) by default; a site may set its own, like the accent. */
+  --highlight-soft: #fffbe0;   /* pale yellow behind an inline note */
+
   --data: #1192e8;
   --data-300: #33b1ff;
   --data-200: #82cfff;

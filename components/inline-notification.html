@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Inline notification · Jonesco System</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../system.css">
+  <link rel="stylesheet" href="../patterns.css">
+  <link rel="stylesheet" href="../docs/docs.css">
+</head>
+<body data-root="../" data-page="components/inline-notification">
+<main class="docs-main">
+<h1>Inline notification</h1>
+<p class="lead">A short message that sits in the flow of the page, in one container: a yellow rule on pale yellow. A <b>note</b> adds context; an <b>alert</b> adds a status tag and asks for attention.</p>
+
+<h2>Note</h2>
+<p>A yellow rule on pale yellow. For context the reader should have before going on: a caveat, where something came from, what’s made up.</p>
+<div class="demo"><div class="demo-stage">
+<div class="sys-note">The real dashboard is private. The demo is built from the same code with a made-up household, so every name, account and figure in it is fictional.</div>
+</div></div>
+
+<h2>Alert</h2>
+<p>The same container, led by a status tag. For something that needs action. The tag carries the level by weight, as in <a href="tag.html">Tag · Status levels</a>: the black box with yellow type is Critical.</p>
+<div class="demo"><div class="demo-stage" style="display:flex;flex-direction:column;gap:12px">
+<div class="sys-note sys-note--alert" role="status"><span class="sys-tag">Critical</span><p>July 2026 charges still not recorded for Alex</p></div>
+<div class="sys-note sys-note--alert" role="status"><span class="sys-tag sys-tag--outline">Warning</span><p>Savings goal is 12% behind for the quarter</p></div>
+<div class="sys-note sys-note--alert" role="status"><span class="sys-tag sys-tag--plain">Working</span><p>Importing September statements</p></div>
+</div></div>
+
+<div class="dodont"><div><b>Do</b><p>Keep it to one or two sentences, next to the thing it’s about.</p></div><div class="dont"><b>Don’t</b><p>Stack several notes in a row, or use one for decoration.</p></div></div>
+
+<h2>Stipulations</h2>
+<ul>
+<li>Square corners, no icons. Every notification is the <code>--highlight</code> rule on <code>--highlight-soft</code>; only the tag changes with the level.</li>
+<li>One notification per area. If there are several alerts, list them in one frame, most severe first.</li>
+<li>An alert gets <code>role="status"</code> so screen readers announce it.</li>
+<li>Links inside a note are underlined body links.</li>
+</ul>
+
+<h2>In use</h2>
+<table><tr><th>Site</th><th>Kind</th><th>Where</th></tr>
+<tr><td>Docs</td><td>Note</td><td>Context on site pages, such as the Financial Dashboard demo caveat</td></tr>
+<tr><td>Financial Dashboard</td><td>Alert</td><td>Missing charges and other items that need action</td></tr>
+</table>
+</main>
+<script src="../docs/docs.js"></script>
+</body>
+</html>

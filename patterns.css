@@ -222,3 +222,15 @@
   .sys-switch--tabs > button { padding: 8px 10px; text-align: center; }
   .sys-stat--xl .sys-stat__fig { font-size: 64px; }
 }
+
+/* ---------- Inline notification: a note (context) or an alert (needs attention) ----------
+   <div class="sys-note">The demo is built from the same code with made-up data.</div>
+   <div class="sys-note sys-note--alert" role="status"><span class="sys-tag">Critical</span><p>July charges still not recorded</p></div>
+   Both share one container: a yellow rule on pale yellow. An alert adds a status tag at the front
+   (.sys-tag Critical / .sys-tag--outline Warning / .sys-tag--plain Working). Square corners, no icons. */
+.sys-note { border-left: var(--rule-w) solid var(--highlight); background: var(--highlight-soft); padding: 12px 16px; margin: 16px 0; max-width: 46em; }
+.sys-note > :first-child { margin-top: 0; }
+.sys-note > :last-child { margin-bottom: 0; }
+.sys-note--alert { display: flex; align-items: center; gap: 14px; }
+.sys-note--alert p { margin: 0; }
+.sys-note--alert .sys-tag { flex: none; }
