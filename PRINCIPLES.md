@@ -3,7 +3,7 @@
 The vernacular shared by every Jonesco site. These say *how it should feel*; `system.css` holds the values and `patterns.css` the proven pieces. A site may bend any of this when it has a reason. Write the reason down in that site's stylesheet.
 
 ## Look
-- **Black, white, cream.** The base on every site. Cream is "paper": use it where artwork or printed things appear, never as a page background.
+- **Black, white, newsprint.** The base on every site. Newsprint is "paper": use it where artwork or printed things appear, never as a page background.
 - **One accent per site.** Magenta (`--accent`) is the default. It marks hover and the one thing that's active; it is not decoration.
 - **Yellow is the highlight.** Black tags with yellow type, hover on black, text selection.
 - **Thick rules for structure, thin rules for lists.** 4px under section titles and tile titles; 2px between list rows.
@@ -36,5 +36,5 @@ The vernacular shared by every Jonesco site. These say *how it should feel*; `sy
 - No marketing filler. Say what the thing is.
 
 ## Art
-- Hand-drawn work is the hero. Line art goes on cream, multiplied, so the paper reads as paper.
+- Hand-drawn work is the hero. Line art goes on newsprint, multiplied, so the paper reads as paper.
 - Logos and wordmarks are reversed to pure white on black.

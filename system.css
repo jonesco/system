@@ -21,10 +21,11 @@
    =========================== */
 
 :root {
-  /* color: black, white and cream are the base; one accent per site */
+  /* color: black, white and newsprint are the base; one accent per site */
   --ink: #000;
   --paper: #fff;
-  --cream: #fdf8dc;        /* "paper" for artwork and printed things */
+  --newsprint: #edebe6;    /* "paper" for artwork and printed things: a warm light gray, a step darker than the --gray track */
+  --cream: var(--newsprint);   /* deprecated alias (until 1.3.0 this was #fdf8dc); use --newsprint */
   --accent: #e4148c;       /* magenta by default; a site may set its own */
   --highlight: #ffe500;    /* yellow: tags, hover on black, text selection */
   --muted: #555;
