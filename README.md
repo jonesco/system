@@ -15,12 +15,12 @@ The shared design language for Jonesco sites (jonescoartdept.com and jonesco.com
 
 ```html
 <link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@400;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jonesco/system@1.0.0/system.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jonesco/system@1.0.0/patterns.css"> <!-- optional -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jonesco/system@1.2.0/system.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jonesco/system@1.2.0/patterns.css"> <!-- optional -->
 <link rel="stylesheet" href="/css/site.css"> <!-- the site's own, last -->
 ```
 
-Pin an exact version. Release by tagging (`git tag v1.1.0 && git push --tags`); jsDelivr serves the tag.
+Pin an exact version. Release by tagging (`git tag v1.2.0 && git push --tags`); jsDelivr serves the tag.
 
 ## Docs
 

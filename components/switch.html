@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Switch · Jonesco System</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../system.css">
+  <link rel="stylesheet" href="../patterns.css">
+  <link rel="stylesheet" href="../docs/docs.css">
+</head>
+<body data-root="../" data-page="components/switch">
+<main class="docs-main">
+<h1>Switch</h1>
+<p class="lead">A segmented choice in a thin black border. The chosen option is filled black. Used for /mo /yr and for tabs.</p>
+<div class="demo"><div class="demo-stage">
+<div class="sys-switch" role="group" aria-label="Show amounts per month or per year"><button type="button" aria-pressed="true">/mo</button><button type="button" aria-pressed="false">/yr</button></div>
+</div></div>
+<h3>As tabs</h3>
+<div class="demo"><div class="demo-stage">
+<div class="sys-switch sys-switch--tabs" role="tablist" aria-label="Views"><button type="button" role="tab" aria-selected="true">Planner<span class="count">9</span></button><button type="button" role="tab" aria-selected="false">Portfolio<span class="count">10</span></button><button type="button" role="tab" aria-selected="false">Frontier<span class="count">6</span></button></div>
+</div></div>
+<h2>Stipulations</h2>
+<ul>
+<li>Use <code>aria-pressed</code> for a toggle and <code>role="tab"</code> + <code>aria-selected</code> for tabs; the styles follow those attributes.</li>
+<li>Tabs never scroll sideways. On phones the options split the width evenly and labels may wrap.</li>
+<li>No underline tabs and no accent on the chosen option: the black fill is the one active state.</li>
+<li>A count sits after the label in body type.</li>
+</ul>
+</main>
+<script src="../docs/docs.js"></script>
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Data & charts · Jonesco System</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../system.css">
+  <link rel="stylesheet" href="../patterns.css">
+  <link rel="stylesheet" href="../docs/docs.css">
+</head>
+<body data-root="../" data-page="foundations/data">
+<main class="docs-main">
+<h1>Data &amp; charts</h1>
+<p class="lead">One data color, stepped lighter for the parts of a whole. Black, white and the accent keep their jobs; numbers get cyan.</p>
+<div class="swatches">
+<div class="swatch"><i style="background:var(--data)"></i><div><b>Data</b><code>--data</code> #1192e8<br>The main mark. The darkest step.</div></div>
+<div class="swatch"><i style="background:var(--data-300)"></i><div><b>Data 300</b><code>--data-300</code> #33b1ff<br>Second segment; fill on black.</div></div>
+<div class="swatch"><i style="background:var(--data-200)"></i><div><b>Data 200</b><code>--data-200</code> #82cfff<br>Third segment.</div></div>
+<div class="swatch"><i style="background:var(--data-100)"></i><div><b>Data 100</b><code>--data-100</code> #bae6ff<br>Remainders: owed, left over.</div></div>
+<div class="swatch"><i style="background:var(--gray)"></i><div><b>Track</b><code>--gray</code> #f2f2f2<br>Empty meter track; missing data.</div></div>
+</div>
+<h2>Rules</h2>
+<ul>
+<li><b>One hue.</b> Every chart on a page uses the same data color. Identity comes from labels and order, not from a second hue.</li>
+<li><b>The main step is the darkest.</b> Nothing on the page is darker than <code>--data</code>. Lighter steps are for the other parts of the same whole, in order.</li>
+<li><b>Missing data is the empty track.</b> A month not recorded is a <code>--gray</code> bar with no outline, and the count of missing items carries the warning (a <code>.sys-tag</code>).</li>
+<li><b>Hover lightens.</b> Since the main step is already darkest, a hovered bar steps to <code>--data-300</code>.</li>
+<li><b>Past a target, hash it.</b> On a meter, the part beyond the goal gets white diagonal hash lines over the fill (<a href="../components/meter.html">Meter</a>).</li>
+<li><b>The accent is not a data color.</b> Magenta stays for hover on titles and the one active thing. Yellow stays for tags, the highlight mark and lines on black.</li>
+<li><b>On black,</b> fills and lines use <code>--data-300</code>, which reads at 8:1.</li>
+<li><b>Text stays ink.</b> Values and labels are never set in the data color.</li>
+<li><b>Tables are left-aligned.</b> In data tables every column, header and number lines up on the left. Tabular digits keep amounts readable without right-aligning them.</li>
+</ul>
+<h2>Example</h2>
+<div class="demo"><div class="demo-stage">
+<div class="sys-split sys-split--remainder" role="img" aria-label="62% equity, 38% owed"><div style="width:62%"></div><div style="width:38%"></div></div>
+<p style="margin:8px 0 0;font-size:14px">Equity 62%, owed 38%</p>
+</div></div>
+<h2>Tested alternatives</h2>
+<p>A site may set its own data color the way it sets its accent, by overriding the four tokens. These were tried on the dashboard and pass contrast and colorblind checks against the accent; cyan was chosen.</p>
+<table><tr><th>Option</th><th>--data</th><th>300</th><th>200</th><th>100</th></tr>
+<tr><td>Cyan (default)</td><td><code>#1192e8</code></td><td><code>#33b1ff</code></td><td><code>#82cfff</code></td><td><code>#bae6ff</code></td></tr>
+<tr><td>Blue</td><td><code>#1f5fd1</code></td><td><code>#6690e6</code></td><td><code>#94b3ef</code></td><td><code>#c9d7f6</code></td></tr>
+<tr><td>Purple</td><td><code>#6929c4</code></td><td><code>#9a6ee8</code></td><td><code>#b28df0</code></td><td><code>#ece3fc</code></td></tr>
+<tr><td>Green</td><td><code>#1a7f37</code></td><td><code>#4fae6b</code></td><td><code>#7cc590</code></td><td><code>#d3eedb</code></td></tr>
+</table>
+<div class="dodont"><div><b>Do</b><p>Draw spending, balances, equity and shares in the one data color, with lighter steps for the rest of the whole.</p></div><div class="dont"><b>Don’t</b><p>Use green for good and red for bad on bars, or give each series its own hue. Status is carried by tags and words.</p></div></div>
+<h2>Site variations</h2>
+<table><tr><th>Site</th><th>Variation</th><th>Why</th></tr><tr><td>Jones financial dashboard</td><td>Chart color switchable by link (<code>?colors=blue|green|purple</code>) for comparison</td><td>Kept from the color trial.</td></tr></table>
+</main>
+<script src="../docs/docs.js"></script>
+</body>
+</html>

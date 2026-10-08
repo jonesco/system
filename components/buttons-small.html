@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Label & icon buttons · Jonesco System</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../system.css">
+  <link rel="stylesheet" href="../patterns.css">
+  <link rel="stylesheet" href="../docs/docs.css">
+</head>
+<body data-root="../" data-page="components/buttons-small">
+<main class="docs-main">
+<h1>Label &amp; icon buttons</h1>
+<p class="lead">Quiet controls inside content. A label button is caps text; an icon button is a glyph with a yellow tooltip.</p>
+<div class="demo"><div class="demo-stage" style="display:flex;gap:32px;align-items:center">
+<button type="button" class="sys-link" aria-expanded="false">Details +</button>
+<button type="button" class="sys-link">Show all 20 +</button>
+<button type="button" class="sys-icon-btn" aria-label="History" data-tip="History"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 12a9 9 0 1 0 2.64-6.36"/><path d="M3 3v5h5"/><path d="M12 7v5l3 3"/></svg></button>
+</div></div>
+<h2>Stipulations</h2>
+<ul>
+<li>A disclosure reads “Details +” closed and “Hide details −” open, with <code>aria-expanded</code>.</li>
+<li>Label buttons turn the accent on hover on white, yellow on black.</li>
+<li>An icon button always has <code>aria-label</code>; <code>data-tip</code> repeats it as the tooltip. The tooltip shows on hover and keyboard focus (phones have no hover, so the icon must be clear on its own).</li>
+<li>The hit area is 44px. To line the glyph up with an edge, pull the button out with negative margin rather than shrinking it.</li>
+</ul>
+</main>
+<script src="../docs/docs.js"></script>
+</body>
+</html>

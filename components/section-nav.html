@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Section nav · Jonesco System</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../system.css">
+  <link rel="stylesheet" href="../patterns.css">
+  <link rel="stylesheet" href="../docs/docs.css">
+</head>
+<body data-root="../" data-page="components/section-nav">
+<main class="docs-main">
+<h1>Section nav</h1>
+<p class="lead">Pinned jump links under the header for long pages. The current section takes the yellow underline.</p>
+<div class="demo"><div class="demo-stage flush">
+<nav class="sys-section-nav" style="position:relative" aria-label="Sections"><div class="sys-wrap sys-nav"><a href="#" class="is-current">Income</a><a href="#">Spending</a><a href="#">Savings</a><a href="#">Real estate</a></div></nav>
+</div></div>
+<h2>Stipulations</h2>
+<ul>
+<li>Sections under it use <code>.sys-section</code>: a thick rule on top, and a scroll margin one rule-width less than the nav height (48px for a 52px nav). A jump then tucks the rule behind the nav instead of leaving a short line under it.</li>
+<li>When a page has a section nav, the header above it scrolls away (<code>position: static</code>) and only the nav stays pinned.</li>
+<li>On phones the links scroll sideways with no visible scroll bar.</li>
+<li>Mark the current link with <code>.is-current</code> from an IntersectionObserver, not a scroll listener.</li>
+</ul>
+</main>
+<script src="../docs/docs.js"></script>
+</body>
+</html>

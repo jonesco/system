@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Stat · Jonesco System</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../system.css">
+  <link rel="stylesheet" href="../patterns.css">
+  <link rel="stylesheet" href="../docs/docs.css">
+</head>
+<body data-root="../" data-page="components/stat">
+<main class="docs-main">
+<h1>Stat</h1>
+<p class="lead">A caps label over a big condensed figure, with an optional note. The basic unit of a dashboard.</p>
+<div class="demo"><div class="demo-stage" style="display:flex;gap:48px;flex-wrap:wrap;align-items:flex-start">
+<div class="sys-stat sys-stat--xl"><p class="sys-stat__label">Total</p><p class="sys-stat__fig"><span class="sys-mark">$1,482,630</span></p><p class="sys-stat__note">+$3,120 since last month</p></div>
+<div class="sys-stat"><p class="sys-stat__label">Monthly surplus</p><p class="sys-stat__fig">+$2,250</p><p class="sys-stat__note">18% of take-home</p></div>
+<div class="sys-stat sys-stat--sm"><p class="sys-stat__label">Per year</p><p class="sys-stat__fig">$27,000</p></div>
+</div></div>
+<h2>Variants</h2>
+<table><tr><th>Variant</th><th>Class</th><th>Figure</th></tr>
+<tr><td>Small</td><td><code>.sys-stat--sm</code></td><td>28px</td></tr>
+<tr><td>Default</td><td><code>.sys-stat</code></td><td>40px</td></tr>
+<tr><td>Large</td><td><code>.sys-stat--lg</code></td><td>52px</td></tr>
+<tr><td>Headline</td><td><code>.sys-stat--xl</code></td><td>64–88px</td></tr>
+<tr><td>Marked</td><td><code>.sys-mark</code> around the figure</td><td>Black on a yellow block</td></tr>
+</table>
+<h2>Stipulations</h2>
+<ul>
+<li>Figures use the condensed display face with tabular digits, sized up because condensed reads small.</li>
+<li><b>One mark per view.</b> <code>.sys-mark</code> is for the single headline number (one highlight at a time). It works on white and on black.</li>
+<li>Gains and losses carry a sign (+ or −) and words; the figure stays ink.</li>
+</ul>
+</main>
+<script src="../docs/docs.js"></script>
+</body>
+</html>

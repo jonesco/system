@@ -109,3 +109,116 @@
   .is-scrolled .sys-header--grow .sys-brand img { height: 24px; }
   .sys-band--next .sys-wrap { padding-top: 36px; padding-bottom: 32px; min-height: 290px; }
 }
+
+
+/* ======================================================================
+   DASHBOARD PATTERNS (1.2.0), from the Jones family financial dashboard.
+   Numbers, meters and controls for data-heavy pages. Built only from the
+   tokens above: square, thick rule for titles, thin for rows, one data color.
+   ====================================================================== */
+
+/* ---------- Block title: sentence-case title over a thick rule ----------
+   For titles inside a section (a card, a chart, a table). Same voice as a tile title. */
+.sys-block-title { margin: 0; padding-bottom: 10px; border-bottom: var(--rule); font-family: var(--font-label); font-weight: 700;
+  text-transform: none; letter-spacing: 0; font-size: 22px; line-height: 1.15; }
+.on-black .sys-block-title, .sys-band .sys-block-title { border-bottom-color: var(--paper); }
+
+/* ---------- Stat: caps label over a condensed figure ----------
+   <div class="sys-stat"><p class="sys-stat__label">Monthly surplus</p><p class="sys-stat__fig">+$2,250</p><p class="sys-stat__note">…</p></div> */
+.sys-stat { min-width: 0; }
+.sys-stat__label { margin: 0 0 8px; font-family: var(--font-label); font-weight: 700; font-size: var(--size-tag); letter-spacing: var(--track-label);
+  text-transform: uppercase; line-height: 1.2; }
+.sys-stat__fig { margin: 0; font-family: var(--font-display); font-weight: 700; letter-spacing: var(--track-display); line-height: .95;
+  font-size: 40px; font-variant-numeric: tabular-nums; }
+.sys-stat--sm .sys-stat__fig { font-size: 28px; }
+.sys-stat--lg .sys-stat__fig { font-size: 52px; }
+.sys-stat--xl .sys-stat__fig { font-size: clamp(64px, 7.4vw, 88px); }
+.sys-stat__note { margin: 8px 0 0; font-size: 15px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.on-black .sys-stat__note, .sys-band .sys-stat__note { color: #bbb; }
+
+/* ---------- Mark: the one headline figure on a yellow block ---------- */
+.sys-mark { display: inline-block; background: var(--highlight); color: var(--ink); padding: .06em .08em .02em; }
+
+/* ---------- Meter: data fill on the gray track, optional target ----------
+   <div class="sys-meter" role="meter" …>
+     <div class="sys-meter__fill" style="width:87%"></div>
+     <div class="sys-meter__over" style="left:67%;width:20%"></div>   (only past the target)
+     <div class="sys-meter__target" style="left:67%"></div>
+   </div> */
+.sys-meter { position: relative; height: 32px; background: var(--gray); }
+.sys-meter__fill { height: 100%; background: var(--data); }
+.sys-meter__over { position: absolute; top: 0; bottom: 0; background: repeating-linear-gradient(-45deg, rgb(255 255 255 / .6) 0 2px, transparent 2px 7px); }
+.sys-meter__target { position: absolute; top: 0; bottom: 0; width: 0; }
+.sys-meter__target::before { content: ""; position: absolute; top: 0; bottom: 0; left: -1.5px; width: 3px; background: var(--paper); }
+.sys-meter__target::after { content: ""; position: absolute; top: -10px; left: -6px; border: 6px solid transparent; border-top: 8px solid var(--ink); border-bottom: 0; }
+.on-black .sys-meter, .sys-band .sys-meter { background: var(--line-dark); }
+.on-black .sys-meter__fill, .sys-band .sys-meter__fill { background: var(--data-300); }
+.on-black .sys-meter__over, .sys-band .sys-meter__over { background: repeating-linear-gradient(-45deg, rgb(0 0 0 / .5) 0 2px, transparent 2px 7px); }
+.on-black .sys-meter__target::before, .sys-band .sys-meter__target::before { background: var(--ink); }
+.on-black .sys-meter__target::after, .sys-band .sys-meter__target::after { border-top-color: var(--highlight); }
+
+/* ---------- Split bar: one whole in two or three parts, darkest first ---------- */
+.sys-split { display: flex; height: 32px; gap: 3px; }
+.sys-split > * { height: 100%; background: var(--data); }
+.sys-split > :nth-child(2) { background: var(--data-300); }
+.sys-split > :nth-child(3) { background: var(--data-100); }
+.sys-split--remainder { gap: 0; }
+.sys-split--remainder > :nth-child(2) { background: var(--data-100); }
+
+/* ---------- Switch: segmented choice; the chosen option is filled black ----------
+   For /mo /yr and for tabs. <div class="sys-switch" role="group|tablist"><button aria-pressed|aria-selected="true">…</button>…</div> */
+.sys-switch { display: inline-flex; border: var(--thin); }
+.sys-switch > button { padding: 6px 12px; border: 0; background: none; color: var(--ink); cursor: pointer; line-height: 1.2;
+  font-family: var(--font-label); font-weight: 700; font-size: var(--size-tag); letter-spacing: var(--track-label); text-transform: uppercase;
+  transition: color var(--quick); }
+.sys-switch > button:hover { color: var(--accent); }
+.sys-switch > [aria-pressed="true"], .sys-switch > [aria-selected="true"] { background: var(--ink); color: var(--paper); }
+.sys-switch > [aria-pressed="true"]:hover, .sys-switch > [aria-selected="true"]:hover { color: var(--paper); }
+.sys-switch .count { margin-left: 6px; font-family: var(--font-body); font-weight: 400; color: var(--muted); }
+.sys-switch [aria-selected="true"] .count, .sys-switch [aria-pressed="true"] .count { color: #bbb; }
+/* Tabs: three or more options split the width evenly on phones and may wrap, so the row never scrolls. */
+.sys-switch--tabs > button { padding: 8px 16px; }
+
+/* ---------- Label button: caps text button ("Details +", "Show all") ---------- */
+.sys-link { padding: 4px 0; border: 0; background: none; color: inherit; cursor: pointer;
+  font-family: var(--font-label); font-weight: 700; font-size: var(--size-tag); letter-spacing: var(--track-label); text-transform: uppercase;
+  transition: color var(--quick); }
+.sys-link:hover { color: var(--accent); }
+.on-black .sys-link:hover, .sys-band .sys-link:hover { color: var(--highlight); }
+
+/* ---------- Icon button: icon only, with a yellow tooltip ----------
+   <button class="sys-icon-btn" aria-label="Changelog" data-tip="Changelog"><svg …/></button>
+   The 44px hit area is larger than the glyph; pull it out with negative margin to align the glyph. */
+.sys-icon-btn { position: relative; flex: none; display: grid; place-items: center; width: 44px; height: 44px;
+  border: 0; background: none; color: inherit; cursor: pointer; transition: color var(--quick); }
+.sys-icon-btn:hover, .sys-icon-btn:focus-visible { color: var(--accent); }
+.on-black .sys-icon-btn:hover, .on-black .sys-icon-btn:focus-visible,
+.sys-header .sys-icon-btn:hover, .sys-header .sys-icon-btn:focus-visible { color: var(--highlight); }
+.sys-icon-btn[data-tip]::after { content: attr(data-tip); position: absolute; top: calc(100% + 6px); right: 0; z-index: 30;
+  background: var(--highlight); color: var(--ink); padding: 5px 8px; white-space: nowrap; pointer-events: none; opacity: 0;
+  font-family: var(--font-label); font-weight: 700; font-size: 12px; letter-spacing: var(--track-label); text-transform: uppercase;
+  transition: opacity var(--quick); }
+.sys-icon-btn[data-tip]:hover::after, .sys-icon-btn[data-tip]:focus-visible::after { opacity: 1; }
+
+/* ---------- Section nav: pinned jump links under the header ----------
+   The current section takes the yellow underline. Pair with .sys-section (below).
+   <nav class="sys-section-nav"><div class="sys-wrap sys-nav"><a href="#income" class="is-current">Income</a>…</div></nav> */
+.sys-section-nav { --section-nav-h: 52px; position: sticky; top: 0; z-index: 10; background: var(--ink); color: var(--paper); border-top: 1px solid var(--line-dark); }
+.sys-section-nav .sys-nav { height: var(--section-nav-h); align-items: center; gap: 24px; overflow-x: auto; scrollbar-width: none; }
+.sys-section-nav .sys-nav::-webkit-scrollbar { display: none; }
+.sys-section-nav .sys-nav a { white-space: nowrap; flex-shrink: 0; transition: color var(--quick), border-color var(--quick); }
+.sys-section-nav .sys-nav a.is-current { color: var(--highlight); border-bottom-color: var(--highlight); }
+/* A section divided by the thick rule. Jumps land one rule-width higher than the nav,
+   so the rule tucks behind it instead of showing as a short line under the nav. */
+.sys-section { border-top: var(--rule); scroll-margin-top: calc(52px - var(--rule-w)); }
+
+/* ---------- Status tags: three levels by weight, not by color ----------
+   Critical is the plain .sys-tag (black, yellow type). */
+.sys-tag--outline { background: none; color: var(--ink); border: var(--thin); padding: 4px 10px; }
+.sys-tag--plain { background: none; color: var(--muted); padding: 6px 0; }
+
+@media (max-width: 640px) {
+  .sys-switch--tabs { display: grid; grid-auto-columns: 1fr; grid-auto-flow: column; }
+  .sys-switch--tabs > button { padding: 8px 10px; text-align: center; }
+  .sys-stat--xl .sys-stat__fig { font-size: 64px; }
+}

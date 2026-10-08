@@ -14,6 +14,7 @@ const NAV = [
     ["foundations/layout", "Layout & spacing"],
     ["foundations/rules", "Rules & corners"],
     ["foundations/motion", "Motion"],
+    ["foundations/data", "Data & charts"],
   ]],
   ["Components", [
     ["components/header", "Header"],
@@ -25,10 +26,17 @@ const NAV = [
     ["components/specs", "Spec list"],
     ["components/paper", "Paper"],
     ["components/band", "Band"],
+    ["components/block-title", "Block title"],
+    ["components/stat", "Stat"],
+    ["components/meter", "Meter"],
+    ["components/switch", "Switch"],
+    ["components/buttons-small", "Label & icon buttons"],
+    ["components/section-nav", "Section nav"],
   ]],
   ["Sites", [
     ["sites/artdept", "Jonesco Art Dept."],
     ["sites/jonesco", "jonesco.com"],
+    ["sites/dashboard", "Financial dashboard"],
   ]],
   ["Reference", [
     ["changelog", "Changelog"],
@@ -72,6 +80,6 @@ const NAV = [
 
   const foot = document.createElement("div");
   foot.className = "docs-foot";
-  foot.innerHTML = `Jonesco System · v1.1.1 · <a href="${root}changelog.html">Changelog</a>`;
+  foot.innerHTML = `Jonesco System · v1.2.0 · <a href="${root}changelog.html">Changelog</a>`;
   main.append(foot);
 })();

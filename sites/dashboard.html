@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Jones financial dashboard · Jonesco System</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../system.css">
+  <link rel="stylesheet" href="../patterns.css">
+  <link rel="stylesheet" href="../docs/docs.css">
+</head>
+<body data-root="../" data-page="sites/dashboard">
+<main class="docs-main">
+<h1>Jones financial dashboard</h1>
+<p class="lead">A private household finance dashboard (password-protected, not linked). React + Tailwind, loading the system first. The first data-heavy Jonesco page; the 1.2.0 dashboard patterns come from it.</p>
+<h2>Variations</h2>
+<table><tr><th>Site</th><th>Variation</th><th>Why</th></tr>
+<tr><td>Header</td><td>Two-line title in condensed caps with the last-updated date small under it; scrolls away; changelog as an icon button in the top-right corner</td><td>The page is a document with a date; only the section nav needs to stay on screen.</td></tr>
+<tr><td>Section nav</td><td>Pinned black nav of ten sections, current one underlined in yellow</td><td>A long page you jump around in. Became <a href="../components/section-nav.html">Section nav</a>.</td></tr>
+<tr><td>Summary row</td><td>Four stats at the top, total marked in yellow</td><td>Answers “how are we doing” before any scrolling.</td></tr>
+<tr><td>Charts</td><td>Cyan data color; other colors by link</td><td>Chosen after a color trial. Became <a href="../foundations/data.html">Data &amp; charts</a>.</td></tr>
+<tr><td>Status</td><td>Critical, Warning and Working as weight steps of the tag</td><td>Three levels without adding colors.</td></tr>
+<tr><td>Closing band</td><td>Total Assets as a black band into the footer, history line in light cyan</td><td>The page closes on black.</td></tr>
+</table>
+</main>
+<script src="../docs/docs.js"></script>
+</body>
+</html>
