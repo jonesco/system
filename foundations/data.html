@@ -20,16 +20,17 @@
 <div class="swatch"><i style="background:var(--data-300)"></i><div><b>Data 300</b><code>--data-300</code> #33b1ff<br>Second segment; fill on black.</div></div>
 <div class="swatch"><i style="background:var(--data-200)"></i><div><b>Data 200</b><code>--data-200</code> #82cfff<br>Third segment.</div></div>
 <div class="swatch"><i style="background:var(--data-100)"></i><div><b>Data 100</b><code>--data-100</code> #bae6ff<br>Remainders: owed, left over.</div></div>
-<div class="swatch"><i style="background:var(--gray)"></i><div><b>Track</b><code>--gray</code> #f2f2f2<br>Empty meter track; missing data.</div></div>
+<div class="swatch"><i style="background:var(--gray)"></i><div><b>Track</b><code>--gray</code> #f2f2f2<br>Empty meter track.</div></div>
+<div class="swatch"><i style="background:var(--highlight)"></i><div><b>Not recorded</b><code>--highlight</code> #ffe500<br>Missing data: a month or item not recorded.</div></div>
 </div>
 <h2>Rules</h2>
 <ul>
 <li><b>One hue.</b> Every chart on a page uses the same data color. Identity comes from labels and order, not from a second hue.</li>
 <li><b>The main step is the darkest.</b> Nothing on the page is darker than <code>--data</code>. Lighter steps are for the other parts of the same whole, in order.</li>
-<li><b>Missing data is the empty track.</b> A month not recorded is a <code>--gray</code> bar with no outline, and the count of missing items carries the warning (a <code>.sys-tag</code>).</li>
+<li><b>Missing data is yellow.</b> A month not recorded is a <code>--highlight</code> bar with no outline, the same yellow as the Critical tag that names it; the legend calls it “Not recorded”, and the count of missing items carries the warning (a <code>.sys-tag</code>).</li>
 <li><b>Hover lightens.</b> Since the main step is already darkest, a hovered bar steps to <code>--data-300</code>.</li>
 <li><b>Past a target, hash it.</b> On a meter, the part beyond the goal gets white diagonal hash lines over the fill (<a href="../components/meter.html">Meter</a>).</li>
-<li><b>The accent is not a data color.</b> Magenta stays for hover on titles and the one active thing. Yellow stays for tags, the highlight mark and lines on black.</li>
+<li><b>The accent is not a data color.</b> Magenta stays for hover on titles and the one active thing. Yellow stays for tags, the highlight mark, missing data and lines on black.</li>
 <li><b>On black,</b> fills and lines use <code>--data-300</code>, which reads at 8:1.</li>
 <li><b>Text stays ink.</b> Values and labels are never set in the data color.</li>
 <li><b>Tables are left-aligned.</b> In data tables every column, header and number lines up on the left. Tabular digits keep amounts readable without right-aligning them.</li>
