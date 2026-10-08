@@ -228,7 +228,7 @@
    <div class="sys-note sys-note--alert" role="status"><span class="sys-tag">Critical</span><p>July charges still not recorded</p></div>
    Both share one container: a yellow rule on pale yellow. An alert adds a status tag at the front
    (.sys-tag Critical / .sys-tag--outline Warning / .sys-tag--plain Working). Square corners, no icons. */
-.sys-note { border-left: var(--rule-w) solid var(--highlight); background: var(--highlight-soft); padding: 12px 16px; margin: 16px 0; max-width: 46em; }
+.sys-note { border-left: var(--rule-w) solid var(--highlight); background: var(--highlight-soft); padding: 12px 16px; margin: 16px 0; }   /* full width of the container it refers to */
 .sys-note > :first-child { margin-top: 0; }
 .sys-note > :last-child { margin-bottom: 0; }
 .sys-note--alert { display: flex; align-items: center; gap: 14px; }
