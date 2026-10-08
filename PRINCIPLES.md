@@ -3,7 +3,7 @@
 The vernacular shared by every Jonesco site. These say *how it should feel*; `system.css` holds the values and `patterns.css` the proven pieces. A site may bend any of this when it has a reason. Write the reason down in that site's stylesheet.
 
 ## Look
-- **Black, white, newsprint.** The base on every site. Newsprint is "paper": use it where artwork or printed things appear, never as a page background.
+- **Black, white, newsprint.** The base on every site. Newsprint is "paper": use it behind artwork and printed things, and to block in or contain a section. Never as the whole page background.
 - **One accent per site.** Magenta (`--accent`) is the default. It marks hover and the one thing that's active; it is not decoration.
 - **Yellow is the highlight.** Black tags with yellow type, hover on black, text selection.
 - **Thick rules for structure, thin rules for lists.** 4px under section titles and tile titles; 2px between list rows.

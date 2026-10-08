@@ -67,6 +67,16 @@ const NAV = [
   main.before(shell);
   shell.append(side, main);
 
+  // keep the sidebar's scroll position from page to page; bring the current item into view if it's off-screen
+  const KEY = "docs-side-scroll";
+  try { const y = sessionStorage.getItem(KEY); if (y !== null) side.scrollTop = +y; } catch (e) {}
+  const cur = side.querySelector('[aria-current="page"]');
+  if (cur) { const s = side.getBoundingClientRect(), c = cur.getBoundingClientRect();
+    if (c.top < s.top || c.bottom > s.bottom) side.scrollTop += c.top - s.top - s.height / 3; }
+  const save = () => { try { sessionStorage.setItem(KEY, side.scrollTop); } catch (e) {} };
+  side.addEventListener("click", save);
+  addEventListener("pagehide", save);
+
   // code panel under each live example, generated from its own markup
   document.querySelectorAll(".demo").forEach((d) => {
     const stage = d.querySelector(".demo-stage");
