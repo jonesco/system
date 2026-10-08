@@ -215,7 +215,7 @@
 /* ---------- Status tags: three levels by weight, not by color ----------
    Critical is the plain .sys-tag (black, yellow type). */
 .sys-tag--outline { background: none; color: var(--ink); border: var(--thin); padding: 4px 10px; }
-.sys-tag--plain { background: none; color: var(--muted); padding: 6px 0; }
+.sys-tag--plain { background: var(--newsprint); color: var(--ink); }   /* Working: newsprint block, black type, no border */
 
 @media (max-width: 640px) {
   .sys-switch--tabs { display: grid; grid-auto-columns: 1fr; grid-auto-flow: column; }
