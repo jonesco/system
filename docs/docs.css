@@ -53,3 +53,5 @@ body { font-size: 16px; }
 .logo-stage figure { margin: 0; display: flex; flex-direction: column; gap: 12px; }
 .logo-stage figcaption { font-size: 14px; color: var(--muted); }
 .logo-on-black { background: var(--ink); padding: 32px; }
+.logo-stack { flex-direction: column; align-items: flex-start; gap: 32px; }
+.logo-stage figure { align-items: flex-start; }
