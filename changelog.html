@@ -12,7 +12,6 @@
   <title>Changelog · Jonesco System</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="system.css">
   <link rel="stylesheet" href="patterns.css">
   <link rel="stylesheet" href="docs/docs.css">
@@ -20,6 +19,12 @@
 <body data-root="" data-page="changelog">
 <main class="docs-main">
 <h1>Changelog</h1>
+<h2>2.0.0 · 2026-10-24</h2>
+<ul>
+<li><b>Body type is Trade Gothic.</b> <code>--font-body</code> is Trade Gothic regular, with its oblique and bold, in place of Libre Franklin. Jonesco now uses only Trade Gothic. Four trimmed WOFF2 cuts join <code>fonts/</code>, with the same cap-centering fix as the display cuts. See <a href="foundations/type.html">Typography</a>.</li>
+<li>Display and label fallbacks are Trade Gothic, then the system sans. Sites no longer need the Google Fonts link for Libre Franklin; remove it when upgrading.</li>
+<li>Major: body copy looks different everywhere. Sites pinned to earlier versions are unaffected.</li>
+</ul>
 <h2>1.6.1 · 2026-10-08</h2>
 <ul>
 <li><b>Working tag</b> (<code>.sys-tag--plain</code>) is a newsprint block with black type and no border, instead of muted text with no background, so all three status levels read as tags. Described on the <a href="components/tag.html">Tag</a> page.</li>
