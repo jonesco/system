@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/svg+xml" href="../icons/jonesco-system.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="../icons/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="../icons/favicon-96.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="../icons/apple-touch-icon.png">
+  <link rel="manifest" href="../manifest.webmanifest">
+  <meta name="theme-color" content="#000000">
+  <title>Table · Jonesco System</title>
+  <link rel="stylesheet" href="../system.css">
+  <link rel="stylesheet" href="../patterns.css">
+  <link rel="stylesheet" href="../docs/docs.css">
+</head>
+<body data-root="../" data-page="components/table">
+<main class="docs-main">
+<h1>Table</h1>
+<p class="lead">Rows of data on a newsprint panel. Caps headers sit on the thick rule, rows on thin rules, and every column lines up on the left.</p>
+<div class="demo"><div class="demo-stage">
+<div class="sys-table">
+  <h3 class="sys-block-title">Rental payouts</h3>
+  <table>
+    <thead><tr><th>Month</th><th>Property</th><th>Nights</th><th>Payout</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr><td>July</td><td>308 Main St</td><td>21</td><td>$4,860.00</td><td><span class="sys-tag">Not recorded</span></td></tr>
+      <tr><td>August</td><td>308 Main St</td><td>26</td><td>$6,115.50</td><td><span class="sys-tag sys-tag--outline">Late</span></td></tr>
+      <tr><td>September</td><td>308 Main St</td><td>18</td><td>$3,972.25</td><td><span class="sys-tag sys-tag--plain">Pending</span></td></tr>
+      <tr><td>September</td><td>12 Oak Ave <span class="sys-table__note">· long stay</span></td><td>30</td><td>$2,100.00</td><td>Paid</td></tr>
+    </tbody>
+    <tfoot><tr><td>Total</td><td></td><td>95</td><td>$17,047.75</td><td></td></tr></tfoot>
+  </table>
+</div>
+</div></div>
+<h2>Parts</h2>
+<table><tr><th>Part</th><th>Markup</th><th>Look</th></tr>
+<tr><td>Panel</td><td><code>.sys-table</code> around the <code>&lt;table&gt;</code></td><td>Newsprint, 24–28px padding (16px on phones), no border</td></tr>
+<tr><td>Title</td><td><code>.sys-block-title</code> inside the panel (optional)</td><td>Sentence case over the thick rule</td></tr>
+<tr><td>Header</td><td><code>&lt;thead&gt;&lt;th&gt;</code></td><td>13px caps label on the thick rule</td></tr>
+<tr><td>Row</td><td><code>&lt;tbody&gt;&lt;td&gt;</code></td><td>15px body on a thin rule</td></tr>
+<tr><td>Total</td><td><code>&lt;tfoot&gt;&lt;td&gt;</code> (optional)</td><td>Bold, under a thick rule</td></tr>
+<tr><td>Side note</td><td><code>.sys-table__note</code> inside a cell</td><td>Muted gray</td></tr>
+</table>
+<h2>Stipulations</h2>
+<ul>
+<li><b>Everything is left-aligned:</b> headers, text and numbers. Tabular digits keep amounts readable without right-aligning them (<a href="../foundations/data.html">Data &amp; charts</a>).</li>
+<li><b>The panel carries the padding.</b> Put the table in a <code>.sys-table</code> panel; don’t put a border around it or give it rounded corners. Rules run the full width inside the padding.</li>
+<li>Newsprint is the table’s own block, so the table can sit on white or on black. Its type stays ink on either.</li>
+<li>Status goes in a <a href="tag.html">tag</a> (Critical, Warning, Working), at the smaller table size; the Working tag turns white so it shows on the newsprint. Rows that need nothing say so in plain text. Values stay ink and never take the data color.</li>
+<li>Write amounts the same way down a column: the same decimals and the same currency sign on every row.</li>
+<li>No zebra stripes and no row hover. A link in a cell turns magenta on hover, as links do elsewhere.</li>
+<li>When a table is wider than its container, it scrolls sideways inside the panel; the page never does.</li>
+</ul>
+</main>
+<script src="../docs/docs.js"></script>
+</body>
+</html>

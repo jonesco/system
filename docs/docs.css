@@ -18,9 +18,9 @@ body { font-size: 16px; }
 .docs-main ul { padding-left: 1.2em; }
 .docs-main li { margin-bottom: 6px; }
 .docs-main code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: .88em; background: var(--gray); padding: 1px 5px; }
-.docs-main table { width: 100%; border-collapse: collapse; margin: 12px 0 8px; font-size: 15px; }
-.docs-main th { text-align: left; font-family: var(--font-label); font-weight: 700; font-size: 12px; letter-spacing: .08em; text-transform: uppercase; padding: 8px 12px 8px 0; border-bottom: var(--rule); }
-.docs-main td { padding: 10px 12px 10px 0; border-bottom: 1px solid #ddd; vertical-align: top; }
+.docs-main > table { width: 100%; border-collapse: collapse; margin: 12px 0 8px; font-size: 15px; }
+.docs-main > table th { text-align: left; font-family: var(--font-label); font-weight: 700; font-size: 12px; letter-spacing: .08em; text-transform: uppercase; padding: 8px 12px 8px 0; border-bottom: var(--rule); }
+.docs-main > table td { padding: 10px 12px 10px 0; border-bottom: 1px solid #ddd; vertical-align: top; }
 /* live example + its generated code */
 .demo { border: var(--rule); margin: 16px 0 0; }
 .demo-stage { padding: 32px; background: var(--paper); overflow: hidden; }

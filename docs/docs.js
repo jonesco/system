@@ -29,6 +29,7 @@ const NAV = [
     ["components/band", "Band"],
     ["components/block-title", "Block title"],
     ["components/stat", "Stat"],
+    ["components/table", "Table"],
     ["components/meter", "Meter"],
     ["components/switch", "Switch"],
     ["components/buttons-small", "Label & icon buttons"],
@@ -92,6 +93,6 @@ const NAV = [
 
   const foot = document.createElement("div");
   foot.className = "docs-foot";
-  foot.innerHTML = `Jonesco System · v1.6.1 · <a href="${root}changelog.html">Changelog</a>`;
+  foot.innerHTML = `Jonesco System · v2.1.0 · <a href="${root}changelog.html">Changelog</a>`;
   main.append(foot);
 })();

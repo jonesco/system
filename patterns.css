@@ -234,3 +234,28 @@
 .sys-note--alert { display: flex; align-items: center; gap: 14px; }
 .sys-note--alert p { margin: 0; }
 .sys-note--alert .sys-tag { flex: none; }
+
+/* ---------- Table (2.1.0): rows of data on a newsprint panel ----------
+   <div class="sys-table"><table>
+     <thead><tr><th>Month</th>…</tr></thead>
+     <tbody><tr><td>January</td>…</tr></tbody>
+     <tfoot><tr><td>Total</td>…</tr></tfoot>       (optional)
+   </table></div>
+   The panel has padding and no border. Headers sit on the thick rule, rows on thin rules.
+   Every column is left-aligned; tabular digits keep amounts lined up. Wide tables scroll inside the panel. */
+.sys-table { background: var(--newsprint); color: var(--ink); padding: 24px 28px 28px; overflow-x: auto; }
+.sys-table > .sys-block-title { margin-bottom: 4px; }
+.sys-table table { width: 100%; border-collapse: collapse; font-size: 15px; line-height: 1.4; font-variant-numeric: tabular-nums; }
+.sys-table th, .sys-table td { text-align: left; vertical-align: top; padding: 12px 24px 12px 0; }
+.sys-table th:last-child, .sys-table td:last-child { padding-right: 0; }
+.sys-table th { vertical-align: bottom; padding-top: 16px; padding-bottom: 10px; border-bottom: var(--rule); white-space: nowrap;
+  font-family: var(--font-label); font-weight: 700; font-size: var(--size-tag); letter-spacing: var(--track-label); text-transform: uppercase; }
+.sys-table tbody td { border-bottom: var(--thin); }
+.sys-table tfoot td { padding-top: 14px; border-top: var(--rule); font-family: var(--font-label); font-weight: 700; }
+.sys-table .sys-tag { padding: 3px 8px; font-size: 12px; line-height: 1.2; }
+.sys-table .sys-tag--outline { padding: 1px 6px; }   /* the 2px border keeps it the same height as the others */
+.sys-table .sys-tag--plain { background: var(--paper); }   /* a newsprint tag would vanish on the newsprint panel */
+.sys-table__note { color: var(--muted); }
+.sys-table a { color: inherit; transition: color var(--quick); }
+.sys-table a:hover { color: var(--accent); }
+@media (max-width: 640px) { .sys-table { padding: 16px 16px 20px; } .sys-table table { font-size: 14px; } }
