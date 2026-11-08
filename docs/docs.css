@@ -8,6 +8,8 @@ body { font-size: 16px; }
 .docs-side a:hover { border-left-color: var(--ink); }
 .docs-side a[aria-current="page"] { border-left-color: var(--accent); font-weight: 700; }
 .docs-side .docs-side-ext, .docs-menu-btn { display: none; }
+/* header edges line up with the sidebar on desktop and with the page text on phones */
+.docs-bar { padding: 0 24px; }
 /* the favicon mark beside the name, in its own magenta (the header pattern whitens logo art) */
 .sys-brand .docs-mark { height: 40px; filter: none; }
 .docs-main { padding: 48px 56px 96px; max-width: 980px; }
@@ -58,6 +60,7 @@ body { font-size: 16px; }
   .docs-shell { grid-template-columns: minmax(0, 1fr); }
   .sys-header .sys-nav { display: none; }
   .sys-brand .docs-mark { height: 30px; }
+  .docs-bar { padding: 0 var(--gutter); }
   .docs-menu-btn { display: block; height: 44px; margin-right: -8px; padding: 0 8px; border: 0; background: none; color: inherit; cursor: pointer;
     font-family: var(--font-label); font-weight: 700; font-size: var(--size-label); letter-spacing: var(--track-label); text-transform: uppercase; }
   .docs-menu-btn:hover, .docs-menu-btn:focus-visible { color: var(--highlight); }
