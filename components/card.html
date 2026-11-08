@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/svg+xml" href="../icons/jonesco-system.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="../icons/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="../icons/favicon-96.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="../icons/apple-touch-icon.png">
+  <link rel="manifest" href="../manifest.webmanifest">
+  <meta name="theme-color" content="#000000">
+  <title>Card · Jonesco System</title>
+  <link rel="stylesheet" href="../system.css">
+  <link rel="stylesheet" href="../patterns.css">
+  <link rel="stylesheet" href="../docs/docs.css">
+</head>
+<body data-root="../" data-page="components/card">
+<main class="docs-main">
+<h1>Card</h1>
+<p class="lead">Art on top, the words below on newsprint. One block with no border: the picture meets the newsprint edge to edge.</p>
+<div class="demo"><div class="demo-stage">
+<div class="card-demo">
+  <a class="sys-card" href="#">
+    <span class="sys-card__art"><img src="https://jonesco.com/images/work/fm-thumb.jpg" alt=""></span>
+    <span class="sys-card__body">
+      <span class="sys-card__id">#5487</span>
+      <h3 class="sys-card__title">Fund manager workspace</h3>
+      <p class="sys-card__text">One platform to replace them all, for a bank managing $11 trillion in assets.</p>
+      <span class="sys-card__foot"><span class="sys-tag sys-tag--white">Enterprise UX</span><span class="sys-card__more">View case →</span></span>
+    </span>
+  </a>
+  <a class="sys-card" href="#">
+    <span class="sys-card__art"><img src="https://jonesco.com/images/work/cc-thumb.png" alt=""></span>
+    <span class="sys-card__body">
+      <span class="sys-card__id">#5214</span>
+      <h3 class="sys-card__title">Custom debit card creator</h3>
+      <p class="sys-card__text">A simple, fun way for customers to personalize their card.</p>
+      <span class="sys-card__foot"><span class="sys-tag sys-tag--white">Mobile</span><span class="sys-card__more">View case →</span></span>
+    </span>
+  </a>
+</div>
+</div></div>
+<h3>Small</h3>
+<p>For dense grids, four or more across: <code>.sys-card--sm</code> sets a 20px title and tighter padding. The card can be an <code>&lt;article&gt;</code> when it isn’t a link; then nothing changes on hover.</p>
+<div class="demo"><div class="demo-stage">
+<div class="card-demo card-demo--sm">
+  <article class="sys-card sys-card--sm">
+    <div class="sys-card__art" style="background:#e2e5de"></div>
+    <div class="sys-card__body">
+      <span class="sys-card__id">I-01</span>
+      <h3 class="sys-card__title">Flat vector</h3>
+      <p class="sys-card__text">Solid fills, no outlines, no gradients.</p>
+      <div class="sys-card__foot"><span class="sys-tag sys-tag--white">SVG</span></div>
+    </div>
+  </article>
+  <article class="sys-card sys-card--sm">
+    <div class="sys-card__art" style="background:#1f2226"></div>
+    <div class="sys-card__body">
+      <span class="sys-card__id">M-37</span>
+      <h3 class="sys-card__title">Loaders</h3>
+      <p class="sys-card__text">Spinner, dots, skeleton and an indeterminate bar.</p>
+      <div class="sys-card__foot"><span class="sys-tag sys-tag--white">CSS</span></div>
+    </div>
+  </article>
+  <article class="sys-card sys-card--sm">
+    <div class="sys-card__art" style="background:#e4148c"></div>
+    <div class="sys-card__body">
+      <span class="sys-card__id">M-38</span>
+      <h3 class="sys-card__title">Neon flicker</h3>
+      <p class="sys-card__text">A sign tube that stutters on.</p>
+      <div class="sys-card__foot"><span class="sys-tag sys-tag--white">CSS</span></div>
+    </div>
+  </article>
+</div>
+</div></div>
+<h2>Parts</h2>
+<table><tr><th>Part</th><th>Markup</th><th>Look</th></tr>
+<tr><td>Card</td><td><code>a.sys-card</code> or <code>article.sys-card</code></td><td>Newsprint, no border, square</td></tr>
+<tr><td>Art</td><td><code>.sys-card__art</code> with an <code>img</code>, or live artwork</td><td>4:3, cropped from the top, black behind</td></tr>
+<tr><td>Body</td><td><code>.sys-card__body</code></td><td>20–24px padding (18px on phones)</td></tr>
+<tr><td>Id</td><td><code>.sys-card__id</code> (optional)</td><td>13px label, muted</td></tr>
+<tr><td>Title</td><td><code>.sys-card__title</code></td><td>Bold No. 2, sentence case, 26px (20px small, 22px phones)</td></tr>
+<tr><td>Text</td><td><code>.sys-card__text</code></td><td>16px body</td></tr>
+<tr><td>Foot</td><td><code>.sys-card__foot</code> with a <a href="tag.html">tag</a> and <code>.sys-card__more</code></td><td>Pinned to the bottom, so a row of cards lines up</td></tr>
+</table>
+<h2>Stipulations</h2>
+<ul>
+<li><b>No border and no rule under the title.</b> The newsprint is the edge. On a newsprint page section, use a <a href="tile.html">Tile</a> instead.</li>
+<li><b>Card or Tile?</b> A card carries a description and a foot; a tile is a picture and a title over the thick rule.</li>
+<li>Title is sentence case in Bold No. 2 (see <a href="../foundations/type.html">Typography · Case</a>).</li>
+<li>A linked card turns its “View” label magenta on hover and scales the image to 1.04; the title stays black. Live artwork doesn’t scale.</li>
+<li>Status or category goes in a <a href="tag.html">tag</a> in the foot; the Working tag turns white so it shows on the newsprint.</li>
+<li>Cards in a row are the same height; the foot sits at the bottom of each.</li>
+<li>Three across on desktop, two on tablet, one on phones. Small cards fill as many 272px columns as fit.</li>
+</ul>
+<h2>Site variations</h2>
+<table><tr><th>Site</th><th>Variation</th><th>Why</th></tr>
+<tr><td><a href="../sites/jonesco.html">jonesco.com</a></td><td>The homepage work cards (<code>.work-card</code>) are where this started; they predate the component and still use their own classes, pinned to 2.0.0</td><td>Moving them to <code>.sys-card</code> is a later, separate change</td></tr>
+<tr><td><a href="../resources/style-specimens.html">Style specimens</a></td><td>Small cards with live artwork, “Use for / Built with” notes in the body, and a Copy button</td><td>A reference page, not a site; it follows the system without being part of it</td></tr>
+</table>
+</main>
+<script src="../docs/docs.js"></script>
+</body>
+</html>

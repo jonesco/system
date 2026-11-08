@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/svg+xml" href="../icons/jonesco-system.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="../icons/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="../icons/favicon-96.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="../icons/apple-touch-icon.png">
+  <link rel="manifest" href="../manifest.webmanifest">
+  <meta name="theme-color" content="#000000">
+  <title>Toggle · Jonesco System</title>
+  <link rel="stylesheet" href="../system.css">
+  <link rel="stylesheet" href="../patterns.css">
+  <link rel="stylesheet" href="../docs/docs.css">
+</head>
+<body data-root="../" data-page="components/toggle">
+<main class="docs-main">
+<h1>Toggle</h1>
+<p class="lead">One setting, on or off. A round knob in a pill track with a thin black border; on fills the track black and moves the knob right.</p>
+<div class="demo"><div class="demo-stage">
+<div class="toggle-demo">
+<button class="sys-toggle" type="button" role="switch" aria-checked="true"><span class="sys-toggle__track" aria-hidden="true"></span>Motion</button>
+<button class="sys-toggle" type="button" role="switch" aria-checked="false"><span class="sys-toggle__track" aria-hidden="true"></span>Show cents</button>
+<button class="sys-toggle" type="button" role="switch" aria-checked="false" disabled><span class="sys-toggle__track" aria-hidden="true"></span>Sync (unavailable)</button>
+</div>
+</div></div>
+<h3>On black</h3>
+<div class="demo"><div class="demo-stage on-dark on-black">
+<div class="toggle-demo">
+<button class="sys-toggle" type="button" role="switch" aria-checked="true"><span class="sys-toggle__track" aria-hidden="true"></span>Motion</button>
+<button class="sys-toggle" type="button" role="switch" aria-checked="false"><span class="sys-toggle__track" aria-hidden="true"></span>Show cents</button>
+</div>
+</div></div>
+<h2>Parts</h2>
+<table><tr><th>Part</th><th>Markup</th><th>Look</th></tr>
+<tr><td>Toggle</td><td><code>button.sys-toggle</code> with <code>role="switch"</code> and <code>aria-checked</code></td><td>13px caps label, 44px tall hit area</td></tr>
+<tr><td>Track</td><td><code>.sys-toggle__track</code>, first inside the button</td><td>40 × 22px pill, thin black border, white; black when on</td></tr>
+<tr><td>Knob</td><td>Drawn by the track</td><td>14px black circle; white and 18px to the right when on</td></tr>
+</table>
+<h2>Stipulations</h2>
+<ul>
+<li><b>The label names the setting, never its state:</b> “Motion”, not “Motion on”. The track shows the state.</li>
+<li><b>It acts at once.</b> No Save button after a toggle; if a change needs confirming, use a checkbox in a form instead.</li>
+<li><b>Toggle or content switcher?</b> One setting, on or off, is a toggle. Choosing between named views is a <a href="content-switcher.html">content switcher</a>.</li>
+<li>Track first, label after. The track is a pill, like a <a href="tag.html">tag</a>, an exception to square corners; no accent color for on. Black is the one active state, as in the content switcher.</li>
+<li>The label turns magenta on hover (yellow on black). Disabled toggles drop to 40% and don’t respond.</li>
+<li><b>Motion:</b> the knob slides in 260ms with a slight overshoot, and stretches toward where it’s going while pressed. With reduced motion it just switches.</li>
+<li>Use a real <code>&lt;button&gt;</code> with <code>role="switch"</code> and flip <code>aria-checked</code> in script; the styles follow the attribute.</li>
+</ul>
+</main>
+<script src="../docs/docs.js"></script>
+</body>
+</html>

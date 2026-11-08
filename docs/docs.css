@@ -36,6 +36,32 @@ body { font-size: 16px; }
 .demo-stage .sys-header, .demo-stage .sys-section-nav { position: static; z-index: 0; }
 .demo pre { margin: 0; padding: 16px 20px; background: #111; color: #eee; overflow-x: auto; font-size: 13px; line-height: 1.5; border-top: var(--rule); }
 .demo pre code { background: none; padding: 0; color: inherit; }
+/* content switcher sizes */
+.cs-sizes { display: flex; flex-direction: column; align-items: flex-start; gap: 24px; }
+.cs-row { display: flex; flex-wrap: wrap; gap: 12px; }
+.cs-row .sys-input { width: 220px; }
+/* text input examples */
+.field-demo { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px 32px; align-items: start; }
+@media (max-width: 640px) { .field-demo { grid-template-columns: minmax(0, 1fr); } }
+/* tag examples on newsprint and color */
+.tag-grounds { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.tag-grounds > div { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; padding: 28px 24px; }
+@media (max-width: 640px) { .tag-grounds { grid-template-columns: minmax(0, 1fr); } }
+/* button sizes */
+.btn-sizes { display: flex; flex-direction: column; gap: 20px; }
+.btn-sizes > div { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
+/* tooltip examples: room for the tips */
+.tip-demo { display: flex; flex-wrap: wrap; align-items: center; gap: 40px; padding-top: 56px !important; padding-bottom: 56px !important; }
+/* tooltip positions, shown open */
+.tip-grid { display: grid; grid-template-columns: repeat(3, max-content); justify-content: space-around; gap: 72px 96px; padding: 64px 32px !important; }
+.tip-grid .is-open::after, .tip-grid .is-open::before { opacity: 1; }
+.btn-icons { gap: 48px; padding: 8px 0 40px; }   /* room for the tooltips between rows */
+/* toggle examples */
+.toggle-demo { display: flex; flex-wrap: wrap; gap: 8px 32px; }
+/* card examples */
+.card-demo { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
+.card-demo--sm { grid-template-columns: repeat(auto-fill, minmax(min(100%, 200px), 1fr)); }
+@media (max-width: 640px) { .card-demo { grid-template-columns: minmax(0, 1fr); } }
 /* do / don't */
 .dodont { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin: 16px 0; }
 .dodont > div { border-top: 6px solid var(--ink); padding-top: 12px; }

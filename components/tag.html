@@ -17,24 +17,53 @@
 <body data-root="../" data-page="components/tag">
 <main class="docs-main">
 <h1>Tag</h1>
-<p class="lead">A small black block with a yellow label. Marks status or an identifier.</p>
-<div class="demo"><div class="demo-stage ">
+<p class="lead">A pill with no border that marks a status, a category or an id. Dark is black with yellow type; light is newsprint with black type; white is for newsprint and color backgrounds.</p>
+<div class="demo"><div class="demo-stage" style="display:flex;gap:12px;align-items:center;flex-wrap:wrap">
 <span class="sys-tag">New · Vol. 1</span>
-<span class="sys-tag">Case Study #5487</span>
+<span class="sys-tag sys-tag--light">Case Study #5487</span>
 </div></div>
-<div class="dodont"><div><b>Do</b><p>Use for one short status or id: New, Vol. 1, Case Study #5487.</p></div><div class="dont"><b>Don’t</b><p>Use as a button or for sentences.</p></div></div>
+<h3>White</h3>
+<p>On newsprint or any color, use the white tag (<code>.sys-tag--white</code>) so it stands off the background. A light tag inside a newsprint panel (table, card) or a notification turns white on its own.</p>
+<div class="demo"><div class="demo-stage flush"><div class="tag-grounds">
+<div style="background:var(--newsprint)"><span class="sys-tag sys-tag--white">SVG</span><span class="sys-tag sys-tag--white">Canvas</span><span class="sys-tag">Interactive</span></div>
+<div style="background:var(--data-100)"><span class="sys-tag sys-tag--white">Savings</span><span class="sys-tag">Critical</span></div>
+<div style="background:var(--highlight)"><span class="sys-tag sys-tag--white">New</span><span class="sys-tag">Vol. 1</span></div>
+</div></div></div>
+<h3>Sizes</h3>
+<p>Small (24px) is the default. Medium (<code>.sys-tag--md</code>, 32px) is the height of a small <a href="content-switcher.html">content switcher</a>, for a tag in a row with one.</p>
+<div class="demo"><div class="demo-stage" style="display:flex;gap:12px;align-items:center;flex-wrap:wrap">
+<span class="sys-tag">Small</span>
+<span class="sys-tag sys-tag--light">Small</span>
+<span class="sys-tag sys-tag--md">Medium</span>
+<span class="sys-tag sys-tag--md sys-tag--light">Medium</span>
+</div></div>
+<div class="dodont"><div><b>Do</b><p>Use for one short status, category or id: New, Vol. 1, Case Study #5487, SVG.</p></div><div class="dont"><b>Don’t</b><p>Use as a button or for sentences. A tag never takes a click.</p></div></div>
 <h2>Status levels</h2>
-<p>When a page needs more than one level of status, step down in weight instead of adding colors: Critical is black with yellow type, Warning is a black outline, Working is a newsprint block with black type and no border.</p>
-<div class="demo"><div class="demo-stage" style="display:flex;gap:16px;align-items:center;flex-wrap:wrap">
+<p>When a page needs more than one level of status, step down in weight instead of adding colors: Critical is the dark tag, Warning a pill outline, Working the light tag.</p>
+<div class="demo"><div class="demo-stage" style="display:flex;gap:12px;align-items:center;flex-wrap:wrap">
 <span class="sys-tag">Critical</span>
 <span class="sys-tag sys-tag--outline">Warning</span>
-<span class="sys-tag sys-tag--plain">Working</span>
+<span class="sys-tag sys-tag--light">Working</span>
 </div></div>
+<h2>Parts</h2>
+<table><tr><th>Variant</th><th>Class</th><th>Look</th></tr>
+<tr><td>Dark</td><td><code>.sys-tag</code></td><td>Black pill, yellow caps</td></tr>
+<tr><td>Light</td><td><code>.sys-tag--light</code></td><td>Newsprint pill, black caps; white inside a newsprint panel (table, card)</td></tr>
+<tr><td>White</td><td><code>.sys-tag--white</code></td><td>White pill, black caps; on newsprint or a color</td></tr>
+<tr><td>Warning</td><td><code>.sys-tag--outline</code></td><td>Thin black outline, black caps</td></tr>
+<tr><td>Small</td><td>default</td><td>24px tall, 12px type</td></tr>
+<tr><td>Medium</td><td><code>.sys-tag--md</code></td><td>32px tall, 13px type</td></tr>
+</table>
 <h2>Stipulations</h2>
 <ul>
-<li>Critical is always the plain tag: black block, yellow type. Magenta type on black or a magenta block were tried and dropped.</li>
-<li>The count of missing items next to a chart (“2 not recorded”) uses the plain tag too, because it’s part of the critical alert.</li>
+<li><b>Tags are pills.</b> Only tags and the <a href="toggle.html">toggle</a> are rounded; everything else stays square, so a tag can never be mistaken for a button.</li>
+<li>No border on dark, light or white tags. The Warning outline is the one exception.</li>
+<li><b>Light on white, white on anything else.</b> On a white page use the light tag; on newsprint or a color use the white tag, so the tag always shows against what’s behind it. Dark works on any light background.</li>
+<li>Critical is always the dark tag: black, yellow type. Magenta type on black or a magenta block were tried and dropped.</li>
+<li>The count of missing items next to a chart (“2 not recorded”) uses the dark tag too, because it’s part of the critical alert.</li>
 <li>A critical tag in a notification sits inside the <a href="inline-notification.html">inline notification</a> container (yellow rule on pale yellow).</li>
+<li>Small everywhere by default; medium only beside a small content switcher or another 32px control.</li>
+<li><code>.sys-tag--plain</code> is the 2.x name for the light tag and still works.</li>
 </ul>
 </main>
 <script src="../docs/docs.js"></script>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/svg+xml" href="../icons/jonesco-system.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="../icons/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="../icons/favicon-96.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="../icons/apple-touch-icon.png">
+  <link rel="manifest" href="../manifest.webmanifest">
+  <meta name="theme-color" content="#000000">
+  <title>Content switcher · Jonesco System</title>
+  <link rel="stylesheet" href="../system.css">
+  <link rel="stylesheet" href="../patterns.css">
+  <link rel="stylesheet" href="../docs/docs.css">
+</head>
+<body data-root="../" data-page="components/content-switcher">
+<main class="docs-main">
+<h1>Content switcher</h1>
+<p class="lead">A segmented choice in a thin black border: two or more views of the same content, one at a time. The chosen option is filled black. Used for /mo /yr and for tabs. Named Switch until 3.0.0.</p>
+<div class="demo"><div class="demo-stage">
+<div class="sys-content-switcher" role="group" aria-label="Show amounts per month or per year"><button type="button" aria-pressed="true">/mo</button><button type="button" aria-pressed="false">/yr</button></div>
+</div></div>
+<h3>Sizes</h3>
+<p>Small is the default. Medium (<code>.sys-content-switcher--md</code>) is 40px tall, the same as a <a href="text-input.html">text input</a>, for a switcher that sits in a row with a search or text field.</p>
+<div class="demo"><div class="demo-stage">
+<div class="cs-sizes">
+<div class="sys-content-switcher" role="group" aria-label="Small"><button type="button" aria-pressed="true">All</button><button type="button" aria-pressed="false">SVG</button><button type="button" aria-pressed="false">CSS</button></div>
+<div class="cs-row"><div class="sys-content-switcher sys-content-switcher--md" role="group" aria-label="Medium"><button type="button" aria-pressed="true">All</button><button type="button" aria-pressed="false">SVG</button><button type="button" aria-pressed="false">CSS</button></div><input class="sys-input" type="search" placeholder="Search" aria-label="Search"></div>
+</div>
+</div></div>
+<h3>As tabs</h3>
+<div class="demo"><div class="demo-stage">
+<div class="sys-content-switcher sys-content-switcher--tabs" role="tablist" aria-label="Views"><button type="button" role="tab" aria-selected="true">Planner<span class="count">9</span></button><button type="button" role="tab" aria-selected="false">Portfolio<span class="count">10</span></button><button type="button" role="tab" aria-selected="false">Frontier<span class="count">6</span></button></div>
+</div></div>
+<h2>Stipulations</h2>
+<ul>
+<li>Use <code>aria-pressed</code> for a toggle and <code>role="tab"</code> + <code>aria-selected</code> for tabs; the styles follow those attributes.</li>
+<li>Tabs never scroll sideways. On phones the options split the width evenly and labels may wrap.</li>
+<li>No underline tabs and no accent on the chosen option: the black fill is the one active state.</li>
+<li>A count sits after the label in body type.</li>
+<li><b>Match the row.</b> Beside a text field, use medium so the two are the same height (40px). Everywhere else, small. Don’t stretch a switcher to fit anything else.</li>
+<li><b>Content switcher or toggle?</b> Choosing between named views (per month or per year, Planner or Portfolio) is a content switcher. Turning one setting on or off is a <a href="toggle.html">toggle</a>.</li>
+<li>Classes: <code>.sys-content-switcher</code> and <code>.sys-content-switcher--tabs</code>. The old <code>.sys-switch</code> names still work as deprecated aliases; use the new ones in new work.</li>
+</ul>
+</main>
+<script src="../docs/docs.js"></script>
+</body>
+</html>

@@ -22,7 +22,39 @@
 <a class="sys-btn" href="#"><span>Shop the books</span><span class="plus">+</span></a>
 <a class="sys-btn sys-btn--ghost" href="#"><span>Look inside</span><span class="plus">↓</span></a>
 </div></div>
-<h2>Stipulations</h2><ul><li>One primary (black) button per area; the ghost is the secondary.</li><li>Square corners, always.</li><li>Buying goes through a black button that names where it goes: “Buy on Amazon”, “Buy now”.</li></ul>
+<h2>Sizes</h2>
+<p>Large is the default, for the call to action on a page. Medium (<code>.sys-btn--md</code>, 40px) and small (<code>.sys-btn--sm</code>, 32px) match the <a href="content-switcher.html">medium and small content switchers</a>, so a button lines up with a switcher, a <a href="text-input.html">text input</a> or a <a href="tag.html">tag</a> in the same row.</p>
+<div class="demo"><div class="demo-stage">
+<div class="btn-sizes">
+<div><a class="sys-btn" href="#"><span>Large</span><span class="plus">+</span></a><a class="sys-btn sys-btn--ghost" href="#"><span>Large</span><span class="plus">+</span></a></div>
+<div><a class="sys-btn sys-btn--md" href="#"><span>Medium</span><span class="plus">+</span></a><a class="sys-btn sys-btn--md sys-btn--ghost" href="#"><span>Medium</span><span class="plus">+</span></a></div>
+<div><a class="sys-btn sys-btn--sm" href="#"><span>Small</span><span class="plus">+</span></a><a class="sys-btn sys-btn--sm sys-btn--ghost" href="#"><span>Small</span><span class="plus">+</span></a></div>
+</div>
+</div></div>
+<h3>In a row</h3>
+<div class="demo"><div class="demo-stage">
+<div class="btn-sizes">
+<div><div class="sys-content-switcher sys-content-switcher--md" role="group" aria-label="Period"><button type="button" aria-pressed="true">/mo</button><button type="button" aria-pressed="false">/yr</button></div><input class="sys-input" type="search" placeholder="Search" aria-label="Search" style="width:200px"><button class="sys-btn sys-btn--md" type="button"><span>Export</span><span class="plus">↓</span></button></div>
+<div><div class="sys-content-switcher" role="group" aria-label="Period"><button type="button" aria-pressed="true">/mo</button><button type="button" aria-pressed="false">/yr</button></div><span class="sys-tag sys-tag--md sys-tag--light">12 accounts</span><button class="sys-btn sys-btn--sm sys-btn--ghost" type="button"><span>Show all</span><span class="plus">+</span></button></div>
+</div>
+</div></div>
+<h2>Icon only</h2>
+<p>A square button with one glyph (<code>.sys-btn--icon</code>), in the same three sizes and the same black and ghost. It always has a <a href="tooltip.html">tooltip</a> and an <code>aria-label</code> with the same words. Hover or tab to each one.</p>
+<div class="demo"><div class="demo-stage">
+<div class="btn-sizes btn-icons">
+<div><button type="button" class="sys-btn sys-btn--icon sys-tooltip" aria-label="Download" data-tip="Download"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg></button><button type="button" class="sys-btn sys-btn--icon sys-btn--ghost sys-tooltip" aria-label="Copy" data-tip="Copy"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="9" y="9" width="11" height="11"/><path d="M15 9V4H4v11h5"/></svg></button><button type="button" class="sys-btn sys-btn--icon sys-btn--ghost sys-tooltip" aria-label="Add" data-tip="Add"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button></div>
+<div><button type="button" class="sys-btn sys-btn--md sys-btn--icon sys-tooltip" aria-label="Download" data-tip="Download"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg></button><button type="button" class="sys-btn sys-btn--md sys-btn--icon sys-btn--ghost sys-tooltip" aria-label="Copy" data-tip="Copy"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="9" y="9" width="11" height="11"/><path d="M15 9V4H4v11h5"/></svg></button><button type="button" class="sys-btn sys-btn--md sys-btn--icon sys-btn--ghost sys-tooltip" aria-label="Add" data-tip="Add"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button></div>
+<div><button type="button" class="sys-btn sys-btn--sm sys-btn--icon sys-tooltip" aria-label="Download" data-tip="Download"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg></button><button type="button" class="sys-btn sys-btn--sm sys-btn--icon sys-btn--ghost sys-tooltip" aria-label="Copy" data-tip="Copy"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="9" y="9" width="11" height="11"/><path d="M15 9V4H4v11h5"/></svg></button><button type="button" class="sys-btn sys-btn--sm sys-btn--icon sys-btn--ghost sys-tooltip" aria-label="Add" data-tip="Add"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button></div>
+</div>
+</div></div>
+<h2>Parts</h2>
+<table><tr><th>Size</th><th>Class</th><th>Height</th><th>Type</th><th>Pairs with</th></tr>
+<tr><td>Large</td><td><code>.sys-btn</code></td><td>64px</td><td>15px caps, 28px plus</td><td>A page’s call to action</td></tr>
+<tr><td>Medium</td><td><code>.sys-btn--md</code></td><td>40px</td><td>13px caps, 20px plus</td><td>Medium content switcher, text input</td></tr>
+<tr><td>Small</td><td><code>.sys-btn--sm</code></td><td>32px</td><td>13px caps, 17px plus</td><td>Small content switcher, medium tag</td></tr>
+<tr><td>Icon only</td><td>add <code>.sys-btn--icon</code> to any size</td><td>Square: 64, 40 or 32px</td><td>24, 20 or 16px glyph</td><td>The same row as a button of that size</td></tr>
+</table>
+<h2>Stipulations</h2><ul><li>One primary (black) button per area; the ghost is the secondary.</li><li>Square corners, always.</li><li>Buying goes through a black button that names where it goes: “Buy on Amazon”, “Buy now”.</li><li><b>Icon only needs words somewhere else:</b> a <a href="tooltip.html">tooltip</a> and an <code>aria-label</code> saying the same thing. Use it for actions people know by their icon (download, copy, add, close); anything else gets a label. Glyphs are 2px strokes with square ends, drawn in <code>currentColor</code>.</li><li><b>Icon only button or icon button?</b> A <code>.sys-btn--icon</code> is a full button, black or outlined, that sits in a row of buttons. A <a href="buttons-small.html">icon button</a> (<code>.sys-icon-btn</code>) is a quiet glyph with no box, for inside content and headers.</li><li><b>Size to the row.</b> Large stands alone as a page’s call to action. In a toolbar or a row of controls, match the button to its neighbors: medium beside a medium switcher or a text input, small beside a small switcher.</li></ul>
 </main>
 <script src="../docs/docs.js"></script>
 </body>

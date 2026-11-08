@@ -24,6 +24,7 @@ const NAV = [
     ["components/tag", "Tag"],
     ["components/button", "Button"],
     ["components/tile", "Tile"],
+    ["components/card", "Card"],
     ["components/specs", "Spec list"],
     ["components/paper", "Paper"],
     ["components/band", "Band"],
@@ -31,8 +32,11 @@ const NAV = [
     ["components/stat", "Stat"],
     ["components/table", "Table"],
     ["components/meter", "Meter"],
-    ["components/switch", "Switch"],
+    ["components/content-switcher", "Content switcher"],
+    ["components/toggle", "Toggle"],
+    ["components/text-input", "Text input"],
     ["components/buttons-small", "Label & icon buttons"],
+    ["components/tooltip", "Tooltip"],
     ["components/section-nav", "Section nav"],
     ["components/inline-notification", "Inline notification"],
   ]],
@@ -43,6 +47,9 @@ const NAV = [
   ]],
   ["Reference", [
     ["changelog", "Changelog"],
+  ]],
+  ["Resources", [
+    ["resources/style-specimens", "Style specimens"],
   ]],
 ];
 
@@ -116,8 +123,19 @@ const NAV = [
     d.append(pre);
   });
 
+  // examples work: a content switcher selects what you click, a toggle flips
+  document.querySelectorAll(".demo-stage").forEach((st) => st.addEventListener("click", (e) => {
+    const opt = e.target.closest(".sys-content-switcher > button, .sys-switch > button");
+    if (opt) {
+      const tabs = opt.getAttribute("role") === "tab";
+      [...opt.parentElement.children].forEach((b) => b.setAttribute(tabs ? "aria-selected" : "aria-pressed", String(b === opt)));
+    }
+    const tog = e.target.closest(".sys-toggle");
+    if (tog && !tog.disabled) tog.setAttribute("aria-checked", String(tog.getAttribute("aria-checked") !== "true"));
+  }));
+
   const foot = document.createElement("div");
   foot.className = "docs-foot";
-  foot.innerHTML = `Jonesco System · v2.1.0 · <a href="${root}changelog.html">Changelog</a>`;
+  foot.innerHTML = `Jonesco System · v3.0.0 · <a href="${root}changelog.html">Changelog</a>`;
   main.append(foot);
 })();

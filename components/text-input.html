@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/svg+xml" href="../icons/jonesco-system.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="../icons/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="../icons/favicon-96.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="../icons/apple-touch-icon.png">
+  <link rel="manifest" href="../manifest.webmanifest">
+  <meta name="theme-color" content="#000000">
+  <title>Text input · Jonesco System</title>
+  <link rel="stylesheet" href="../system.css">
+  <link rel="stylesheet" href="../patterns.css">
+  <link rel="stylesheet" href="../docs/docs.css">
+</head>
+<body data-root="../" data-page="components/text-input">
+<main class="docs-main">
+<h1>Text input</h1>
+<p class="lead">A 40px field on newsprint with no border. Focus draws a thin black border.</p>
+<div class="demo"><div class="demo-stage">
+<div class="field-demo">
+  <label class="sys-field"><span class="sys-field__label">Name</span><input class="sys-input" type="text" placeholder="Your name" autocomplete="off"></label>
+  <label class="sys-field"><span class="sys-field__label">Email</span><input class="sys-input" type="email" value="wes@" aria-invalid="true" aria-describedby="email-err"><span class="sys-field__error" id="email-err">Add the rest of the address.</span></label>
+  <label class="sys-field"><span class="sys-field__label">Note</span><textarea class="sys-input" placeholder="Anything we should know"></textarea><span class="sys-field__help">Optional. Up to 500 characters.</span></label>
+  <label class="sys-field"><span class="sys-field__label">Account</span><input class="sys-input" type="text" value="Locked" disabled></label>
+</div>
+</div></div>
+<h3>Search, beside a content switcher</h3>
+<p>A search field leads with a magnifying glass; <code>type="search"</code> is all it needs. Without a visible label, give the field an <code>aria-label</code>. At 40px it matches a <a href="content-switcher.html">medium content switcher</a>.</p>
+<div class="demo"><div class="demo-stage">
+<div class="cs-row"><div class="sys-content-switcher sys-content-switcher--md" role="group" aria-label="Technique"><button type="button" aria-pressed="true">All</button><button type="button" aria-pressed="false">SVG</button><button type="button" aria-pressed="false">CSS</button></div><input class="sys-input cs-field" type="search" placeholder="Search" aria-label="Search"></div>
+</div></div>
+<h2>Parts</h2>
+<table><tr><th>Part</th><th>Markup</th><th>Look</th></tr>
+<tr><td>Field</td><td><code>.sys-field</code>, a <code>&lt;label&gt;</code> around the parts</td><td>Stacked, 6px apart</td></tr>
+<tr><td>Label</td><td><code>.sys-field__label</code></td><td>13px caps label</td></tr>
+<tr><td>Input</td><td><code>input.sys-input</code> or <code>textarea.sys-input</code></td><td>40px tall (textarea 112px and up), newsprint, no border; thin black border on focus; 16px body</td></tr>
+<tr><td>Search</td><td><code>input.sys-input</code> with <code>type="search"</code></td><td>Leads with a 16px magnifying glass, 12px in; the text starts after it</td></tr>
+<tr><td>Help</td><td><code>.sys-field__help</code> (optional)</td><td>14px, muted</td></tr>
+<tr><td>Error</td><td><code>aria-invalid="true"</code> on the input, <code>.sys-field__error</code> after it</td><td>A thin magenta rule around the field, kept on focus; the message under it in bold magenta</td></tr>
+</table>
+<h2>Stipulations</h2>
+<ul>
+<li><b>Text fields are newsprint with no border.</b> Every text field, search box and textarea fills with newsprint; the border appears only on focus. On a newsprint panel (table, card, paper) the field turns white so it still shows.</li>
+<li><b>40px tall.</b> The same height as a medium content switcher and close to a 44px touch target with its label; beside a switcher, use the medium size so the row lines up.</li>
+<li>Square corners. Focus draws a thin black border (the space is held by a clear border, so nothing shifts); no glow and no second ring.</li>
+<li>Labels sit above in caps. Placeholder text is a hint, never the label.</li>
+<li><b>Errors are magenta:</b> a thin magenta rule around the field and a bold magenta message under it that says what to do (“Add the rest of the address”). Never red. Set <code>aria-invalid="true"</code> and point <code>aria-describedby</code> at the message.</li>
+<li>Body text is 16px so phones don’t zoom in when the field gets focus.</li>
+</ul>
+</main>
+<script src="../docs/docs.js"></script>
+</body>
+</html>

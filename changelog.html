@@ -17,6 +17,22 @@
 <body data-root="" data-page="changelog">
 <main class="docs-main">
 <h1>Changelog</h1>
+<h2>3.0.0 · 2026-11-08</h2>
+<ul>
+<li><b>Tags are pills with no border</b> (<a href="components/tag.html">Tag</a>). Three kinds: dark (<code>.sys-tag</code>, black with yellow type), light (<code>.sys-tag--light</code>, newsprint with black type) and white (<code>.sys-tag--white</code>, for newsprint or a color behind it). Two sizes: small, 24px, the default; medium (<code>.sys-tag--md</code>), 32px. Warning stays a thin outline, now a pill. <code>.sys-tag--plain</code> still works as the light tag.</li>
+<li>Major: tags change shape and size everywhere. Tags and the toggle are the only exceptions to square corners. Sites pinned to 2.x are unaffected.</li>
+<li><b>Card</b> (<a href="components/card.html">new page</a>): <code>.sys-card</code> is art on top and the words below on newsprint, with no border. Optional id, sentence-case title, text, and a foot with a tag and a “View” label pinned to the bottom. <code>.sys-card--sm</code> for dense grids. It comes from jonesco.com’s work cards and is now used on a second page.</li>
+<li><b>Switch is now Content switcher.</b> <code>.sys-content-switcher</code> and <code>.sys-content-switcher--tabs</code> (<a href="components/content-switcher.html">renamed page</a>). <code>.sys-switch</code> keeps working as a deprecated alias, so nothing changes on sites that use it.</li>
+<li><b>Icon only button:</b> <code>.sys-btn--icon</code> makes any button size a square with one glyph (24, 20 or 16px), always with a tooltip and an <code>aria-label</code>.</li>
+<li><b>Button sizes:</b> today’s button is large (64px) and stays the default. New medium (<code>.sys-btn--md</code>, 40px) and small (<code>.sys-btn--sm</code>, 32px) match the medium and small content switchers.</li>
+<li><b>Content switcher sizes:</b> small stays the default; medium (<code>.sys-content-switcher--md</code>) is 40px tall to match a text field beside it.</li>
+<li><b>Toggle</b> (<a href="components/toggle.html">new page</a>): <code>.sys-toggle</code>, one setting on or off. A round knob in a pill track with a thin black border that fills black when on; the label names the setting, never its state. The knob slides with a slight overshoot and stretches while pressed. Works on black.</li>
+<li><b>Text input</b> (<a href="components/text-input.html">new page</a>): <code>.sys-input</code> in a <code>.sys-field</code> with a caps label, help and error text. Text fields are newsprint with no border, 40px tall to line up with a medium content switcher; focus draws a thin black border, errors draw a magenta rule around the field with the message in magenta under it. Works for textareas, and a search box (<code>type="search"</code>) leads with a magnifying glass.</li>
+<li><b>Tooltip</b> (<a href="components/tooltip.html">new page</a>): <code>.sys-tooltip</code> with <code>data-tip</code>, a black label with white type (white with black type on black) on hover and keyboard focus, with a tail whose tip sits 4px from the control. Below, above, left or right; above or below can line up at the start, middle or end. Icon button tooltips change from yellow to the same black.</li>
+<li><b>Docs:</b> content switcher and toggle examples respond to clicks.</li>
+<li><b>Resources</b> in the docs menu: <a href="resources/style-specimens.html">Style specimens</a>, a reference page of illustration and motion drawn in code. It uses the system and its cards; it isn’t part of the system.</li>
+<li><b>Docs on phones:</b> the sidebar is a menu, previous and next links close every page, and nothing scrolls sideways.</li>
+</ul>
 <h2>2.1.0 · 2026-11-06</h2>
 <ul>
 <li><b>Table</b> (<a href="components/table.html">new page</a>): <code>.sys-table</code> is a newsprint panel with padding around a data table. Caps headers on the thick rule, rows on thin rules, an optional bold total under a thick rule, every column left-aligned with tabular digits. Inside it the Working tag is white so it stays visible.</li>

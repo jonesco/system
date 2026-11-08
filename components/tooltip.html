@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/svg+xml" href="../icons/jonesco-system.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="../icons/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="../icons/favicon-96.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="../icons/apple-touch-icon.png">
+  <link rel="manifest" href="../manifest.webmanifest">
+  <meta name="theme-color" content="#000000">
+  <title>Tooltip · Jonesco System</title>
+  <link rel="stylesheet" href="../system.css">
+  <link rel="stylesheet" href="../patterns.css">
+  <link rel="stylesheet" href="../docs/docs.css">
+</head>
+<body data-root="../" data-page="components/tooltip">
+<main class="docs-main">
+<h1>Tooltip</h1>
+<p class="lead">A short black label with white type that names a control. It shows on hover and on keyboard focus.</p>
+<div class="demo"><div class="demo-stage tip-demo">
+<button type="button" class="sys-btn sys-btn--sm sys-btn--ghost sys-tooltip" data-tip="Downloads a CSV"><span>Export</span><span class="plus">↓</span></button>
+<a href="#" class="sys-tooltip sys-tooltip--above" data-tip="Opens in a new tab">Statement PDF</a>
+<button type="button" class="sys-icon-btn" style="--icon-size:20px" aria-label="Copy style" data-tip="Copy style"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="7" y="7" width="10" height="10"/><path d="M13 7V3H3v10h4"/></svg></button>
+</div></div>
+<p>Hover or tab to each one. The icon button’s tooltip lines up with its right edge, since icon buttons sit at the end of a row; the others center under or over their control.</p>
+<h3>On black</h3>
+<div class="demo"><div class="demo-stage on-dark on-black tip-demo">
+<button type="button" class="sys-link sys-tooltip sys-tooltip--start" data-tip="Opens the planner">Details +</button>
+<button type="button" class="sys-icon-btn" style="--icon-size:22px" aria-label="Changelog" data-tip="Changelog"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 7v5l3 3"/><circle cx="12" cy="12" r="9"/></svg></button>
+</div></div>
+<h3>Positions</h3>
+<p>The tail points at the control from 4px away. Below or above, the tooltip lines up at the start, middle or end; left or right, it sits beside the control, centered on it. Shown open here.</p>
+<div class="demo" data-nocode><div class="demo-stage tip-grid">
+<button type="button" class="sys-btn sys-btn--sm sys-btn--ghost sys-tooltip sys-tooltip--start is-open" data-tip="Below · start">Button</button>
+<button type="button" class="sys-btn sys-btn--sm sys-btn--ghost sys-tooltip is-open" data-tip="Below · middle">Button</button>
+<button type="button" class="sys-btn sys-btn--sm sys-btn--ghost sys-tooltip sys-tooltip--end is-open" data-tip="Below · end">Button</button>
+<button type="button" class="sys-btn sys-btn--sm sys-btn--ghost sys-tooltip sys-tooltip--above sys-tooltip--start is-open" data-tip="Above · start">Button</button>
+<button type="button" class="sys-btn sys-btn--sm sys-btn--ghost sys-tooltip sys-tooltip--above is-open" data-tip="Above · middle">Button</button>
+<button type="button" class="sys-btn sys-btn--sm sys-btn--ghost sys-tooltip sys-tooltip--above sys-tooltip--end is-open" data-tip="Above · end">Button</button>
+<button type="button" class="sys-btn sys-btn--sm sys-btn--ghost sys-tooltip sys-tooltip--right is-open" data-tip="Right">Button</button>
+<span></span>
+<button type="button" class="sys-btn sys-btn--sm sys-btn--ghost sys-tooltip sys-tooltip--left is-open" data-tip="Left">Button</button>
+</div></div>
+<h2>Parts</h2>
+<table><tr><th>Part</th><th>Markup</th><th>Look</th></tr>
+<tr><td>Tooltip</td><td><code>.sys-tooltip</code> with <code>data-tip="…"</code> on the control</td><td>Black block, 12px white caps, 6px from the control; white with black caps on black</td></tr>
+<tr><td>On an icon button</td><td><code>.sys-icon-btn</code> with <code>data-tip</code>; no extra class. Set <code>--icon-size</code> if the glyph isn’t 24px</td><td>Lines up with the button’s right edge; the tail points at the center of the icon, 4px from the glyph</td></tr>
+<tr><td>Tail</td><td>Drawn by the tooltip</td><td>6px triangle in the tooltip’s color; its tip always 4px from the control</td></tr>
+<tr><td>Side</td><td>below (default), <code>.sys-tooltip--above</code>, <code>.sys-tooltip--left</code>, <code>.sys-tooltip--right</code></td><td>Which side of the control the tooltip and tail sit on</td></tr>
+<tr><td>Along the edge</td><td>middle (default), <code>.sys-tooltip--start</code>, <code>.sys-tooltip--end</code></td><td>Above or below only. At the start or end the tooltip lines up with that edge and the tail’s center sits 22px in, the center of a 44px icon button</td></tr>
+</table>
+<h2>Stipulations</h2>
+<ul>
+<li><b>Black with white type</b> on white, newsprint or a color; <b>white with black type</b> on black, so it always stands off what’s behind it.</li>
+<li><b>One to three words, naming the action:</b> “Copy style”, not “Click here to copy this style to your clipboard”. Changes to say what happened (“Copied”) when that helps.</li>
+<li><b>Never the only place something is said.</b> Phones have no hover, so the control has to make sense without its tooltip; an icon button also carries the same words in <code>aria-label</code>.</li>
+<li>It shows after a short pause (0.15s) on hover and at once on keyboard focus, and never takes a click.</li>
+<li>Square, with a tail and no shadow. Only on controls, never on plain text.</li>
+<li><b>The tail points at the control, 4px away,</b> whatever side the tooltip is on. Pick the side and alignment that keep the tooltip on screen: end for a control at the right edge, start at the left edge, above near the bottom of the window.</li>
+</ul>
+</main>
+<script src="../docs/docs.js"></script>
+</body>
+</html>
