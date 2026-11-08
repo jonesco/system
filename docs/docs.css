@@ -8,6 +8,8 @@ body { font-size: 16px; }
 .docs-side a:hover { border-left-color: var(--ink); }
 .docs-side a[aria-current="page"] { border-left-color: var(--accent); font-weight: 700; }
 .docs-side .docs-side-ext, .docs-menu-btn { display: none; }
+/* the favicon mark beside the name, in its own magenta (the header pattern whitens logo art) */
+.sys-brand .docs-mark { height: 40px; filter: none; }
 .docs-main { padding: 48px 56px 96px; max-width: 980px; }
 .docs-main > h1 { font-family: var(--font-display); font-weight: 700; text-transform: uppercase; letter-spacing: var(--track-display);
   font-size: clamp(48px, 6vw, 84px); line-height: .9; margin: 0; padding-bottom: 20px; border-bottom: var(--rule); }
@@ -55,6 +57,7 @@ body { font-size: 16px; }
 @media (max-width: 860px) {
   .docs-shell { grid-template-columns: minmax(0, 1fr); }
   .sys-header .sys-nav { display: none; }
+  .sys-brand .docs-mark { height: 30px; }
   .docs-menu-btn { display: block; height: 44px; margin-right: -8px; padding: 0 8px; border: 0; background: none; color: inherit; cursor: pointer;
     font-family: var(--font-label); font-weight: 700; font-size: var(--size-label); letter-spacing: var(--track-label); text-transform: uppercase; }
   .docs-menu-btn:hover, .docs-menu-btn:focus-visible { color: var(--highlight); }
