@@ -32,6 +32,8 @@ body { font-size: 16px; }
 .demo-stage { padding: 32px; background: var(--paper); overflow: hidden; }
 .demo-stage.on-dark { background: var(--ink); color: var(--paper); }
 .demo-stage.flush { padding: 0; }
+/* pinned patterns shown as examples stay in their frame: no sticking, no stacking over the docs header or the phone menu */
+.demo-stage .sys-header, .demo-stage .sys-section-nav { position: static; z-index: 0; }
 .demo pre { margin: 0; padding: 16px 20px; background: #111; color: #eee; overflow-x: auto; font-size: 13px; line-height: 1.5; border-top: var(--rule); }
 .demo pre code { background: none; padding: 0; color: inherit; }
 /* do / don't */
@@ -64,7 +66,7 @@ body { font-size: 16px; }
   .docs-menu-btn { display: block; height: 44px; margin-right: -8px; padding: 0 8px; border: 0; background: none; color: inherit; cursor: pointer;
     font-family: var(--font-label); font-weight: 700; font-size: var(--size-label); letter-spacing: var(--track-label); text-transform: uppercase; }
   .docs-menu-btn:hover, .docs-menu-btn:focus-visible { color: var(--highlight); }
-  .docs-side { display: none; position: fixed; z-index: 9; top: var(--hdr); left: 0; right: 0; bottom: 0; height: auto; align-self: auto;
+  .docs-side { display: none; position: fixed; z-index: 20; top: var(--hdr); left: 0; right: 0; bottom: 0; height: auto; align-self: auto;
     border-right: 0; padding: 24px var(--gutter) 48px; background: var(--paper); overscroll-behavior: contain; }
   .docs-menu-open .docs-side { display: block; }
   .docs-menu-open body { overflow: hidden; }
