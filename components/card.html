@@ -17,7 +17,7 @@
 <body data-root="../" data-page="components/card">
 <main class="docs-main">
 <h1>Card</h1>
-<p class="lead">Art on top, the words below on newsprint. One block with no border: the picture meets the newsprint edge to edge.</p>
+<p class="lead">Art on top, the words below on newsprint. One block with no border: a 1px white hairline is all that separates the picture from the newsprint.</p>
 <div class="demo"><div class="demo-stage">
 <div class="card-demo">
   <a class="sys-card" href="#">
@@ -76,7 +76,7 @@
 <h2>Parts</h2>
 <table><tr><th>Part</th><th>Markup</th><th>Look</th></tr>
 <tr><td>Card</td><td><code>a.sys-card</code> or <code>article.sys-card</code></td><td>Newsprint, no border, square</td></tr>
-<tr><td>Art</td><td><code>.sys-card__art</code> with an <code>img</code>, or live artwork</td><td>4:3, cropped from the top, black behind</td></tr>
+<tr><td>Art</td><td><code>.sys-card__art</code> with an <code>img</code>, or live artwork</td><td>4:3, cropped from the top, black behind; a 1px white hairline below it</td></tr>
 <tr><td>Body</td><td><code>.sys-card__body</code></td><td>20–24px padding (18px on phones)</td></tr>
 <tr><td>Id</td><td><code>.sys-card__id</code> (optional)</td><td>13px label, muted</td></tr>
 <tr><td>Title</td><td><code>.sys-card__title</code></td><td>Bold No. 2, sentence case, 26px (20px small, 22px phones)</td></tr>
@@ -85,7 +85,7 @@
 </table>
 <h2>Stipulations</h2>
 <ul>
-<li><b>No border and no rule under the title.</b> The newsprint is the edge. On a newsprint page section, use a <a href="tile.html">Tile</a> instead.</li>
+<li><b>No border and no rule under the title.</b> The newsprint is the edge. The only line is the 1px white hairline between the art and the words; keep it even when the art is pale. On a newsprint page section, use a <a href="tile.html">Tile</a> instead.</li>
 <li><b>Card or Tile?</b> A card carries a description and a foot; a tile is a picture and a title over the thick rule.</li>
 <li>Title is sentence case in Bold No. 2 (see <a href="../foundations/type.html">Typography · Case</a>).</li>
 <li>A linked card turns its “View” label magenta on hover and scales the image to 1.04; the title stays black. Live artwork doesn’t scale.</li>

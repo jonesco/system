@@ -395,7 +395,7 @@ textarea.sys-input { height: auto; min-height: 112px; padding: 10px 12px; line-h
 .sys-card { display: flex; flex-direction: column; min-width: 0; background: var(--newsprint); color: var(--ink); text-decoration: none; }
 .sys-card__art { display: block; position: relative; aspect-ratio: 4 / 3; overflow: hidden; background: var(--ink); }
 .sys-card__art > img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: top; transition: transform .25s; }
-.sys-card__body { display: flex; flex-direction: column; flex: 1; padding: 20px 24px 24px; }
+.sys-card__body { display: flex; flex-direction: column; flex: 1; padding: 20px 24px 24px; border-top: 1px solid var(--paper); }   /* 3.1.0: a white hairline where the art meets the newsprint */
 .sys-card__id { display: block; margin: 0 0 6px; font-family: var(--font-label); font-weight: 700; font-size: var(--size-tag); letter-spacing: var(--track-label);
   color: var(--muted); font-variant-numeric: tabular-nums; }
 .sys-card__title { margin: 0 0 10px; font-family: var(--font-label); font-weight: 700; text-transform: none; letter-spacing: 0; font-size: 26px; line-height: 1.15;
