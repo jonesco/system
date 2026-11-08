@@ -2,8 +2,13 @@
 <html lang="en">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Style specimens · Jonesco System resources</title>
+<title>Style specimens · Jonesco System</title>
 <link rel="icon" type="image/svg+xml" href="../icons/jonesco-system.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="../icons/favicon-32.png">
+<link rel="icon" type="image/png" sizes="96x96" href="../icons/favicon-96.png">
+<link rel="apple-touch-icon" sizes="180x180" href="../icons/apple-touch-icon.png">
+<link rel="manifest" href="../manifest.webmanifest">
+<meta name="theme-color" content="#000000">
 <link rel="stylesheet" href="../system.css">
 <link rel="stylesheet" href="../patterns.css">
 <!-- fonts the specimen artwork is drawn in; the page itself is Trade Gothic -->
@@ -476,6 +481,27 @@ body{font-size:16px}
 .cam-sc::-webkit-scrollbar{display:none}
 .cam-sc div{height:700%}
 .cam-p{position:absolute;left:3cqw;bottom:2.4cqw;font:500 2.7cqw var(--f-mono);color:#A9AEC8;pointer-events:none}
+/* CRT fallback (no WebGL): bars, scanlines, curvature and vignette in CSS */
+.crt-fb{position:absolute;inset:0;background:#050505;display:grid;place-items:center}
+.crt-fb .scr{position:relative;width:88%;height:84%;border-radius:6% / 9%;overflow:hidden;
+  background:linear-gradient(90deg,#c0c0c0 0 14.28%,#c0c000 0 28.57%,#00c0c0 0 42.85%,#00c000 0 57.14%,#c000c0 0 71.42%,#c00000 0 85.71%,#0000c0 0);filter:saturate(1.2) contrast(1.1)}
+.crt-fb .scr::before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(0deg,rgba(0,0,0,.35) 0 1px,transparent 1px 3px)}
+.crt-fb .scr::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at center,transparent 55%,rgba(0,0,0,.75) 100%)}
+.crt-fb b{position:absolute;left:8%;top:10%;z-index:1;font:700 6cqw var(--f-mono);color:#fff;text-shadow:-.5cqw 0 rgba(255,0,60,.8),.5cqw 0 rgba(0,200,255,.8)}
+/* Shimmer text */
+.shm{position:absolute;inset:0;background:#111216;display:grid;align-content:center;padding:0 10cqw;gap:2cqw}
+.shm-t{margin:0;font:600 9cqw/1 var(--f-display);font-stretch:85%;letter-spacing:-.02em;
+  background:linear-gradient(100deg,#5d626b 0 38%,#fafafa 48%,#5d626b 58% 100%);background-size:260% 100%;background-position:78% 0;
+  -webkit-background-clip:text;background-clip:text;color:transparent}
+.shm-s{margin:0;font:500 3.4cqw var(--f-mono);color:#6d727b}
+.live .shm-t{animation:shm 2.4s linear infinite}
+@keyframes shm{from{background-position:100% 0}to{background-position:-60% 0}}
+/* Drag with momentum */
+.dm{position:absolute;inset:0;background:#EEF0F4;overflow:hidden;touch-action:pan-y;cursor:grab}
+.dm:active{cursor:grabbing}
+.dm-t{position:absolute;left:0;top:50%;display:flex;gap:3cqw;padding:0 6cqw;transform:translate(0,-50%);will-change:transform}
+.dm-c{flex:none;width:22cqw;aspect-ratio:3/4;border-radius:2.4cqw;display:grid;align-content:end;padding:2.4cqw;font:600 3.4cqw var(--f-display);color:#fff;user-select:none;-webkit-user-select:none}
+.dm-h{position:absolute;left:0;right:0;bottom:4cqw;text-align:center;font:500 2.6cqw var(--f-mono);color:#7A808A;pointer-events:none}
 </style>
 
 <header class="sys-header"><div class="sys-wrap sys-bar">
@@ -527,7 +553,7 @@ body{font-size:16px}
 
 <footer class="sys-footer"><div class="sys-wrap">
   <nav class="links"><a href="../index.html">Jonesco System</a><a href="#illustration">Illustration</a><a href="#motion">Motion</a></nav>
-  <p>Updated November 2026. Motion follows your reduced-motion setting; the toggle overrides it for this page.</p>
+  <p>Updated November 8, 2026. Motion follows your reduced-motion setting; the toggle overrides it for this page.</p>
 </div></footer>
 
 
@@ -570,6 +596,21 @@ function donut(A,B){const W=60,H=24,b=new Array(W*H).fill(' '),z=new Array(W*H).
     if(y<H&&y>=0&&x>=0&&x<W&&D>z[o]){z[o]=D;b[o]=ch[N>0?N:0];}}}
   let s='';for(let k=0;k<H;k++)s+=b.slice(k*W,k*W+W).join('')+'\n';return s;}
 
+const DPR=()=>Math.min(2,window.devicePixelRatio||1);
+let GLOK;
+function hasGL(){if(GLOK===undefined){try{const c=document.createElement('canvas'),g=c.getContext('webgl');GLOK=!!g;const l=g&&g.getExtension('WEBGL_lose_context');if(l)l.loseContext();}catch(e){GLOK=false;}}return GLOK;}
+// Like glStage, with extra float uniforms, and null (no message) when WebGL is off so the caller can draw a fallback
+function glStageU(st,frag,w,h,names){if(!hasGL())return null;const c=document.createElement('canvas');c.width=w||640;c.height=h||480;const g=c.getContext('webgl');if(!g)return null;
+  const sh=(t,s)=>{const o=g.createShader(t);g.shaderSource(o,s);g.compileShader(o);if(!g.getShaderParameter(o,g.COMPILE_STATUS))console.warn(g.getShaderInfoLog(o));return o;};
+  const pr=g.createProgram();g.attachShader(pr,sh(g.VERTEX_SHADER,'attribute vec2 p;void main(){gl_Position=vec4(p,0.,1.);}'));
+  g.attachShader(pr,sh(g.FRAGMENT_SHADER,'#ifdef GL_FRAGMENT_PRECISION_HIGH\nprecision highp float;\n#else\nprecision mediump float;\n#endif\nuniform vec2 R;uniform float T;'+(names||[]).map(n=>'uniform float '+n+';').join('')+'\n'+frag));
+  g.linkProgram(pr);if(!g.getProgramParameter(pr,g.LINK_STATUS))return null;
+  st.appendChild(c);g.useProgram(pr);const b=g.createBuffer();g.bindBuffer(g.ARRAY_BUFFER,b);g.bufferData(g.ARRAY_BUFFER,new Float32Array([-1,-1,3,-1,-1,3]),g.STATIC_DRAW);
+  const loc=g.getAttribLocation(pr,'p');g.enableVertexAttribArray(loc);g.vertexAttribPointer(loc,2,g.FLOAT,false,0,0);
+  const uR=g.getUniformLocation(pr,'R'),uT=g.getUniformLocation(pr,'T'),uX=(names||[]).map(n=>g.getUniformLocation(pr,n));
+  return (t,u)=>{g.viewport(0,0,c.width,c.height);g.uniform2f(uR,c.width,c.height);g.uniform1f(uT,t);uX.forEach((l,i)=>g.uniform1f(l,(u&&u[i])||0));g.drawArrays(g.TRIANGLES,0,3);};}
+// pointer position in the plate's 400x300 space
+const ptr=(st,e)=>{const b=st.getBoundingClientRect();return [(e.clientX-b.left)/b.width*400,(e.clientY-b.top)/b.height*300];};
 /* ================= Specimens ================= */
 const G=[
 {key:'illustration',title:'Illustration',intro:'Pictures and surfaces. A few drift gently when motion is on, but the look is the point.',secs:[
@@ -631,6 +672,34 @@ const G=[
  init(st){const W=800,H=600,[c,x]=raw(st,W,H),im=x.createImageData(W,H),d=im.data;
   for(let py=0;py<H;py++)for(let px=0;px<W;px++){const X=px/2-200,Y=py/2-150,f=1-.5*Math.exp(-(X*X+Y*Y)/(2*85*85)),u=200+X*f,v=150+Y*f,on=(Math.floor(u/20)+Math.floor(v/20))&1,o=(py*W+px)*4,val=on?18:242;d[o]=d[o+1]=d[o+2]=val;d[o+3]=255;}
   x.putImageData(im,0,0);}},
+{name:'Guilloche',d:'Banknote rosettes: fine spirograph curves layered into a lattice.',use:'Certificates, tickets, premium packaging, security-print looks',how:'SVG parametric paths: hypotrochoids at a few pen offsets, plus wave borders',tags:['SVG'],
+ init(st){const gcd=(a,b)=>b?gcd(b,a%b):a,f=v=>v.toFixed(1);
+  const rose=(cx,cy,R,r,dd,rot,sc)=>{const k=(R-r)/r,turns=r/gcd(R,r),n=turns*170;let p='';for(let i=0;i<=n;i++){const t=i/n*TAU*turns,x=(R-r)*Math.cos(t)+dd*Math.cos(k*t),y=(R-r)*Math.sin(t)-dd*Math.sin(k*t),c=Math.cos(rot),s=Math.sin(rot);p+=(i?'L':'M')+f(cx+(x*c-y*s)*sc)+' '+f(cy+(x*s+y*c)*sc);}return p;};
+  let s='<rect width="400" height="300" fill="#F1EDDF"/><g fill="none" stroke-linejoin="round">';
+  [[26,'#2F5D50',.7],[33,'#2F5D50',.6],[40,'#8A6D3B',.6],[47,'#2F5D50',.5],[54,'#5E8C7A',.5]].forEach(([dd,col,w],i)=>{s+=`<path d="${rose(200,150,90,33,dd,i*.06,1.12)}" stroke="${col}" stroke-width="${w}"/>`;});
+  s+=`<path d="${rose(200,150,40,15,12,0,1.05)}" stroke="#8A6D3B" stroke-width=".6"/>`;
+  for(const y0 of [22,278])for(let k=0;k<6;k++){let p='';for(let X=10;X<=390;X+=2){const y=y0+Math.sin(X*.09+k*1.05)*7*(y0<150?1:-1)*Math.cos(k*.5);p+=(X>10?'L':'M')+X+' '+f(y);}s+=`<path d="${p}" stroke="${k%2?'#8A6D3B':'#2F5D50'}" stroke-width=".55"/>`;}
+  st.innerHTML=svg(s+'</g>');}},
+{name:'Isotype',d:'Quantities shown as rows of repeated pictograms, one icon per unit.',use:'Explainers, annual reports, public information, infographics',how:'SVG symbols repeated with <use>; one icon equals a fixed amount',tags:['SVG'],
+ init(st){const rows=[['Walk',4,'#C8102E','w'],['Bike',3,'#1F4E9C','b'],['Bus',2,'#1A1A1A','u'],['Car',1,'#8C8C8C','c']];
+  let s=`<defs><g id="iso-w"><circle cx="12" cy="5" r="4.2"/><path d="M8 11h8l-1 13h-2.2l-.8-9-.8 9H9z"/></g>
+<g id="iso-b"><circle cx="6" cy="18" r="5" fill="none" stroke="currentColor" stroke-width="2.2"/><circle cx="20" cy="18" r="5" fill="none" stroke="currentColor" stroke-width="2.2"/><path d="M6 18l5-9h7l2 9M11 9l-1-3h-3" fill="none" stroke="currentColor" stroke-width="2.2"/></g>
+<g id="iso-u"><rect x="1" y="4" width="24" height="16" rx="2"/><rect x="4" y="7" width="5" height="5" fill="#F4EFE4"/><rect x="11" y="7" width="5" height="5" fill="#F4EFE4"/><rect x="18" y="7" width="5" height="5" fill="#F4EFE4"/><circle cx="7" cy="21" r="2.6"/><circle cx="19" cy="21" r="2.6"/></g>
+<g id="iso-c"><path d="M2 14l3-7h14l4 7h2v6H1v-6z"/><circle cx="7" cy="20.5" r="2.8" fill="#F4EFE4" stroke="currentColor" stroke-width="2"/><circle cx="19" cy="20.5" r="2.8" fill="#F4EFE4" stroke="currentColor" stroke-width="2"/></g></defs>
+<rect width="400" height="300" fill="#F4EFE4"/><text x="34" y="44" font-family="Helvetica Neue,Helvetica,Arial,sans-serif" font-weight="700" font-size="17" fill="#1A1A1A">Trips to work, per 10 people</text>
+<line x1="34" y1="56" x2="366" y2="56" stroke="#1A1A1A" stroke-width="2"/>`;
+  rows.forEach(([lab,n,col,id],j)=>{const y=74+j*52;s+=`<text x="34" y="${y+24}" font-family="Helvetica Neue,Helvetica,Arial,sans-serif" font-weight="700" font-size="15" fill="#1A1A1A">${lab}</text>`;
+   for(let i=0;i<n;i++)s+=`<g transform="translate(${100+i*48} ${y-4}) scale(1.6)" fill="${col}" color="${col}"><use href="#iso-${id}"/></g>`;});
+  s+='<text x="34" y="282" font-family="Helvetica Neue,Helvetica,Arial,sans-serif" font-size="10" fill="#6B6B6B">Each figure = 1 person. Illustrative numbers.</text>';
+  st.innerHTML=svg(s);}},
+{name:'Geometric tessellation',d:'A Penrose tiling: two rhombs that cover the plane without ever repeating.',use:'Architectural and Islamic-pattern motifs, tile and textile prints, math-y brands',how:'SVG paths from Robinson-triangle subdivision, filled by tile type',tags:['SVG'],
+ init(st){const phi=(1+Math.sqrt(5))/2,Rr=360;let tr=[];
+  for(let i=0;i<10;i++){let B=[Math.cos((2*i-1)*Math.PI/10)*Rr,Math.sin((2*i-1)*Math.PI/10)*Rr],C=[Math.cos((2*i+1)*Math.PI/10)*Rr,Math.sin((2*i+1)*Math.PI/10)*Rr];if(i%2===0)[B,C]=[C,B];tr.push([0,[0,0],B,C]);}
+  const L=(a,b,k)=>[a[0]+(b[0]-a[0])*k,a[1]+(b[1]-a[1])*k];
+  for(let g=0;g<6;g++){const n=[];for(const [c,A,B,C] of tr){if(c===0){const P=L(A,B,1/phi);n.push([0,C,P,B],[1,P,C,A]);}else{const Q=L(B,A,1/phi),R2=L(B,C,1/phi);n.push([1,R2,C,A],[1,Q,R2,B],[0,R2,Q,A]);}}tr=n;}
+  const f=p=>(p[0]+200).toFixed(1)+' '+(p[1]+150).toFixed(1);let a='',b='',e='';
+  for(const [c,A,B,C] of tr){if(Math.abs(A[0])>240&&Math.abs(B[0])>240)continue;const d=`M${f(A)}L${f(B)}L${f(C)}Z`;if(c===0)a+=d;else b+=d;e+=`M${f(C)}L${f(A)}L${f(B)}`;}
+  st.innerHTML=svg(`<rect width="400" height="300" fill="#F3E9D2"/><path d="${a}" fill="#1B4965"/><path d="${b}" fill="#E2B04A"/><path d="${e}" fill="none" stroke="#F3E9D2" stroke-width="1.1" stroke-linejoin="round"/>`);}},
 ]},
 {t:'Print and texture',items:[
 {name:'Duotone',d:'An image remapped to two inks, dark for shadows and bright for highlights.',use:'Unifying mixed photography, editorial headers',how:'Luminance mapped to a two-color ramp per pixel; an SVG feColorMatrix filter does the same',tags:['Canvas'],
@@ -694,6 +763,28 @@ const G=[
  stage:'<div class="clay"><div class="cl-a"></div><div class="cl-b"></div><div class="cl-c">Hi there</div></div>'},
 {name:'Aurora gradient',d:'Large blurred color fields drifting into each other.',use:'Hero backgrounds, AI and fintech product pages',how:'Stacked CSS radial gradients under a blur filter',tags:['CSS'],
  stage:'<div class="mesh"><i></i></div>'},
+{name:'Liquid glass',d:'A glass lens that bends what is behind it, with a bright specular rim. A step past frosted glass.',use:'Controls and toolbars over imagery, premium app chrome, hero overlays',how:'SVG feDisplacementMap over a copy of the backdrop, with a displacement map drawn in code and a gradient rim',tags:['SVG'],
+ init(st){const W=200,H=110,RR=55,BAND=30,m=document.createElement('canvas');m.width=W;m.height=H;const mx=m.getContext('2d'),im=mx.createImageData(W,H);
+  for(let y=0;y<H;y++)for(let x=0;x<W;x++){const X=x+.5-W/2,Y=y+.5-H/2,qx=Math.abs(X)-(W/2-RR),qy=Math.abs(Y)-(H/2-RR),ox=Math.max(qx,0),oy=Math.max(qy,0),sd=Math.hypot(ox,oy)+Math.min(Math.max(qx,qy),0)-RR,e=-sd;
+   let dx=0,dy=0;if(e>0){const a=Math.pow(1-Math.min(1,e/BAND),2),l=Math.hypot(ox,oy)||1;if(ox||oy){dx=-Math.sign(X)*ox/l*a;dy=-Math.sign(Y)*oy/l*a;}}
+   const o=(y*W+x)*4;im.data[o]=128+dx*127;im.data[o+1]=128+dy*127;im.data[o+2]=128;im.data[o+3]=255;}
+  mx.putImageData(im,0,0);const map=m.toDataURL();
+  st.innerHTML=svg(`<defs>
+<filter id="lg-f" filterUnits="userSpaceOnUse" x="0" y="0" width="400" height="300"><feImage id="lg-m" href="${map}" x="100" y="95" width="${W}" height="${H}" preserveAspectRatio="none" result="m"/>
+<feDisplacementMap in="SourceGraphic" in2="m" scale="70" xChannelSelector="R" yChannelSelector="G" result="d"/><feGaussianBlur in="d" stdDeviation=".35"/></filter>
+<clipPath id="lg-c"><rect id="lg-cr" x="100" y="95" width="${W}" height="${H}" rx="${RR}"/></clipPath>
+<linearGradient id="lg-s" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".95"/><stop offset=".35" stop-color="#fff" stop-opacity=".1"/><stop offset=".7" stop-color="#fff" stop-opacity=".05"/><stop offset="1" stop-color="#fff" stop-opacity=".7"/></linearGradient>
+<filter id="lg-sh" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="9"/></filter>
+<g id="lg-bg"><rect width="400" height="300" fill="#FFF4E0"/>${Array.from({length:12},(_,i)=>`<rect x="${-200+i*48}" y="-50" width="22" height="420" fill="${['#FF5A36','#FFD23F','#3A86FF'][i%3]}" transform="rotate(28 200 150)"/>`).join('')}
+<circle cx="300" cy="80" r="46" fill="#111"/><text x="200" y="182" text-anchor="middle" font-family="Helvetica Neue,Helvetica,Arial,sans-serif" font-weight="800" font-size="78" fill="#111" letter-spacing="-3">LIQUID</text></g></defs>
+<use href="#lg-bg"/>
+<g id="lg-top"><rect x="100" y="105" width="${W}" height="${H}" rx="${RR}" fill="#000" opacity=".22" filter="url(#lg-sh)"/></g>
+<g clip-path="url(#lg-c)"><use href="#lg-bg" filter="url(#lg-f)"/></g>
+<g id="lg-rim"><rect x="100" y="95" width="${W}" height="${H}" rx="${RR}" fill="#fff" fill-opacity=".08" stroke="url(#lg-s)" stroke-width="2.2"/><rect x="104" y="99" width="${W-8}" height="${H-8}" rx="${RR-4}" fill="none" stroke="#fff" stroke-opacity=".28"/><path d="M${100+RR} 101 h${W-2*RR}" stroke="#fff" stroke-opacity=".7" stroke-width="2" stroke-linecap="round"/></g>`);
+  const fm=st.querySelector('#lg-m'),cr=st.querySelector('#lg-cr'),top=st.querySelector('#lg-top'),rim=st.querySelector('#lg-rim');
+  const place=t=>{const dx=Math.sin(t*.55)*72,dy=Math.cos(t*.4)*24,x=100+dx,y=95+dy;fm.setAttribute('x',x.toFixed(1));fm.setAttribute('y',y.toFixed(1));cr.setAttribute('x',x.toFixed(1));cr.setAttribute('y',y.toFixed(1));
+   const tr=`translate(${dx.toFixed(1)} ${dy.toFixed(1)})`;top.setAttribute('transform',tr);rim.setAttribute('transform',tr);};
+  place(.6);return t=>place(.6+t);}},
 ]},
 {t:'Pixels and characters',items:[
 {name:'Pixel art',d:'A tiny grid of hard-edged pixels, scaled up without smoothing.',use:'Games, retro features, achievement badges',how:'Canvas drawn from a text map, image-rendering: pixelated',tags:['Canvas'],
@@ -715,6 +806,16 @@ const G=[
    const lam=Math.max(0,(nx*Lv[0]+ny*Lv[1]+nz*Lv[2])/(nl*ll)),cy=(a[1]+b[1]+d[1])/900,cx=(a[0]+b[0]+d[0])/1200,t=Math.min(1,Math.max(0,cy*.8+cx*.4)),base=t<.5?mix(c0,c1,t*2):mix(c1,c2,(t-.5)*2),k=.55+.6*lam,col=`rgb(${base.map(v=>Math.min(255,v*k)|0).join(',')})`;
    x.beginPath();x.moveTo(a[0],a[1]);x.lineTo(b[0],b[1]);x.lineTo(d[0],d[1]);x.closePath();x.fillStyle=col;x.strokeStyle=col;x.lineWidth=.6;x.fill();x.stroke();};
   for(let j=0;j<rows;j++)for(let i=0;i<cols;i++){const a=P[j][i],b=P[j][i+1],d=P[j+1][i],e=P[j+1][i+1];if((i+j)%2){tri(a,b,e);tri(a,e,d);}else{tri(a,b,d);tri(b,e,d);}}}},
+{name:'Pixel sorting',d:'Runs of pixels sorted by brightness, so the picture melts into streaks.',use:'Music and fashion art, glitch posters, editorial covers',how:'Canvas: a generated sunset, then each column’s bright runs sorted by luminance',tags:['Canvas'],
+ init(st){const W=400,H=300,[c,x]=raw(st,W,H),n=perlin(77);
+  const g=x.createLinearGradient(0,0,0,H);g.addColorStop(0,'#1B1340');g.addColorStop(.38,'#B23A7E');g.addColorStop(.62,'#FF8A3D');g.addColorStop(.8,'#FFD36E');g.addColorStop(1,'#2A1B3D');x.fillStyle=g;x.fillRect(0,0,W,H);
+  x.fillStyle='#FFF1C9';x.beginPath();x.arc(250,170,52,0,TAU);x.fill();
+  const hill=(base,amp,s,col)=>{x.fillStyle=col;x.beginPath();x.moveTo(0,H);for(let X=0;X<=W;X+=4)x.lineTo(X,base+fbm(n,X*s,base*.01,3)*amp);x.lineTo(W,H);x.fill();};
+  hill(205,90,.012,'#3D1E4F');hill(240,60,.02,'#22122F');
+  const im=x.getImageData(0,0,W,H),d=im.data,lum=o=>.299*d[o]+.587*d[o+1]+.114*d[o+2];
+  for(let X=0;X<W;X++){let y=0;while(y<H){while(y<H&&!(lum((y*W+X)*4)>70&&lum((y*W+X)*4)<246))y++;const s0=y;while(y<H&&lum((y*W+X)*4)>70&&lum((y*W+X)*4)<246)y++;const s1=y;
+    if(s1-s0>3){const run=[];for(let k=s0;k<s1;k++){const o=(k*W+X)*4;run.push([lum(o),d[o],d[o+1],d[o+2]]);}run.sort((a,b)=>b[0]-a[0]);for(let k=s0;k<s1;k++){const o=(k*W+X)*4,p=run[k-s0];d[o]=p[1];d[o+1]=p[2];d[o+2]=p[3];}}}}
+  x.putImageData(im,0,0);}},
 ]},
 {t:'Generative',items:[
 {name:'Flow field',d:'Particles tracing a noise field, leaving soft trails.',use:'Data art, hero art, ambient backgrounds',how:'Canvas, Perlin noise angles, accumulated strokes',tags:['Canvas'],
@@ -785,6 +886,37 @@ vec3 l=normalize(vec3(.5,.9,.6));float df=clamp(dot(n,l),0.,1.);float sh=1.,tt=.
 float amb=.55+.45*n.y;col=base*(.42*amb+.75*df*sh)+pow(clamp(dot(reflect(rd,n),l),0.,1.),20.)*.3*sh;col=mix(col,bg,1.-exp(-.015*d*d));}
 gl_FragColor=vec4(col,1.);}`,480,360);
   if(!draw)return;draw(1.2);return t=>draw(1.2+t);}},
+{name:'Ridgeline',d:'Stacked noisy line plots, each filled so it hides the one behind.',use:'Album and poster art, data art, technical heroes',how:'Canvas: one noise curve per row, drawn back to front, each filled before it is stroked',tags:['Canvas'],
+ init(st){const [c,x]=cv(st,400,300,DPR()),n=perlin(23),ROWS=34;
+  const draw=t=>{x.fillStyle='#0B0B0C';x.fillRect(0,0,400,300);x.lineWidth=1.1;x.strokeStyle='#F2EFE8';x.lineJoin='round';
+   for(let j=0;j<ROWS;j++){const y0=62+j*6.4,pts=[];for(let i=0;i<=120;i++){const X=80+i*2,u=(X-200)/120,env=Math.max(0,1-u*u*1.35)**2,v=Math.max(0,fbm(n,X*.022,j*.42+t*.12,3)+.32);pts.push([X,y0-env*v*95-Math.abs(n(X*.09,j*1.3+t*.3))*3*env]);}
+    x.beginPath();x.moveTo(pts[0][0],pts[0][1]);for(const p of pts)x.lineTo(p[0],p[1]);x.lineTo(320,y0+9);x.lineTo(80,y0+9);x.closePath();x.fillStyle='#0B0B0C';x.fill();
+    x.beginPath();x.moveTo(pts[0][0],pts[0][1]);for(const p of pts)x.lineTo(p[0],p[1]);x.stroke();}};
+  draw(0);return t=>draw(t);}},
+{name:'Fractals',d:'The Mandelbrot set, slowly zooming into its seahorse valley as the palette cycles.',use:'Math and science pieces, psychedelic art, hypnotic backgrounds',how:'WebGL fragment shader: escape-time iteration with smooth coloring; a still 2D canvas render without WebGL',tags:['WebGL'],
+ init(st){const draw=glStageU(st,`vec3 pal(float t){return .5+.5*cos(6.2831*(t+vec3(.0,.15,.35)));}
+void main(){vec2 uv=(gl_FragCoord.xy-.5*R)/R.y;float z=1.6*pow(.5,7.*(.5-.5*cos(T*.11)));vec2 c=vec2(-.743643887,.131825904)+uv*z*1.6,w=vec2(0.);float it=0.;
+for(int i=0;i<220;i++){w=vec2(w.x*w.x-w.y*w.y,2.*w.x*w.y)+c;if(dot(w,w)>256.)break;it+=1.;}
+if(it>219.){gl_FragColor=vec4(.02,.02,.05,1.);return;}float sm=it-log2(log2(dot(w,w)))+4.;gl_FragColor=vec4(pal(sm*.025+T*.03)*(.35+.65*sqrt(sm/220.)),1.);}`,640,480);
+  if(draw){draw(0);return t=>draw(t);}
+  const W=200,H=150,[c,x]=raw(st,W,H),im=x.createImageData(W,H);for(let py=0;py<H;py++)for(let px=0;px<W;px++){const cx=-.743643887+(px-W/2)/H*2.56,cy=.131825904-(py-H/2)/H*2.56;let a=0,b=0,i=0;for(;i<120&&a*a+b*b<256;i++){const t=a*a-b*b+cx;b=2*a*b+cy;a=t;}
+   const o=(py*W+px)*4,s=i>=120?0:(i-Math.log2(Math.log2(a*a+b*b))+4)*.025;im.data[o]=i>=120?5:127+127*Math.cos(TAU*s);im.data[o+1]=i>=120?5:127+127*Math.cos(TAU*(s+.15));im.data[o+2]=i>=120?13:127+127*Math.cos(TAU*(s+.35));im.data[o+3]=255;}x.putImageData(im,0,0);}},
+{name:'Strange attractor',d:'A wispy form built from millions of points of one chaotic equation.',use:'Science and data art, album covers, elegant dark heroes',how:'Canvas: a Clifford attractor plotted into a density buffer, then log-toned',tags:['Canvas'],
+ init(st){const W=800,H=600,[c,x]=raw(st,W,H),acc=new Float32Array(W*H),A=-1.7,B=1.8,C=-1.9,D=-.4;let px=.1,py=.1,done=0,max=1;const im=x.createImageData(W,H);
+  x.fillStyle='#07070F';x.fillRect(0,0,W,H);
+  const render=()=>{const lm=Math.log(1+max),d=im.data;for(let i=0;i<W*H;i++){const v=acc[i]?Math.log(1+acc[i])/lm:0,o=i*4,k=Math.pow(v,.8);d[o]=7+(255-7)*Math.pow(k,1.6)*.95;d[o+1]=7+(225-7)*Math.pow(k,1.1);d[o+2]=15+(255-15)*Math.pow(k,.7);d[o+3]=255;}x.putImageData(im,0,0);};
+  const chunk=()=>{for(let i=0;i<200000;i++){const nx=Math.sin(A*py)+C*Math.cos(A*px),ny=Math.sin(B*px)+D*Math.cos(B*py);px=nx;py=ny;const X=W/2+px*128|0,Y=H/2+py*128|0;if(X>=0&&X<W&&Y>=0&&Y<H){const k=Y*W+X,v=++acc[k];if(v>max)max=v;}}
+   done++;render();if(done<12)setTimeout(chunk,0);};chunk();}},
+{name:'Kaleidoscope',d:'A moving source mirrored into twelve-fold radial symmetry.',use:'Music visuals, festival and celebration art, playful loaders',how:'Canvas: an offscreen source of drifting shapes, drawn into alternating mirrored wedges',tags:['Canvas'],
+ init(st){const [c,x]=cv(st,400,300,DPR()),S=220,src=document.createElement('canvas');src.width=src.height=S;const s=src.getContext('2d'),N=12,a=TAU/N,R=260;
+  const cols=['#FF006E','#FB5607','#FFBE0B','#3A86FF','#8338EC','#06D6A0'];
+  const paint=t=>{const g=s.createLinearGradient(0,0,S,S);g.addColorStop(0,'#2B0B3F');g.addColorStop(1,'#0B3A4A');s.fillStyle=g;s.fillRect(0,0,S,S);
+   for(let i=0;i<26;i++){const ang=t*(.15+(i%7)*.04)+i*2.4,rr=12+(i*37)%150;s.fillStyle=cols[i%6];s.globalAlpha=.9;s.beginPath();
+    if(i%3===0){s.save();s.translate(Math.cos(ang)*rr*.9+40,Math.sin(ang*1.2)*rr*.7+40);s.rotate(ang);s.fillRect(-14,-5,28+(i%5)*6,10);s.restore();}else s.arc(Math.cos(ang)*rr*.9+40,Math.sin(ang*1.2)*rr*.7+40,7+(i*5)%16,0,TAU);s.fill();}
+   s.globalAlpha=1;s.strokeStyle='#FFF6E0';s.lineWidth=2.5;s.beginPath();for(let i=0;i<4;i++){const ang=t*.35+i*1.4;s.moveTo(20,20);s.lineTo(20+Math.cos(ang)*S,20+Math.sin(ang)*S);}s.stroke();};
+  const draw=t=>{paint(t);x.fillStyle='#120A1F';x.fillRect(0,0,400,300);x.save();x.translate(200,150);
+   for(let k=0;k<N;k++){x.save();x.rotate(k*a);if(k%2)x.scale(1,-1);x.beginPath();x.moveTo(0,0);x.lineTo(R,0);x.lineTo(R*Math.cos(a)+1,R*Math.sin(a)+1);x.closePath();x.clip();x.drawImage(src,0,0,S,S,0,0,R,R);x.restore();}x.restore();};
+  draw(1);return t=>draw(1+t);}},
 ]},
 {t:'Period and revival',items:[
 {name:'1-bit dithering',d:'Two colors only. Tone comes from the pattern of dots, like early Mac screens and receipt printers.',use:'Retro product moments, editorial texture, low-fi brands',how:'Canvas Floyd-Steinberg error diffusion, scaled up without smoothing',tags:['Canvas'],
@@ -825,6 +957,19 @@ gl_FragColor=vec4(col,1.);}`,480,360);
  stage:svg('<rect width="400" height="300" fill="#F4EFFF"/><ellipse cx="190" cy="266" rx="80" ry="9" fill="#E3DBF7"/><ellipse cx="60" cy="205" rx="10" ry="30" fill="#2EC4B6" transform="rotate(-25 60 205)"/><ellipse cx="84" cy="200" rx="10" ry="32" fill="#1E9E8F" transform="rotate(20 84 200)"/><ellipse cx="72" cy="190" rx="9" ry="34" fill="#2EC4B6"/><path d="M48 232H96L90 270H54Z" fill="#FF7A59"/><rect x="232" y="62" width="132" height="150" rx="14" fill="#fff"/><rect x="252" y="150" width="22" height="40" rx="4" fill="#FFB547"/><rect x="282" y="126" width="22" height="64" rx="4" fill="#2EC4B6"/><rect x="312" y="98" width="22" height="92" rx="4" fill="#7C6CF2"/><polyline points="250,136 290,108 318,118 346,80" fill="none" stroke="#FF7A59" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><path d="M338 78L352 72L348 87Z" fill="#FF7A59"/><g fill="none" stroke-linecap="round"><path d="M168 112Q140 148 150 172" stroke="#7B6CF6" stroke-width="15"/><path d="M190 96V80" stroke="#7B6CF6" stroke-width="10"/><path d="M184 168L152 258" stroke="#2C2A6B" stroke-width="26"/><path d="M198 168Q214 214 238 254" stroke="#2C2A6B" stroke-width="26"/></g><rect x="141" y="166" width="16" height="24" rx="3" fill="#1E1B3A"/><ellipse cx="146" cy="264" rx="20" ry="8" fill="#15142E"/><ellipse cx="246" cy="258" rx="20" ry="8" fill="#15142E"/><path d="M162 102Q190 88 220 102L214 176Q190 184 168 176Z" fill="#FF7A59"/><path d="M212 110Q246 96 250 56" fill="none" stroke="#7B6CF6" stroke-width="15" stroke-linecap="round"/><circle cx="250" cy="50" r="10" fill="#7B6CF6"/><circle cx="190" cy="72" r="12" fill="#7B6CF6"/><path d="M178 70Q180 54 196 56Q206 60 203 70Q196 62 186 66Z" fill="#1E1B3A"/>')},
 {name:'Constructivist poster',d:'Red, black and cream, hard diagonals, a wedge and condensed type.',use:'Manifestos, launches, bold editorial covers',how:'SVG rectangles, polygons and rotated type',tags:['SVG'],
  stage:svg('<rect width="400" height="300" fill="#ECE2CC"/><rect width="170" height="300" fill="#161514"/><circle cx="290" cy="120" r="56" fill="#161514"/><path d="M28 98L28 186L262 134Z" fill="#C8231D"/><rect x="200" y="36" width="22" height="22" fill="#C8231D" transform="rotate(15 211 47)"/><g transform="rotate(-24 250 230)"><rect x="150" y="222" width="190" height="10" fill="#161514"/><rect x="150" y="240" width="120" height="4" fill="#C8231D"/></g><text transform="translate(390 292) rotate(-90)" font-family="Bricolage Grotesque, sans-serif" font-weight="800" font-size="40" style="font-stretch:75%" fill="#C8231D">FORWARD</text><text x="22" y="40" font-family="JetBrains Mono, monospace" font-size="12" letter-spacing="3" fill="#ECE2CC">ISSUE 03</text><text x="22" y="276" font-family="JetBrains Mono, monospace" font-size="11" letter-spacing="2" fill="#ECE2CC">BUILD THE NEW</text>')},
+{name:'CRT/VHS screen',d:'An old tube TV: scanlines, color fringing, a curved screen and dark corners.',use:'Retro gaming, music video looks, nostalgic campaigns, error screens',how:'WebGL shader: barrel distortion, per-channel offsets, scanlines, vignette and a rolling tracking band; plain CSS without WebGL',tags:['WebGL','CSS'],
+ init(st){const draw=glStageU(st,`vec3 bars(vec2 u){if(u.y>.33){float i=floor(u.x*7.);vec3 c=i<1.?vec3(.75):i<2.?vec3(.75,.75,0):i<3.?vec3(0,.75,.75):i<4.?vec3(0,.75,0):i<5.?vec3(.75,0,.75):i<6.?vec3(.75,0,0):vec3(0,0,.75);return c;}
+if(u.y>.25){float i=floor(u.x*7.);return mod(i,2.)<1.?vec3(.08):vec3(.75,0,.75)*step(1.,mod(i,3.));}
+float i=floor(u.x*6.);return i<1.?vec3(0,.13,.3):i<2.?vec3(1):i<3.?vec3(.2,0,.42):vec3(.05);}
+float hs(float n){return fract(sin(n*91.7)*43758.5);}
+void main(){vec2 uv=gl_FragCoord.xy/R;vec2 cc=uv-.5;cc*=1.+dot(cc,cc)*.32;vec2 u=cc+.5;
+if(u.x<0.||u.x>1.||u.y<0.||u.y>1.){gl_FragColor=vec4(0,0,0,1);return;}
+float band=smoothstep(.06,0.,abs(fract(u.y-T*.11)-.5)-.4);float j=(hs(floor(u.y*240.)+floor(T*24.))-.5)*.006*(1.+band*6.);
+float o=.004+band*.006;vec3 col=vec3(bars(u+vec2(o+j,0.)).r,bars(u+vec2(j,0.)).g,bars(u-vec2(o-j,0.)).b);
+col*=.78+.22*sin(u.y*R.y*3.14159*.95);col+=band*.08;col+=(hs(u.x*999.+u.y*77.+T)-.5)*.06;
+vec2 v=u*(1.-u.yx);col*=pow(v.x*v.y*18.,.28);gl_FragColor=vec4(col,1.);}`,640,480);
+  if(draw){draw(0);return t=>draw(t);}
+  st.innerHTML='<div class="crt-fb"><div class="scr"></div><b>PLAY ▶</b></div>';}},
 ]}
 ]},
 
@@ -904,6 +1049,26 @@ gl_FragColor=vec4(col,1.);}`,480,360);
 {name:'Marquee',d:'An endless ticker of content. Hover to pause.',use:'Logos, announcements, live status',how:'Duplicated track, CSS translate to -50%',tags:['CSS'],
  init(st){const A=['Easing','Stagger','Spring','Morph','Parallax','Loop'].map(w=>`<span>${w} ·</span>`).join(''),B=['60 fps','16.7 ms a frame','animate transform and opacity','will-change, sparingly'].map(w=>`<span>${w} /</span>`).join('');
   st.innerHTML=`<div class="mq"><div class="mq-row">${A}${A}</div><div class="mq-row b">${B}${B}</div><div class="mq-row">${A}${A}</div></div>`;}},
+{name:'Shimmer text',d:'A band of light sweeps across gray type: the “thinking” state.',use:'AI and loading states, placeholders, subtle emphasis',how:'CSS background-clip: text with an animated gradient position',tags:['CSS'],
+ stage:'<div class="shm"><p class="shm-t">Thinking…</p><p class="shm-s">Reading 12 files</p></div>'},
+{name:'Particle text',d:'Particles gather into a word and scatter from the pointer.',use:'Launches, hero moments, interactive titles',how:'Canvas: target points sampled from text drawn offscreen, each particle on a damped spring',tags:['Canvas'],try:true,
+ init(st,card){const [c,x]=cv(st,400,300,DPR()),P=[];let mx=-999,my=-999,last=-1e9,burst=0;
+  st.addEventListener('pointermove',e=>{[mx,my]=ptr(st,e);last=performance.now();});st.addEventListener('pointerleave',()=>{mx=my=-999;});
+  st.addEventListener('pointerdown',()=>{burst=1;});
+  const draw=()=>{x.fillStyle='#0E0F1A';x.fillRect(0,0,400,300);for(const p of P){x.fillStyle=p.c;x.fillRect(p.x-1.2,p.y-1.2,2.4,2.4);}};
+  return fontsReady('800 120px "Bricolage Grotesque"').then(()=>{const o=document.createElement('canvas');o.width=400;o.height=300;const ox=o.getContext('2d');
+   ox.font='800 128px "Bricolage Grotesque", Arial Black, sans-serif';ox.textAlign='center';ox.textBaseline='middle';ox.fillText('SPARK',200,152);
+   const d=ox.getImageData(0,0,400,300).data,r=rng(5);for(let y=0;y<300;y+=4)for(let X=0;X<400;X+=4)if(d[(y*400+X)*4+3]>128)P.push({tx:X,ty:y,x:X,y:y,vx:0,vy:0,c:`hsl(${200+X/400*120},90%,${62+r()*14}%)`});
+   draw();let nextAuto=performance.now()+3500;
+   return (t,dt)=>{const now=performance.now(),idle=now-last>2500;if(idle&&now>nextAuto){burst=1;nextAuto=now+5000;}
+    for(const p of P){if(burst){const a=r()*TAU,s=4+r()*7;p.vx+=Math.cos(a)*s;p.vy+=Math.sin(a)*s;}
+     const dx=p.x-mx,dy=p.y-my,dd=dx*dx+dy*dy;if(dd<2500){const f=(2500-dd)/2500*2.6,l=Math.sqrt(dd)||1;p.vx+=dx/l*f;p.vy+=dy/l*f;}
+     p.vx+=(p.tx-p.x)*.035;p.vy+=(p.ty-p.y)*.035;p.vx*=.86;p.vy*=.86;p.x+=p.vx;p.y+=p.vy;}burst=0;draw();};});}},
+{name:'Text on a path',d:'A line of type flowing along a curve.',use:'Badges, playful headers, packaging, motion titles',how:'SVG textPath, its startOffset moved each frame',tags:['SVG'],
+ init(st){st.innerHTML=svg(`<rect width="400" height="300" fill="#FFF3E2"/><path id="tp-p" d="M-40 190 C 60 60, 160 60, 200 150 S 340 250, 440 110" fill="none" stroke="#F4C7A1" stroke-width="2" stroke-dasharray="3 6"/>
+<text font-family="Bricolage Grotesque, Arial Black, sans-serif" font-weight="700" font-size="26" fill="#E4572E" letter-spacing="1"><textPath id="tp-t" href="#tp-p" startOffset="0">Type that travels · along any curve · Type that travels · along any curve · </textPath></text>`);
+  const tp=st.querySelector('#tp-t'),len=st.querySelector('#tp-p').getTotalLength(),tl=()=>tp.getComputedTextLength?tp.getComputedTextLength()/2:len;
+  const set=t=>{const L=tl()||len;tp.setAttribute('startOffset',(-((t*55)%L)).toFixed(1));};set(0);return t=>set(t);}},
 ]},
 {t:'Interaction',items:[
 {name:'Micro-interactions',d:'Small, quick feedback on a switch, a checkbox and a button press.',use:'Every interactive control',how:'CSS transitions with a springy bezier, JS ripple',tags:['CSS','JS'],try:true,
@@ -930,6 +1095,20 @@ gl_FragColor=vec4(col,1.);}`,480,360);
   const L=[...st.querySelectorAll('g[data-d]')].map(g=>[g,+g.dataset.d]);let tx=0,ty=0,cx=0,cy=0,last=-1e9;
   st.addEventListener('pointermove',e=>{const r=st.getBoundingClientRect();tx=((e.clientX-r.left)/r.width-.5)*2;ty=((e.clientY-r.top)/r.height-.5)*2;last=performance.now();});
   return t=>{if(performance.now()-last>2000){tx=Math.sin(t*.5);ty=Math.sin(t*.37)*.4;}cx+=(tx-cx)*.08;cy+=(ty-cy)*.08;for(const [g,d] of L)g.setAttribute('transform',`translate(${(-cx*d).toFixed(2)} ${(-cy*d*.4).toFixed(2)})`);};}},
+{name:'Drag with momentum',d:'Fling a row of cards: it coasts, slows and rubber-bands back at the ends.',use:'Carousels, galleries, sheets and pickers on touch screens',how:'JS pointer events: velocity from recent moves, friction while coasting, a spring past the edges',tags:['JS'],try:true,
+ init(st,card){const cols=['#EF476F','#FFD166','#06D6A0','#118AB2','#073B4C','#F78C6B','#8338EC','#3A86FF'];
+  st.innerHTML=`<div class="dm"><div class="dm-t">${cols.map((c,i)=>`<div class="dm-c" style="background:${c}">${String(i+1).padStart(2,'0')}</div>`).join('')}</div><div class="dm-h">Drag or fling</div></div>`;
+  const box=st.firstElementChild,tr=box.firstElementChild;let pos=0,v=0,drag=false,sx=0,sp=0,hist=[],last=-1e9,auto=performance.now()+2500;
+  const minX=()=>Math.min(0,box.clientWidth-tr.scrollWidth),set=()=>{tr.style.transform=`translate(${pos.toFixed(1)}px,-50%)`;};
+  const band=p=>{const lo=minX();if(p>0)return p*.35;if(p<lo)return lo+(p-lo)*.35;return p;};
+  box.addEventListener('pointerdown',e=>{drag=true;box.setPointerCapture(e.pointerId);sx=e.clientX;sp=pos;v=0;hist=[[e.clientX,performance.now()]];last=performance.now();});
+  box.addEventListener('pointermove',e=>{if(!drag)return;const now=performance.now();hist.push([e.clientX,now]);while(hist.length>2&&now-hist[0][1]>90)hist.shift();pos=band(sp+(e.clientX-sx));set();last=now;});
+  const up=()=>{if(!drag)return;drag=false;last=performance.now();const a=hist[0],b=hist[hist.length-1],dtm=Math.max(16,b[1]-a[1]);v=card.live?(b[0]-a[0])/dtm*16:0;
+   if(!card.live){pos=Math.max(minX(),Math.min(0,pos));set();}};
+  box.addEventListener('pointerup',up);box.addEventListener('pointercancel',up);set();
+  return (t,dt)=>{if(drag)return;const now=performance.now(),f=Math.min(3,dt*60);if(now-last>4000&&now>auto){v=(pos>minX()/2?-1:1)*(26+Math.random()*14);auto=now+4200;last=now-3000;}
+   const lo=minX(),was=pos>0?1:pos<lo?-1:0;pos+=v*f;v*=Math.pow(.94,f);if(pos>0){v+=(-pos*.12)*f;v*=Math.pow(.8,f);}else if(pos<lo){v+=((lo-pos)*.12)*f;v*=Math.pow(.8,f);}
+   const now2=pos>0?1:pos<lo?-1:0;if(was&&now2!==was){pos=was>0?0:lo;v=0;}if(Math.abs(v)<.02&&pos<=0&&pos>=lo)v=0;set();};}},
 ]},
 {t:'Layout and page',items:[
 {name:'FLIP reorder',d:'Tiles glide to their new spots when the order changes.',use:'Sorting, filtering, drag-and-drop grids',how:'First, Last, Invert, Play with the Web Animations API',tags:['JS'],try:true,
@@ -1008,6 +1187,74 @@ gl_FragColor=vec4(col,1.);}`,480,360);
   if(!draw)return;draw(2);return t=>draw(2+t);}},
 {name:'Loaders',d:'Spinner, bouncing dots, skeleton shimmer and an indeterminate bar.',use:'Short waits. Skeletons when you know the shape of the content',how:'CSS keyframes on SVG dashes, transforms and gradients',tags:['CSS','SVG'],
  stage:'<div class="ld"><div class="ld-c"><svg class="ld-spin" viewBox="0 0 50 50" aria-hidden="true"><circle cx="25" cy="25" r="20"/></svg><span>Spinner</span></div><div class="ld-c"><div class="ld-dots"><i></i><i></i><i></i></div><span>Dots</span></div><div class="ld-c"><div class="ld-skel"><i></i><i></i><i></i></div><span>Skeleton</span></div><div class="ld-c"><div class="ld-bar"><i></i></div><span>Indeterminate</span></div></div>'},
+{name:'Fluid sim',d:'Ink in water that swirls after the pointer. Move over it, or watch it stir itself.',use:'Hero backgrounds, music and art sites, playful brand moments',how:'Canvas: a stable-fluids grid solver (advect, then project to keep it incompressible) on a 96×72 grid',tags:['Canvas'],try:true,
+ init(st){const W=96,H=72,S=(W+2)*(H+2),IX=(i,j)=>i+(W+2)*j,F=()=>new Float32Array(S);let u=F(),v=F(),u0=F(),v0=F(),p=F(),dv=F(),dr=F(),dg=F(),db=F(),t0=F();
+  const [c,x]=raw(st,W,H),im=x.createImageData(W,H);let mx=null,my=null,lx=null,ly=null,last=-1e9;
+  st.addEventListener('pointermove',e=>{const q=ptr(st,e);mx=q[0]/400*W;my=q[1]/300*H;last=performance.now();});
+  const bnd=(t,a)=>{for(let i=1;i<=W;i++){a[IX(i,0)]=t===2?-a[IX(i,1)]:a[IX(i,1)];a[IX(i,H+1)]=t===2?-a[IX(i,H)]:a[IX(i,H)];}for(let j=1;j<=H;j++){a[IX(0,j)]=t===1?-a[IX(1,j)]:a[IX(1,j)];a[IX(W+1,j)]=t===1?-a[IX(W,j)]:a[IX(W,j)];}};
+  const adv=(t,d,d0,uu,vv)=>{for(let j=1;j<=H;j++)for(let i=1;i<=W;i++){const k=IX(i,j);let X=i-uu[k],Y=j-vv[k];X=X<.5?.5:X>W+.5?W+.5:X;Y=Y<.5?.5:Y>H+.5?H+.5:Y;const i0=X|0,j0=Y|0,s=X-i0,q=Y-j0;
+    d[k]=(1-s)*((1-q)*d0[IX(i0,j0)]+q*d0[IX(i0,j0+1)])+s*((1-q)*d0[IX(i0+1,j0)]+q*d0[IX(i0+1,j0+1)]);}bnd(t,d);};
+  const proj=()=>{for(let j=1;j<=H;j++)for(let i=1;i<=W;i++){const k=IX(i,j);dv[k]=-.5*(u[k+1]-u[k-1]+v[k+W+2]-v[k-W-2]);p[k]=0;}bnd(0,dv);bnd(0,p);
+   for(let it=0;it<18;it++){for(let j=1;j<=H;j++)for(let i=1;i<=W;i++){const k=IX(i,j);p[k]=(dv[k]+p[k-1]+p[k+1]+p[k-W-2]+p[k+W+2])/4;}bnd(0,p);}
+   for(let j=1;j<=H;j++)for(let i=1;i<=W;i++){const k=IX(i,j);u[k]-=.5*(p[k+1]-p[k-1]);v[k]-=.5*(p[k+W+2]-p[k-W-2]);}bnd(1,u);bnd(2,v);};
+  const splat=(cx,cy,fx,fy,h)=>{const r=Math.round(220+90*Math.sin(h)),g=Math.round(120+110*Math.sin(h+2.1)),b=Math.round(160+95*Math.sin(h+4.2));
+   for(let j=Math.max(1,cy-5|0);j<=Math.min(H,cy+5|0);j++)for(let i=Math.max(1,cx-5|0);i<=Math.min(W,cx+5|0);i++){const k=IX(i,j),w=Math.exp(-((i-cx)**2+(j-cy)**2)/6);u[k]+=fx*w;v[k]+=fy*w;dr[k]+=r/255*w*.9;dg[k]+=g/255*w*.9;db[k]+=b/255*w*.9;}};
+  const step=t=>{if(performance.now()-last<1200&&mx!==null){if(lx!==null)splat(mx,my,(mx-lx)*.9,(my-ly)*.9,t*.8);lx=mx;ly=my;}
+   else{lx=null;const a=t*.9,cx=W/2+Math.cos(a)*W*.3,cy=H/2+Math.sin(a*1.3)*H*.28;splat(cx,cy,-Math.sin(a)*1.6,Math.cos(a*1.3)*1.3,t*.6);}
+   u0.set(u);v0.set(v);adv(1,u,u0,u0,v0);adv(2,v,v0,u0,v0);proj();
+   for(const d of [dr,dg,db]){t0.set(d);adv(0,d,t0,u,v);for(let k=0;k<S;k++)d[k]*=.985;}for(let k=0;k<S;k++){u[k]*=.995;v[k]*=.995;}};
+  const render=()=>{const d=im.data;for(let j=0;j<H;j++)for(let i=0;i<W;i++){const k=IX(i+1,j+1),o=(j*W+i)*4;d[o]=8+Math.min(247,dr[k]*255);d[o+1]=9+Math.min(246,dg[k]*255);d[o+2]=18+Math.min(237,db[k]*255);d[o+3]=255;}x.putImageData(im,0,0);};
+  for(let k=0;k<90;k++)step(k/30);render();return t=>{step(3+t);render();};}},
+{name:'Image displacement',d:'One picture melts into another through a noise map. Hover or tap to switch.',use:'Galleries, portfolio hovers, product image swaps',how:'WebGL shader: two images drawn in code, mixed by a noise threshold that also pushes their pixels apart',tags:['WebGL'],try:true,
+ init(st,card){let target=0,P=0,last=-1e9,next=performance.now()+3200;
+  const on=v=>{target=v;last=performance.now();};st.addEventListener('pointerenter',e=>{if(e.pointerType==='mouse')on(1);});st.addEventListener('pointerleave',e=>{if(e.pointerType==='mouse')on(0);});
+  st.addEventListener('pointerdown',e=>{if(e.pointerType!=='mouse')on(target>.5?0:1);});
+  const tick=dt=>{const now=performance.now();if(now-last>4000&&now>next){target=target>.5?0:1;next=now+3200;}P+=(target-P)*Math.min(1,dt*2.6);};
+  const draw=glStageU(st,`float h(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453);}
+float n(vec2 p){vec2 i=floor(p),f=fract(p);f=f*f*(3.-2.*f);return mix(mix(h(i),h(i+vec2(1,0)),f.x),mix(h(i+vec2(0,1)),h(i+vec2(1,1)),f.x),f.y);}
+float fbm(vec2 p){float v=0.,a=.5;for(int i=0;i<5;i++){v+=a*n(p);p*=2.02;a*=.5;}return v;}
+vec3 A(vec2 u){vec3 c=mix(vec3(1.,.55,.38),vec3(.17,.06,.33),u.y);float s=length((u-vec2(.66,.55))*vec2(1.33,1.));c=mix(c,vec3(1.,.86,.6),smoothstep(.17,.16,s));
+if(u.y<.34+.04*sin(u.x*9.)+.03*sin(u.x*23.))c=vec3(.24,.12,.31);if(u.y<.2+.03*sin(u.x*13.+1.))c=vec3(.13,.07,.19);return c;}
+vec3 B(vec2 u){vec3 c=mix(vec3(.05,.12,.3),vec3(.01,.02,.08),u.y);c+=step(.995,h(floor(u*vec2(160.,120.))))*vec3(.9)*step(.45,u.y);float m=length((u-vec2(.3,.72))*vec2(1.33,1.));c=mix(c,vec3(.95,.95,.88),smoothstep(.09,.085,m));
+if(u.y<.42){c=mix(vec3(.02,.1,.22),vec3(.06,.25,.4),u.y/.42);c+=smoothstep(.85,1.,sin(u.y*140.+sin(u.x*20.)*2.))*.25*step(abs(u.x-.3),.1+.3*(.42-u.y));}return c;}
+void main(){vec2 u=gl_FragCoord.xy/R;float nz=fbm(u*vec2(4.,3.)+3.);float m=smoothstep(nz-.07,nz+.07,P*1.25-.1);
+vec2 o=vec2(nz-.5,nz-.45)*.38;gl_FragColor=vec4(mix(A(u+o*P*(1.-m)),B(u-o*(1.-P)*m),m),1.);}`,640,480,['P']);
+  if(draw){draw(0,[0]);return (t,dt)=>{tick(dt);draw(t,[P]);};}
+  const [c,x]=cv(st,400,300,DPR()),sA=document.createElement('canvas'),sB=document.createElement('canvas');sA.width=sB.width=400;sA.height=sB.height=300;
+  const a=sA.getContext('2d'),b=sB.getContext('2d'),ga=a.createLinearGradient(0,0,0,300);ga.addColorStop(0,'#2B1055');ga.addColorStop(1,'#FF8C61');a.fillStyle=ga;a.fillRect(0,0,400,300);a.fillStyle='#FFDB99';a.beginPath();a.arc(264,135,50,0,TAU);a.fill();a.fillStyle='#3D1E4F';a.fillRect(0,200,400,100);
+  const gb=b.createLinearGradient(0,0,0,300);gb.addColorStop(0,'#03050F');gb.addColorStop(1,'#0D2B4F');b.fillStyle=gb;b.fillRect(0,0,400,300);b.fillStyle='#F2F2E0';b.beginPath();b.arc(120,85,28,0,TAU);b.fill();b.fillStyle='#0A2440';b.fillRect(0,175,400,125);
+  const draw2=()=>{x.globalAlpha=1;x.drawImage(sA,0,0);x.globalAlpha=P;x.drawImage(sB,0,0);x.globalAlpha=1;};draw2();return (t,dt)=>{tick(dt);draw2();};}},
+{name:'Flocking',d:'Birds that swarm by three simple rules, scatter from the pointer and regroup.',use:'Nature and sustainability brands, ambient heroes, simulation demos',how:'Canvas boids: separation, alignment and cohesion per bird, plus a flee force near the pointer',tags:['Canvas'],try:true,
+ init(st){const [c,x]=cv(st,400,300,DPR()),r=rng(91),N=130,B=[];let mx=-999,my=-999,last=-1e9;
+  for(let i=0;i<N;i++){const a=r()*TAU;B.push({x:120+r()*160,y:90+r()*120,vx:Math.cos(a)*1.5,vy:Math.sin(a)*1.5});}
+  st.addEventListener('pointermove',e=>{[mx,my]=ptr(st,e);last=performance.now();});st.addEventListener('pointerleave',()=>{mx=my=-999;});
+  const draw=()=>{const g=x.createLinearGradient(0,0,0,300);g.addColorStop(0,'#FDE2C8');g.addColorStop(1,'#F6A97A');x.fillStyle=g;x.fillRect(0,0,400,300);x.fillStyle='#2B2D42';
+   for(const b of B){const a=Math.atan2(b.vy,b.vx),c1=Math.cos(a),s1=Math.sin(a);x.beginPath();x.moveTo(b.x+c1*6,b.y+s1*6);x.lineTo(b.x-c1*4-s1*3,b.y-s1*4+c1*3);x.lineTo(b.x-c1*2,b.y-s1*2);x.lineTo(b.x-c1*4+s1*3,b.y-s1*4-c1*3);x.fill();}};
+  draw();return (t,dt)=>{const f=Math.min(2,dt*60),idle=performance.now()-last>1500,gx=200+Math.cos(t*.4)*120,gy=150+Math.sin(t*.7)*70;
+   for(const b of B){let sx=0,sy=0,ax=0,ay=0,cx=0,cy=0,n=0;for(const o of B){if(o===b)continue;const dx=o.x-b.x,dy=o.y-b.y,d2=dx*dx+dy*dy;if(d2<900){n++;ax+=o.vx;ay+=o.vy;cx+=o.x;cy+=o.y;if(d2<160){sx-=dx/(d2+1)*14;sy-=dy/(d2+1)*14;}}}
+    if(n){b.vx+=(ax/n-b.vx)*.05+(cx/n-b.x)*.004;b.vy+=(ay/n-b.vy)*.05+(cy/n-b.y)*.004;}b.vx+=sx*.05;b.vy+=sy*.05;
+    if(idle){b.vx+=(gx-b.x)*.0006;b.vy+=(gy-b.y)*.0006;}const dx=b.x-mx,dy=b.y-my,d2=dx*dx+dy*dy;if(d2<4900){const l=Math.sqrt(d2)||1,k=(4900-d2)/4900*.9;b.vx+=dx/l*k;b.vy+=dy/l*k;}
+    if(b.x<20)b.vx+=.15;if(b.x>380)b.vx-=.15;if(b.y<20)b.vy+=.15;if(b.y>280)b.vy-=.15;const sp=Math.hypot(b.vx,b.vy),mxs=idle?2.2:3.2;if(sp>mxs){b.vx*=mxs/sp;b.vy*=mxs/sp;}if(sp<.9){b.vx*=1.1;b.vy*=1.1;}}
+   for(const b of B){b.x+=b.vx*f;b.y+=b.vy*f;}draw();};}},
+{name:'Water ripple',d:'Drops spreading and crossing on a pool. Move over it to make your own.',use:'Calm, wellness and travel brands; playful hover surfaces',how:'Canvas heightfield: two buffers averaged and damped each step, light and refraction from the slope',tags:['Canvas'],try:true,
+ init(st){const W=200,H=150,[c,x]=raw(st,W,H),im=x.createImageData(W,H);let a=new Float32Array(W*H),b=new Float32Array(W*H),last=0,next=0;
+  const bg=new Uint8ClampedArray(W*H*3),n=perlin(3);for(let y=0;y<H;y++)for(let X=0;X<W;X++){const o=(y*W+X)*3,grid=(X%20<1||y%20<1)?.82:1,v=n(X*.05,y*.05)*.08;bg[o]=(70+v*255)*grid;bg[o+1]=(178+v*200)*grid;bg[o+2]=(205+v*120)*grid;}
+  const drop=(px,py,amp)=>{for(let j=-3;j<=3;j++)for(let i=-3;i<=3;i++){const X=px+i|0,Y=py+j|0;if(X>1&&X<W-2&&Y>1&&Y<H-2&&i*i+j*j<=9)a[Y*W+X]+=amp;}};
+  st.addEventListener('pointermove',e=>{const now=performance.now();if(now-last<40)return;last=now;const q=ptr(st,e);drop(q[0]/2,q[1]/2,90);});
+  st.addEventListener('pointerdown',e=>{const q=ptr(st,e);drop(q[0]/2,q[1]/2,260);});
+  const step=()=>{for(let y=1;y<H-1;y++)for(let X=1;X<W-1;X++){const i=y*W+X;b[i]=((a[i-1]+a[i+1]+a[i-W]+a[i+W])/2-b[i])*.982;}const t=a;a=b;b=t;};
+  const render=()=>{const d=im.data;for(let y=1;y<H-1;y++)for(let X=1;X<W-1;X++){const i=y*W+X,dx=a[i-1]-a[i+1],dy=a[i-W]-a[i+W],sx=Math.max(0,Math.min(W-1,X+dx*.12|0)),sy=Math.max(0,Math.min(H-1,y+dy*.12|0)),s=(sy*W+sx)*3,l=(dx-dy)*.6,o=i*4;
+    d[o]=bg[s]+l;d[o+1]=bg[s+1]+l;d[o+2]=bg[s+2]+l;d[o+3]=255;}x.putImageData(im,0,0);};
+  const r=rng(12);drop(60,50,300);drop(140,95,300);drop(95,120,200);for(let k=0;k<26;k++)step();render();
+  return t=>{if(t>next){drop(10+r()*(W-20),10+r()*(H-20),220);next=t+.7+r()*.6;}step();step();render();};}},
+{name:'Dither dissolve',d:'One scene breaks into a pattern of dots that reveals the next.',use:'Retro page transitions, reveals, loading between states',how:'Canvas: an 8×8 Bayer matrix as the threshold, so pixels switch in an ordered dot pattern',tags:['Canvas'],
+ init(st){const W=200,H=150,[c,x]=raw(st,W,H,'px'),im=x.createImageData(W,H),mk=f=>{const o=document.createElement('canvas');o.width=W;o.height=H;const g=o.getContext('2d');f(g);return g.getImageData(0,0,W,H).data;};
+  const A=mk(g=>{g.fillStyle='#F3EFE6';g.fillRect(0,0,W,H);g.fillStyle='#1E1E24';g.fillRect(24,30,152,90);g.fillStyle='#F3EFE6';g.fillRect(36,44,70,8);g.fillRect(36,60,110,5);g.fillRect(36,71,96,5);g.fillStyle='#E4572E';g.fillRect(36,92,44,16);});
+  const B=mk(g=>{const gr=g.createLinearGradient(0,0,W,H);gr.addColorStop(0,'#2D1B69');gr.addColorStop(1,'#0B7A75');g.fillStyle=gr;g.fillRect(0,0,W,H);g.fillStyle='#FFD23F';g.beginPath();g.arc(128,70,38,0,TAU);g.fill();g.fillStyle='#F3EFE6';g.fillRect(22,110,90,8);});
+  const M=[0];for(let s=1;s<8;s*=2){const n=[];for(let y=0;y<2*s;y++)for(let X=0;X<2*s;X++){const q=(y>=s?2:0)^(X>=s?1:0),base=M[(y%s)*s+(X%s)];n[y*2*s+X]=4*base+[0,2,3,1][q];}M.length=0;M.push(...n);}
+  const draw=p=>{const d=im.data;for(let y=0;y<H;y++)for(let X=0;X<W;X++){const i=(y*W+X)*4,th=(M[((y>>1)%8)*8+((X>>1)%8)]+.5)/64,S=th<p?B:A;d[i]=S[i];d[i+1]=S[i+1];d[i+2]=S[i+2];d[i+3]=255;}x.putImageData(im,0,0);};
+  const ss=(a,b,v)=>{const k=Math.max(0,Math.min(1,(v-a)/(b-a)));return k*k*(3-2*k);};
+  draw(.5);return t=>{const ph=(t/6)%1;draw(ss(.08,.42,ph)-ss(.58,.92,ph));};}},
 ]},
 {t:'Play and spectacle',items:[
 {name:'Confetti burst',d:'Paper bits that flip, flutter and drift down. Tap to fire another.',use:'Success moments, milestones, sign-up complete',how:'Canvas particles with drag, sway and a fake 3D flip from scaling',tags:['Canvas'],try:true,
@@ -1080,6 +1327,18 @@ gl_FragColor=vec4(col,1.);}`,480,360);
    it.el.style.opacity=o.toFixed(3);it.el.style.visibility=o>0?'visible':'hidden';it.el.style.transform=`translate3d(${it.x}cqw,${it.y}cqw,${rel.toFixed(2)}cqw)`;}};
   const onS=()=>{if(!card.live)return;const m=sc.scrollHeight-sc.clientHeight;upd(m>0?sc.scrollTop/m:0);};
   sc.addEventListener('scroll',onS,{passive:true});card.onLive=l=>{if(l)onS();else upd(0);};upd(0);}},
+{name:'Reactive dot grid',d:'A field of dots that ripples and bends away around the pointer.',use:'Hero backgrounds, tech and data brands, hover surfaces',how:'Canvas: each dot on a spring to its home, pushed by the pointer and by expanding ripple rings',tags:['Canvas'],try:true,
+ init(st){const [c,x]=cv(st,400,300,DPR()),G=16,D=[];let mx=-999,my=-999,last=-1e9;const rings=[],r=rng(6);
+  for(let y=G/2+2;y<300;y+=G)for(let X=G/2+4;X<400;X+=G)D.push({hx:X,hy:y,x:X,y:y,vx:0,vy:0});
+  st.addEventListener('pointermove',e=>{[mx,my]=ptr(st,e);last=performance.now();});st.addEventListener('pointerleave',()=>{mx=my=-999;});
+  st.addEventListener('pointerdown',e=>{const q=ptr(st,e);rings.push({x:q[0],y:q[1],r:0});});
+  const draw=()=>{x.fillStyle='#0D1321';x.fillRect(0,0,400,300);for(const d of D){const m=Math.min(1,Math.hypot(d.x-d.hx,d.y-d.hy)/14);x.fillStyle=`rgb(${(110+145*m)|0},${(125+60*m)|0},${(160-40*m)|0})`;x.beginPath();x.arc(d.x,d.y,1.6+m*1.8,0,TAU);x.fill();}};
+  const push=(d,cx,cy,rad,k)=>{const dx=d.x-cx,dy=d.y-cy,dd=Math.hypot(dx,dy)||1;if(dd<rad){const f=(1-dd/rad)*k;d.vx+=dx/dd*f;d.vy+=dy/dd*f;}};
+  rings.push({x:200,y:150,r:70});for(const d of D){const dx=d.hx-200,dy=d.hy-150,dd=Math.hypot(dx,dy)||1,w=Math.exp(-((dd-70)**2)/300)*8;d.x+=dx/dd*w;d.y+=dy/dd*w;}rings.length=0;draw();
+  let next=0;return (t,dt)=>{const f=Math.min(2,dt*60);if(performance.now()-last>2000&&t>next){rings.push({x:40+r()*320,y:30+r()*240,r:0});next=t+1.6;}
+   for(const g of rings)g.r+=3.2*f;while(rings.length&&rings[0].r>520)rings.shift();
+   for(const d of D){push(d,mx,my,70,1.3);for(const g of rings){const dx=d.x-g.x,dy=d.y-g.y,dd=Math.hypot(dx,dy)||1,w=Math.exp(-((dd-g.r)**2)/180)*.9*Math.max(0,1-g.r/520);d.vx+=dx/dd*w;d.vy+=dy/dd*w;}
+    d.vx+=(d.hx-d.x)*.08;d.vy+=(d.hy-d.y)*.08;d.vx*=.82;d.vy*=.82;d.x+=d.vx*f;d.y+=d.vy*f;}draw();};}},
 ]}
 ]}
 ];
