@@ -1,12 +1,13 @@
 /* Docs shell: layout only. Everything else comes from system.css and patterns.css. */
 body { font-size: 16px; }
-.docs-shell { display: grid; grid-template-columns: 260px 1fr; min-height: calc(100vh - var(--hdr)); }
+.docs-shell { display: grid; grid-template-columns: 260px minmax(0, 1fr); min-height: calc(100vh - var(--hdr)); }
 .docs-side { border-right: var(--rule); padding: 32px 24px 64px; position: sticky; top: var(--hdr); align-self: start; height: calc(100vh - var(--hdr)); overflow-y: auto; }
-.docs-side h4 { margin: 28px 0 10px; font-family: var(--font-label); font-weight: 700; font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
-.docs-side h4:first-child { margin-top: 0; }
+.docs-side h4 { margin: 0 0 10px; font-family: var(--font-label); font-weight: 700; font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+.docs-group + .docs-group { margin-top: 28px; }
 .docs-side a { display: block; padding: 6px 0 6px 12px; border-left: var(--rule-w) solid transparent; text-decoration: none; font-size: 15px; }
 .docs-side a:hover { border-left-color: var(--ink); }
 .docs-side a[aria-current="page"] { border-left-color: var(--accent); font-weight: 700; }
+.docs-side .docs-side-ext, .docs-menu-btn { display: none; }
 .docs-main { padding: 48px 56px 96px; max-width: 980px; }
 .docs-main > h1 { font-family: var(--font-display); font-weight: 700; text-transform: uppercase; letter-spacing: var(--track-display);
   font-size: clamp(48px, 6vw, 84px); line-height: .9; margin: 0; padding-bottom: 20px; border-bottom: var(--rule); }
@@ -16,6 +17,7 @@ body { font-size: 16px; }
 .docs-main > h3 { font-family: var(--font-label); font-weight: 700; text-transform: uppercase; letter-spacing: var(--track-label); font-size: 15px; margin: 28px 0 8px; }
 .docs-main p, .docs-main li { max-width: 46em; }
 .docs-main ul { padding-left: 1.2em; }
+.docs-main > pre { max-width: 100%; overflow-x: auto; }
 .docs-main li { margin-bottom: 6px; }
 .docs-main code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: .88em; background: var(--gray); padding: 1px 5px; }
 .docs-main > table { width: 100%; border-collapse: collapse; margin: 12px 0 8px; font-size: 15px; }
@@ -40,12 +42,44 @@ body { font-size: 16px; }
 .swatch div { padding: 10px 12px; font-size: 13px; line-height: 1.4; }
 .swatch b { font-family: var(--font-label); text-transform: uppercase; letter-spacing: var(--track-label); font-size: 13px; display: block; }
 .note { border-left: var(--rule-w) solid var(--highlight); background: var(--highlight-soft); padding: 12px 16px; margin: 16px 0; max-width: 46em; }
+/* previous / next */
+.docs-pager { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 72px; }
+.docs-step { display: flex; flex-direction: column; gap: 4px; padding-top: 12px; border-top: var(--rule); text-decoration: none;
+  font-family: var(--font-label); font-weight: 700; text-transform: uppercase; letter-spacing: var(--track-label); font-size: 15px; transition: color var(--quick); }
+.docs-step small { font-size: 12px; color: var(--muted); }
+.docs-step:hover { color: var(--accent); }
+.docs-step--next { text-align: right; }
+.docs-pager + .docs-foot { margin-top: 32px; }
 .docs-foot { margin-top: 72px; padding-top: 16px; border-top: var(--thin); font-size: 13px; color: var(--muted); }
+/* Phones and narrow windows: the sidebar becomes a menu under the header, so each page starts right below the header */
 @media (max-width: 860px) {
-  .docs-shell { grid-template-columns: 1fr; }
-  .docs-side { position: static; height: auto; border-right: 0; border-bottom: var(--rule); padding: 20px var(--gutter); }
-  .docs-main { padding: 32px var(--gutter) 72px; }
+  .docs-shell { grid-template-columns: minmax(0, 1fr); }
+  .sys-header .sys-nav { display: none; }
+  .docs-menu-btn { display: block; height: 44px; margin-right: -8px; padding: 0 8px; border: 0; background: none; color: inherit; cursor: pointer;
+    font-family: var(--font-label); font-weight: 700; font-size: var(--size-label); letter-spacing: var(--track-label); text-transform: uppercase; }
+  .docs-menu-btn:hover, .docs-menu-btn:focus-visible { color: var(--highlight); }
+  .docs-side { display: none; position: fixed; z-index: 9; top: var(--hdr); left: 0; right: 0; bottom: 0; height: auto; align-self: auto;
+    border-right: 0; padding: 24px var(--gutter) 48px; background: var(--paper); overscroll-behavior: contain; }
+  .docs-menu-open .docs-side { display: block; }
+  .docs-menu-open body { overflow: hidden; }
+  /* two columns of links per group halves the menu's length */
+  .docs-group { display: grid; grid-template-columns: 1fr 1fr; column-gap: 16px; }
+  .docs-group h4 { grid-column: 1 / -1; }
+  .docs-side a { padding: 11px 0 11px 12px; font-size: 16px; }
+  .docs-side .docs-side-ext { display: block; margin-top: 28px; padding: 14px 0 0 !important; border-top: var(--thin); border-left: 0 !important;
+    font-family: var(--font-label); font-weight: 700; text-transform: uppercase; letter-spacing: var(--track-label); font-size: var(--size-label) !important; }
+  .docs-main { padding: 28px var(--gutter) 64px; }
+  .docs-main > h1 { font-size: clamp(40px, 12vw, 64px); overflow-wrap: anywhere; }
+  .docs-main > h2 { font-size: 28px; margin-top: 44px; }
+  .docs-main .lead { font-size: 18px; margin-top: 18px; }
+  .docs-main > table { display: block; overflow-x: auto; }
+  .docs-main code { overflow-wrap: anywhere; }   /* long URLs break instead of widening the page */
+  .demo-stage { padding: 20px; overflow-x: auto; }   /* wide examples (tables) scroll inside their frame */
+  .demo pre { padding: 14px 16px; font-size: 12px; }
   .dodont { grid-template-columns: 1fr; }
+  .docs-pager { gap: 16px; margin-top: 56px; }
+  .logo-stage figure { max-width: 100%; }
+  .logo-stage img { max-width: 100%; object-fit: contain; object-position: left; }
 }
 
 /* logo page */

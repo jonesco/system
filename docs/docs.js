@@ -56,13 +56,16 @@ const NAV = [
   const header = document.createElement("header");
   header.className = "sys-header";
   header.innerHTML = `<div class="sys-bar" style="padding:0 24px"><a class="sys-brand" href="${root}index.html"><span>Jonesco System</span></a>
-    <nav class="sys-nav"><a href="${root}foundations/logo.html">Foundations</a><a href="${root}components/header.html">Components</a><a class="opt" href="https://github.com/jonesco/system">GitHub</a></nav></div>`;
+    <nav class="sys-nav"><a href="${root}foundations/logo.html">Foundations</a><a href="${root}components/header.html">Components</a><a class="opt" href="https://github.com/jonesco/system">GitHub</a></nav>
+    <button class="docs-menu-btn" type="button" aria-expanded="false" aria-controls="docs-side">Menu</button></div>`;
 
-  // sidebar
+  // sidebar; on phones it's the menu, opened from the header
   const side = document.createElement("aside");
   side.className = "docs-side";
-  side.innerHTML = NAV.map(([group, items]) => `<h4>${group}</h4>` + items.map(([href, label]) =>
-    `<a href="${root}${href}.html"${href === page ? ' aria-current="page"' : ""}>${label}</a>`).join("")).join("");
+  side.id = "docs-side";
+  side.innerHTML = NAV.map(([group, items]) => `<div class="docs-group"><h4>${group}</h4>` + items.map(([href, label]) =>
+    `<a href="${root}${href}.html"${href === page ? ' aria-current="page"' : ""}>${label}</a>`).join("") + `</div>`).join("") +
+    `<a class="docs-side-ext" href="https://github.com/jonesco/system">GitHub</a>`;
 
   const shell = document.createElement("div");
   shell.className = "docs-shell";
@@ -79,6 +82,28 @@ const NAV = [
   const save = () => { try { sessionStorage.setItem(KEY, side.scrollTop); } catch (e) {} };
   side.addEventListener("click", save);
   addEventListener("pagehide", save);
+
+  // phone menu: the button swaps Menu/Close, Escape or a wider window closes it, the page behind doesn't scroll
+  const btn = header.querySelector(".docs-menu-btn");
+  const setMenu = (open) => {
+    document.documentElement.classList.toggle("docs-menu-open", open);
+    btn.setAttribute("aria-expanded", open);
+    btn.textContent = open ? "Close" : "Menu";
+    // open at the top, or with the current page a third of the way down if it would be below the fold
+    if (open) side.scrollTop = cur && cur.offsetTop + cur.offsetHeight > side.clientHeight ? cur.offsetTop - side.clientHeight / 3 : 0;
+  };
+  btn.addEventListener("click", () => setMenu(btn.getAttribute("aria-expanded") !== "true"));
+  addEventListener("keydown", (e) => { if (e.key === "Escape" && btn.getAttribute("aria-expanded") === "true") { setMenu(false); btn.focus(); } });
+  matchMedia("(min-width: 861px)").addEventListener("change", (m) => { if (m.matches) setMenu(false); });
+
+  // previous / next page, in NAV order
+  const flat = NAV.flatMap(([, items]) => items);
+  const at = flat.findIndex(([href]) => href === page);
+  const step = (i, dir) => flat[i] ? `<a class="docs-step docs-step--${dir}" href="${root}${flat[i][0]}.html"><small>${dir === "prev" ? "Previous" : "Next"}</small>${flat[i][1]}</a>` : "<span></span>";
+  const pager = document.createElement("nav");
+  pager.className = "docs-pager";
+  pager.setAttribute("aria-label", "Pages");
+  if (at >= 0) { pager.innerHTML = step(at - 1, "prev") + step(at + 1, "next"); main.append(pager); }
 
   // code panel under each live example, generated from its own markup
   document.querySelectorAll(".demo").forEach((d) => {
