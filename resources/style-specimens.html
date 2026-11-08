@@ -44,6 +44,18 @@ body{font-size:16px}
 
 /* Sticky bar under the header: jump links, technique filter, motion toggle */
 .bar{position:sticky;top:var(--hdr);z-index:9;background:var(--paper);border-bottom:var(--thin)}
+
+/* The top of the page, intro and pinned bar, is reversed: black under the black header, white type.
+   The system has no on-black content switcher or text input yet, so they're reversed here. */
+.sp-hero,.bar.on-black{background:var(--ink);color:var(--paper)}
+.bar.on-black{border-bottom:1px solid var(--line-dark)}
+.on-black .eyebrow,.on-black .jump span{color:#bbb}
+.on-black .jump a:hover{color:var(--highlight)}
+.on-black .sys-content-switcher{border-color:var(--paper)}
+.on-black .sys-content-switcher>button{color:var(--paper)}
+.on-black .sys-content-switcher>button:hover{color:var(--highlight)}
+.on-black .sys-content-switcher>[aria-pressed="true"],.on-black .sys-content-switcher>[aria-pressed="true"]:hover{background:var(--paper);color:var(--ink)}
+.on-black .sys-input:focus{border-color:var(--highlight)}
 .bar-in{display:flex;align-items:center;gap:12px 20px;padding-top:12px;padding-bottom:12px;flex-wrap:wrap}
 .jump{display:flex;gap:24px}
 .jump a{text-decoration:none;padding:4px 0;border-bottom:3px solid transparent;transition:color var(--quick)}
@@ -510,7 +522,7 @@ body{font-size:16px}
   <nav class="sys-nav"><a href="../index.html">Docs</a></nav>
 </div></header>
 
-<header class="sys-wrap top">
+<div class="sp-hero on-black"><header class="sys-wrap top">
   <div>
     <p class="eyebrow sp-label">Resources · Illustration and motion, drawn in code</p>
     <h1>Style specimens</h1>
@@ -518,9 +530,9 @@ body{font-size:16px}
   <div>
     <p class="lede">Every specimen here is drawn live in your browser with SVG, CSS, canvas or WebGL. Copy any style to hand it to an AI as context.</p>
   </div>
-</header>
+</header></div>
 
-<nav class="bar" aria-label="Sections and filters">
+<nav class="bar on-black" aria-label="Sections and filters">
   <div class="sys-wrap bar-in">
     <div class="jump sp-label"><a href="#illustration">Illustration<span id="n-ill"></span></a><a href="#motion">Motion<span id="n-mot"></span></a><a href="#limits">Limits</a></div>
     <div class="chips sys-content-switcher sys-content-switcher--md" role="group" aria-label="Filter by technique">
