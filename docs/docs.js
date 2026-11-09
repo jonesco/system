@@ -62,7 +62,7 @@ const NAV = [
   // header
   const header = document.createElement("header");
   header.className = "sys-header";
-  header.innerHTML = `<div class="sys-bar docs-bar"><a class="sys-brand" href="${root}index.html"><img class="docs-mark" src="${root}icons/jonesco-system.svg" alt=""><span>Jonesco System</span></a>
+  header.innerHTML = `<div class="sys-bar docs-bar"><a class="sys-brand" href="${root}index.html"><img class="docs-mark" src="${root}icons/jonesco-system.svg" alt=""><span>Jonesco.design</span></a>
     <nav class="sys-nav"><a href="${root}foundations/logo.html">Foundations</a><a href="${root}components/header.html">Components</a><a class="opt" href="https://github.com/jonesco/system">GitHub</a></nav>
     <button class="docs-menu-btn" type="button" aria-expanded="false" aria-controls="docs-side">Menu</button></div>`;
 
@@ -136,6 +136,6 @@ const NAV = [
 
   const foot = document.createElement("div");
   foot.className = "docs-foot";
-  foot.innerHTML = `Jonesco System · v3.2.0 · <a href="${root}changelog.html">Changelog</a>`;
+  foot.innerHTML = `Jonesco.design · v3.2.0 · <a href="${root}changelog.html">Changelog</a>`;
   main.append(foot);
 })();
