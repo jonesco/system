@@ -42,25 +42,25 @@ body{font-size:16px}
   font-size:clamp(56px,9vw,120px);line-height:.88}
 .lede{margin:0;max-width:46ch;font-size:19px;line-height:1.45}
 
-/* Sticky bar under the header: jump links, technique filter, motion toggle */
-.bar{position:sticky;top:var(--hdr);z-index:9;background:var(--paper);border-bottom:var(--thin)}
+/* Pinned under the intro: the system Section nav (jump links, plus the motion toggle on the right),
+   then the filter row. Per the Section nav rules, the header scrolls away and only this block stays pinned. */
+.sys-header{position:static}
+.sp-pin{position:sticky;top:0;z-index:10}
+.sp-pin .sys-section-nav{position:static}
+.sp-pin .sys-nav a span{margin-left:6px;font-family:var(--font-body);font-weight:400;letter-spacing:0;color:#bbb}
+.sp-pin .sys-nav a.is-current span{color:inherit}
 
 /* The top of the page, intro and pinned bar, is reversed: black under the black header, white type.
    The system has no on-black content switcher or text input yet, so they're reversed here. */
-.sp-hero,.bar.on-black{background:var(--ink);color:var(--paper)}
-.bar.on-black{border-bottom:1px solid var(--line-dark)}
-.on-black .eyebrow,.on-black .jump span{color:#bbb}
-.on-black .jump a:hover{color:var(--highlight)}
+.sp-hero,.sp-pin{background:var(--ink);color:var(--paper)}
+.sp-pin{border-bottom:1px solid var(--line-dark)}
+.on-black .eyebrow{color:#bbb}
 .on-black .sys-content-switcher{border-color:var(--paper)}
 .on-black .sys-content-switcher>button{color:var(--paper)}
 .on-black .sys-content-switcher>button:hover{color:var(--highlight)}
 .on-black .sys-content-switcher>[aria-pressed="true"],.on-black .sys-content-switcher>[aria-pressed="true"]:hover{background:var(--paper);color:var(--ink)}
 .on-black .sys-input:focus{border-color:var(--highlight)}
-.bar-in{display:flex;align-items:center;gap:12px 20px;padding-top:12px;padding-bottom:12px;flex-wrap:wrap}
-.jump{display:flex;gap:24px}
-.jump a{text-decoration:none;padding:4px 0;border-bottom:3px solid transparent;transition:color var(--quick)}
-.jump a:hover{color:var(--accent)}
-.jump span{margin-left:6px;font-family:var(--font-body);font-weight:400;color:var(--muted)}
+.bar-in{display:flex;align-items:center;gap:12px 20px;padding-top:4px;padding-bottom:16px;flex-wrap:wrap}
 .chips{display:flex;max-width:100%;overflow-x:auto;scrollbar-width:none;flex:none}
 .chips::-webkit-scrollbar{display:none}
 .chips>button{white-space:nowrap}
@@ -73,18 +73,23 @@ body{font-size:16px}
 .sp-none{margin:48px 0 0;padding:16px 0;border-top:var(--rule);font-family:var(--font-label);font-weight:700;font-size:20px}
 .mt{margin-left:auto}
 @media (max-width:760px){.top{padding-top:32px;padding-bottom:24px}}
-/* phones: jump links and the motion toggle share one row, the filter takes the next, so the pinned bar stays two rows */
+/* phones: the section nav keeps the motion toggle on its row; the filter dropdown and search share the next */
 @media (max-width:640px){
   .chips{display:none}.sys-brand .sp-mark{height:30px}
   .sp-filter{display:block;order:3;flex:0 0 auto;width:auto;min-width:132px}
-  .bar-in{gap:8px 16px;padding-top:8px;padding-bottom:10px}
-  .jump{gap:16px}.jump span{display:none}
+  .bar-in{gap:8px 16px;padding-top:0;padding-bottom:12px}
+  .sp-pin .sys-nav a span{display:none}
+  .sp-pin .sys-nav{gap:16px}
   .sp-search{order:4;flex:1 1 0;max-width:none}
-  .group,.limits{scroll-margin-top:calc(var(--hdr) + 104px)}
+}
+/* the smallest phones: the toggle keeps its name for screen readers but drops the visible label, so the row fits */
+@media (max-width:380px){
+  .mt-l{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+  .sp-pin .sys-nav{gap:12px}
 }
 
 /* Chapters */
-.group{padding-top:56px;scroll-margin-top:calc(var(--hdr) + 72px)}
+.group{padding-top:56px;scroll-margin-top:calc(var(--pin,120px) - 24px)}   /* --pin: the pinned block's height, set by the script */
 .g-head{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:end;gap:8px 32px;padding-bottom:16px;border-bottom:var(--rule);margin-bottom:8px}
 .g-head h2{margin:0;font-family:var(--font-display);font-weight:700;text-transform:uppercase;letter-spacing:var(--track-display);font-size:var(--size-section);line-height:.95}
 .g-head p{margin:0;max-width:56ch;color:var(--muted)}
@@ -113,7 +118,7 @@ body{font-size:16px}
 .pbtn:active{transform:translateY(1px)}
 
 /* Limits */
-.limits{padding-top:72px;padding-bottom:56px;scroll-margin-top:calc(var(--hdr) + 72px)}
+.limits{padding-top:72px;padding-bottom:56px;scroll-margin-top:calc(var(--pin,120px) - 24px)}
 .limits h2{margin:0;padding-bottom:16px;border-bottom:var(--rule);font-family:var(--font-display);font-weight:700;text-transform:uppercase;letter-spacing:var(--track-display);font-size:var(--size-section);line-height:.95}
 .limits>p{margin:16px 0 20px;max-width:60ch;color:var(--muted)}
 .lim{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,300px),1fr));gap:0 40px}
@@ -537,9 +542,12 @@ body{font-size:16px}
   </div>
 </header></div>
 
-<nav class="bar on-black" aria-label="Sections and filters">
-  <div class="sys-wrap bar-in">
-    <div class="jump sp-label"><a href="#illustration">Illustration<span id="n-ill"></span></a><a href="#motion">Motion<span id="n-mot"></span></a><a href="#limits">Limits</a></div>
+<div class="sp-pin on-black">
+  <nav class="sys-section-nav" aria-label="Sections"><div class="sys-wrap sys-nav">
+    <a href="#illustration">Illustration<span id="n-ill"></span></a><a href="#motion">Motion<span id="n-mot"></span></a><a href="#limits">Limits</a>
+      <button type="button" id="motion-toggle" class="mt sys-toggle" role="switch" aria-checked="true"><span class="sys-toggle__track" aria-hidden="true"></span><span class="mt-l">Motion</span></button>
+  </div></nav>
+  <div class="bar" role="search" aria-label="Filter specimens"><div class="sys-wrap bar-in">
     <div class="chips sys-content-switcher sys-content-switcher--md" role="group" aria-label="Filter by technique">
       <button type="button" data-f="All" aria-pressed="true">All</button>
       <button type="button" data-f="New" aria-pressed="false">New</button>
@@ -555,9 +563,8 @@ body{font-size:16px}
       <option value="Canvas">Canvas</option><option value="WebGL">WebGL</option><option value="JS">JS</option><option value="Interactive">Interactive</option>
     </select>
     <input type="search" id="sp-q" class="sys-input sp-search" placeholder="Search" aria-label="Search specimens by name, use or technique" autocomplete="off" spellcheck="false">
-    <button type="button" id="motion-toggle" class="mt sys-toggle" role="switch" aria-checked="true"><span class="sys-toggle__track" aria-hidden="true"></span>Motion</button>
-  </div>
-</nav>
+  </div></div>
+</div>
 
 <main class="sys-wrap" id="main"><p class="sp-none" id="sp-none" hidden>No specimens match. Try another word or clear the search.</p></main>
 
@@ -1402,6 +1409,16 @@ requestAnimationFrame(loop);
 const mt=document.getElementById('motion-toggle');
 const syncMT=()=>{mt.setAttribute('aria-checked',String(motionOn));cards.forEach(setLive);};
 mt.addEventListener('click',()=>{motionOn=!motionOn;syncMT();});
+/* Section nav: --pin keeps jumps clear of the pinned block; the current section's link takes the yellow underline */
+const pin=document.querySelector('.sp-pin'),setPin=()=>document.documentElement.style.setProperty('--pin',pin.offsetHeight+'px');
+setPin();if('ResizeObserver' in window)new ResizeObserver(setPin).observe(pin);
+const navA=[...document.querySelectorAll('.sp-pin .sys-nav a')],secs=navA.map(a=>document.querySelector(a.getAttribute('href')));
+const markNav=()=>{const y=pin.offsetHeight+80;let cur=null;secs.forEach((x,i)=>{if(x&&x.getBoundingClientRect().top<=y)cur=i;});
+ if(innerHeight+scrollY>=document.documentElement.scrollHeight-2)cur=secs.length-1;   /* Limits is short: at the page end it's current even below the line */
+ navA.forEach((a,i)=>{a.classList.toggle('is-current',i===cur);if(i===cur)a.setAttribute('aria-current','true');else a.removeAttribute('aria-current');});};
+if('IntersectionObserver' in window){const sio=new IntersectionObserver(markNav,{threshold:[0,1],rootMargin:'0px 0px -50% 0px'});secs.forEach(x=>x&&sio.observe(x));
+ secs.forEach(x=>x&&x.querySelectorAll('.g-head,.sec').forEach(h=>sio.observe(h)));}
+addEventListener('scrollend',markNav);markNav();   /* a jump can end between two observer thresholds */
 if(RM.addEventListener)RM.addEventListener('change',e=>{motionOn=!e.matches;syncMT();});
 syncMT();
 
