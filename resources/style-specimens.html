@@ -53,28 +53,22 @@ body{font-size:16px}
    The system has no on-black content switcher or text input yet, so they're reversed here. */
 .sp-hero,.sp-pin{background:var(--ink);color:var(--paper)}
 .sp-pin{border-bottom:1px solid var(--line-dark)}
-.on-black .sys-content-switcher{border-color:var(--paper)}
-.on-black .sys-content-switcher>button{color:var(--paper)}
-.on-black .sys-content-switcher>button:hover{color:var(--highlight)}
-.on-black .sys-content-switcher>[aria-pressed="true"],.on-black .sys-content-switcher>[aria-pressed="true"]:hover{background:var(--paper);color:var(--ink)}
+.on-black .sys-input{background-color:var(--paper)}   /* fields turn white on black, as they do on a newsprint panel */
 .on-black .sys-input:focus{border-color:var(--highlight)}
 .bar-in{display:flex;align-items:center;gap:12px 20px;padding-top:4px;padding-bottom:24px;flex-wrap:wrap}
-.chips{display:flex;max-width:100%;overflow-x:auto;scrollbar-width:none;flex:none}
-.chips::-webkit-scrollbar{display:none}
-.chips>button{white-space:nowrap}
-/* phones: the eight filters don't fit in a switcher, so they become a dropdown beside the search */
-.sp-filter{display:none;padding-right:36px;font-family:var(--font-label);font-weight:700;font-size:var(--size-tag);letter-spacing:var(--track-label);text-transform:uppercase;cursor:pointer;
+/* the technique filter: a dropdown (eight options are too many for a content switcher), beside the search */
+.sp-filter{flex:0 0 180px;width:auto;padding-right:36px;font-family:var(--font-label);font-weight:700;font-size:var(--size-tag);letter-spacing:var(--track-label);text-transform:uppercase;cursor:pointer;
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8' fill='none' stroke='%23000' stroke-width='2'%3E%3Cpath d='M1 1.5l5 5 5-5'/%3E%3C/svg%3E");
   background-repeat:no-repeat;background-position:right 12px center;background-size:12px 8px}
-.sp-search{flex:1 1 120px;width:auto;max-width:260px}   /* the system text input (.sys-input), sized to the bar */
+.sp-search{flex:0 1 320px;width:auto}   /* the system text input (.sys-input), sized to the bar */
 [hidden]{display:none !important}   /* filtered-out cards: .sys-card's display:flex would otherwise keep them showing */
 .sp-none{margin:48px 0 0;padding:16px 0;border-top:var(--rule);font-family:var(--font-label);font-weight:700;font-size:20px}
 .mt{margin-left:auto}
 @media (max-width:760px){.top{padding-top:32px;padding-bottom:24px}}
 /* phones: the section nav keeps the motion toggle on its row; the filter dropdown and search share the next */
 @media (max-width:640px){
-  .chips{display:none}.sys-brand .sp-mark{height:30px}
-  .sp-filter{display:block;order:3;flex:0 0 auto;width:auto;min-width:132px}
+  .sys-brand .sp-mark{height:30px}
+  .sp-filter{order:3;flex:0 0 auto;min-width:132px}
   .bar-in{gap:8px 16px;padding-top:0;padding-bottom:20px}
   .sp-pin .sys-nav a span{display:none}
   .sp-pin .sys-nav{gap:16px}
@@ -544,16 +538,6 @@ body{font-size:16px}
       <button type="button" id="motion-toggle" class="mt sys-toggle" role="switch" aria-checked="true"><span class="sys-toggle__track" aria-hidden="true"></span><span class="mt-l">Motion</span></button>
   </div></nav>
   <div class="bar" role="search" aria-label="Filter specimens"><div class="sys-wrap bar-in">
-    <div class="chips sys-content-switcher sys-content-switcher--md" role="group" aria-label="Filter by technique">
-      <button type="button" data-f="All" aria-pressed="true">All</button>
-      <button type="button" data-f="New" aria-pressed="false">New</button>
-      <button type="button" data-f="SVG" aria-pressed="false">SVG</button>
-      <button type="button" data-f="CSS" aria-pressed="false">CSS</button>
-      <button type="button" data-f="Canvas" aria-pressed="false">Canvas</button>
-      <button type="button" data-f="WebGL" aria-pressed="false">WebGL</button>
-      <button type="button" data-f="JS" aria-pressed="false">JS</button>
-      <button type="button" data-f="Interactive" aria-pressed="false">Interactive</button>
-    </div>
     <select id="sp-f" class="sys-input sp-filter" aria-label="Filter by technique">
       <option value="All">All</option><option value="New">New</option><option value="SVG">SVG</option><option value="CSS">CSS</option>
       <option value="Canvas">Canvas</option><option value="WebGL">WebGL</option><option value="JS">JS</option><option value="Interactive">Interactive</option>
@@ -1419,7 +1403,7 @@ if(RM.addEventListener)RM.addEventListener('change',e=>{motionOn=!e.matches;sync
 syncMT();
 
 // Filter by technique (or Interactive) and by search; both apply at once
-const chips=[...document.querySelectorAll('.chips button')],q=document.getElementById('sp-q'),none=document.getElementById('sp-none');
+const q=document.getElementById('sp-q'),none=document.getElementById('sp-none');
 const norm=t=>t.toLowerCase().normalize('NFKD').replace(/[\u0300-\u036f]/g,'');
 cards.forEach(c=>{const it=c.it,sec=c.el.closest('.sec');c.text=norm([it.name,it.d,it.use,it.how,it.tags.join(' '),it.try?'interactive':'',isNew(it)?'new':'',sec?sec.querySelector('h3').textContent:''].join(' '));});
 let f='All';
@@ -1429,8 +1413,7 @@ function apply(){const words=norm(q.value).split(/\s+/).filter(Boolean);let show
   document.querySelectorAll('.group').forEach(g=>{const vis=[...g.querySelectorAll('.card')].filter(a=>!a.hidden).length;g.querySelector('.g-n').textContent=vis+(vis===1?' style':' styles');g.hidden=vis===0;});
   none.hidden=shown>0;}
 const fsel=document.getElementById('sp-f');
-chips.forEach(b=>b.addEventListener('click',()=>{f=b.dataset.f;chips.forEach(x=>x.setAttribute('aria-pressed',String(x===b)));fsel.value=f;apply();}));
-fsel.addEventListener('change',()=>chips.find(b=>b.dataset.f===fsel.value).click());   /* the phone dropdown drives the same filter */
+fsel.addEventListener('change',()=>{f=fsel.value;apply();});
 q.addEventListener('input',apply);
 
 // Copy a style as AI context: name, look, use, how it's built, technique. Read from the card so new specimens get it too.
