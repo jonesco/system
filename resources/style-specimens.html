@@ -56,7 +56,7 @@ body{font-size:16px}
 .sp-pin{border-bottom:1px solid var(--line-dark)}
 .on-black .sys-input{background-color:var(--paper)}   /* fields turn white on black, as they do on a newsprint panel */
 .on-black .sys-input:focus{border-color:var(--highlight)}
-.bar-in{display:flex;align-items:center;gap:12px 20px;padding-top:4px;padding-bottom:24px;flex-wrap:wrap}
+.bar-in{display:flex;align-items:center;gap:12px 20px;padding-top:12px;padding-bottom:24px;flex-wrap:wrap}
 /* the technique filter: a dropdown (eight options are too many for a content switcher), beside the search */
 .sp-filter{flex:0 0 180px;width:auto;padding-right:36px;font-family:var(--font-label);font-weight:700;font-size:var(--size-tag);letter-spacing:var(--track-label);text-transform:uppercase;cursor:pointer;
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8' fill='none' stroke='%23000' stroke-width='2'%3E%3Cpath d='M1 1.5l5 5 5-5'/%3E%3C/svg%3E");
@@ -70,7 +70,7 @@ body{font-size:16px}
 @media (max-width:640px){
   .sys-brand .sp-mark{height:30px}
   .sp-filter{order:3;flex:0 0 auto;min-width:132px}
-  .bar-in{gap:8px 16px;padding-top:0;padding-bottom:20px}
+  .bar-in{gap:8px 16px;padding-top:8px;padding-bottom:20px}
   .sp-pin .sys-nav a span{display:none}
   .sp-pin .sys-nav{gap:16px}
   .sp-search{order:4;flex:1 1 0;max-width:none}
