@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/svg+xml" href="../icons/jonesco-system.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="../icons/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="../icons/favicon-96.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="../icons/apple-touch-icon.png">
+  <link rel="manifest" href="../manifest.webmanifest">
+  <meta name="theme-color" content="#000000">
+  <title>Back to top · Jonesco.design</title>
+  <link rel="stylesheet" href="../system.css">
+  <link rel="stylesheet" href="../patterns.css">
+  <link rel="stylesheet" href="../docs/docs.css">
+</head>
+<body data-root="../" data-page="components/to-top">
+<main class="docs-main">
+<h1>Back to top</h1>
+<p class="lead">A floating pill that takes you back to the top of a long page. Black with white caps and a thin white stroke, so it shows on white, newsprint and black.</p>
+<div class="demo"><div class="demo-stage flush"><div class="tag-grounds">
+<div style="background:var(--paper)"><a class="sys-to-top is-shown" style="position:static" href="#top"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M6 11V1.5M1.5 6 6 1.5 10.5 6"/></svg>Top</a></div>
+<div style="background:var(--newsprint)"><a class="sys-to-top is-shown" style="position:static" href="#top"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M6 11V1.5M1.5 6 6 1.5 10.5 6"/></svg>Top</a></div>
+<div style="background:var(--ink)"><a class="sys-to-top is-shown" style="position:static" href="#top"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M6 11V1.5M1.5 6 6 1.5 10.5 6"/></svg>Top</a></div>
+</div></div></div>
+<h2>Script</h2>
+<p>The pill starts hidden. A few lines show it once the page’s opening block is out of view, and send focus to the top on click.</p>
+<div class="demo" data-nocode><pre><code>&lt;a class="sys-to-top" href="#top"&gt;&lt;svg viewBox="0 0 12 12" aria-hidden="true"&gt;&lt;path d="M6 11V1.5M1.5 6 6 1.5 10.5 6"/&gt;&lt;/svg&gt;Top&lt;/a&gt;
+
+const top = document.querySelector('.sys-to-top'), intro = document.querySelector('.intro'),   // the opening block
+      target = document.getElementById('top');                                               // the h1, with tabindex="-1"
+new IntersectionObserver(([e]) =&gt; top.classList.toggle('is-shown', !e.isIntersecting)).observe(intro);
+top.addEventListener('click', e =&gt; {
+  e.preventDefault();
+  const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  scrollTo({top: 0, behavior: still ? 'auto' : 'smooth'});
+  target.focus({preventScroll: true});
+});</code></pre></div>
+<h2>Parts</h2>
+<table><tr><th>Part</th><th>Markup</th><th>Look</th></tr>
+<tr><td>Pill</td><td><code>a.sys-to-top</code> pointing at the page’s top</td><td>40px tall, black, 1.5px white stroke, 13px white caps; 44px hit area</td></tr>
+<tr><td>Arrow</td><td>Inline <code>svg</code>, first inside the link</td><td>12px up arrow, drawn in the type color</td></tr>
+<tr><td>Shown</td><td><code>.is-shown</code>, added by script</td><td>Fades and rises 8px into place</td></tr>
+</table>
+<h2>Stipulations</h2>
+<ul>
+<li><b>Always the arrow.</b> It’s a pill, like a <a href="tag.html">tag</a>, and tags never take a click; the arrow is what says this one does. With the <a href="toggle.html">toggle</a>, it’s one of only two clickable pills.</li>
+<li><b>One per page,</b> only on pages longer than about three screens. Never inline with tags, and never with a label other than “Top”.</li>
+<li>Bottom right, 16px from the edges plus the device’s safe area, so it clears the iPhone toolbar.</li>
+<li>Hidden while the opening block is on screen; it appears once that block scrolls away and disappears again near the top.</li>
+<li>The white stroke stays on every background: it’s what keeps the pill visible over black areas and dark artwork.</li>
+<li>Type turns yellow on hover, as on any black. Smooth scroll, or a jump with reduced motion; focus moves to the page’s title so keyboard and screen reader users land at the top too.</li>
+</ul>
+</main>
+<script src="../docs/docs.js"></script>
+</body>
+</html>

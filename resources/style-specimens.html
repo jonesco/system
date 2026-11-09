@@ -526,7 +526,7 @@ body{font-size:16px}
 
 <div class="sp-hero on-black"><header class="sys-wrap top">
   <div>
-    <h1>Style specimens</h1>
+    <h1 id="top" tabindex="-1">Style specimens</h1>
   </div>
   <div>
     <p class="lede">Every specimen here is drawn live in your browser with SVG, CSS, canvas or WebGL. Copy any style to hand it to an AI as context.</p>
@@ -546,6 +546,8 @@ body{font-size:16px}
     <input type="search" id="sp-q" class="sys-input sp-search" placeholder="Search" aria-label="Search specimens by name, use or technique" autocomplete="off" spellcheck="false">
   </div></div>
 </div>
+
+<a class="sys-to-top" href="#top"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M6 11V1.5M1.5 6 6 1.5 10.5 6"/></svg>Top</a>
 
 <main class="sys-wrap" id="main"><p class="sp-none" id="sp-none" hidden>No specimens match. Try another word or clear the search.</p></main>
 
@@ -1399,7 +1401,11 @@ const markNav=()=>{const y=pin.offsetHeight+80;let cur=null;secs.forEach((x,i)=>
  navA.forEach((a,i)=>{a.classList.toggle('is-current',i===cur);if(i===cur)a.setAttribute('aria-current','true');else a.removeAttribute('aria-current');});};
 if('IntersectionObserver' in window){const sio=new IntersectionObserver(markNav,{threshold:[0,1],rootMargin:'0px 0px -50% 0px'});secs.forEach(x=>x&&sio.observe(x));
  secs.forEach(x=>x&&x.querySelectorAll('.g-head,.sec').forEach(h=>sio.observe(h)));}
-addEventListener('scrollend',markNav);markNav();   /* a jump can end between two observer thresholds */
+addEventListener('scrollend',markNav);
+/* Back to top: shown once the black intro is out of view */
+const toTop=document.querySelector('.sys-to-top'),topH=document.getElementById('top');
+if('IntersectionObserver' in window)new IntersectionObserver(([e])=>toTop.classList.toggle('is-shown',!e.isIntersecting)).observe(document.querySelector('.sp-hero'));
+toTop.addEventListener('click',e=>{e.preventDefault();scrollTo({top:0,behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});topH.focus({preventScroll:true});});markNav();   /* a jump can end between two observer thresholds */
 if(RM.addEventListener)RM.addEventListener('change',e=>{motionOn=!e.matches;syncMT();});
 syncMT();
 
