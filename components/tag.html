@@ -17,7 +17,7 @@
 <body data-root="../" data-page="components/tag">
 <main class="docs-main">
 <h1>Tag</h1>
-<p class="lead">A pill with no border that marks a status, a category or an id. Dark is black with yellow type; light is newsprint with black type; white is for newsprint and color backgrounds.</p>
+<p class="lead">A pill with no border that marks a status, a category or an id. Dark is black with yellow type; light is newsprint with black type; white is for newsprint and color backgrounds; accent is magenta, for the one thing that’s new.</p>
 <div class="demo"><div class="demo-stage" style="display:flex;gap:12px;align-items:center;flex-wrap:wrap">
 <span class="sys-tag">New · Vol. 1</span>
 <span class="sys-tag sys-tag--light">Case Study #5487</span>
@@ -28,6 +28,13 @@
 <div style="background:var(--newsprint)"><span class="sys-tag sys-tag--white">SVG</span><span class="sys-tag sys-tag--white">Canvas</span><span class="sys-tag">Interactive</span></div>
 <div style="background:var(--data-100)"><span class="sys-tag sys-tag--white">Savings</span><span class="sys-tag">Critical</span></div>
 <div style="background:var(--highlight)"><span class="sys-tag sys-tag--white">New</span><span class="sys-tag">Vol. 1</span></div>
+</div></div></div>
+<h3>Accent</h3>
+<p>The accent tag (<code>.sys-tag--accent</code>) is magenta with white type. It marks what’s new or featured, and it’s the loudest tag, so use one per group and never for status.</p>
+<div class="demo"><div class="demo-stage flush"><div class="tag-grounds">
+<div style="background:var(--paper)"><span class="sys-tag sys-tag--light">SVG</span><span class="sys-tag sys-tag--accent">New</span></div>
+<div style="background:var(--newsprint)"><span class="sys-tag sys-tag--white">WebGL</span><span class="sys-tag">Interactive</span><span class="sys-tag sys-tag--accent">New</span></div>
+<div style="background:var(--ink)"><span class="sys-tag sys-tag--white">Canvas</span><span class="sys-tag sys-tag--accent">New</span></div>
 </div></div></div>
 <h3>Sizes</h3>
 <p>Small (24px) is the default. Medium (<code>.sys-tag--md</code>, 32px) is the height of a small <a href="content-switcher.html">content switcher</a>, for a tag in a row with one.</p>
@@ -50,6 +57,7 @@
 <tr><td>Dark</td><td><code>.sys-tag</code></td><td>Black pill, yellow caps</td></tr>
 <tr><td>Light</td><td><code>.sys-tag--light</code></td><td>Newsprint pill, black caps; white inside a newsprint panel (table, card)</td></tr>
 <tr><td>White</td><td><code>.sys-tag--white</code></td><td>White pill, black caps; on newsprint or a color</td></tr>
+<tr><td>Accent</td><td><code>.sys-tag--accent</code></td><td>Magenta pill (<code>--accent</code>), white caps; works on white, newsprint and black</td></tr>
 <tr><td>Warning</td><td><code>.sys-tag--outline</code></td><td>Thin black outline, black caps</td></tr>
 <tr><td>Small</td><td>default</td><td>24px tall, 12px type</td></tr>
 <tr><td>Medium</td><td><code>.sys-tag--md</code></td><td>32px tall, 13px type</td></tr>
@@ -59,6 +67,7 @@
 <li><b>Tags are pills.</b> Only tags and the <a href="toggle.html">toggle</a> are rounded; everything else stays square, so a tag can never be mistaken for a button.</li>
 <li>No border on dark, light or white tags. The Warning outline is the one exception.</li>
 <li><b>Light on white, white on anything else.</b> On a white page use the light tag; on newsprint or a color use the white tag, so the tag always shows against what’s behind it. Dark works on any light background.</li>
+<li><b>One accent at a time.</b> The accent tag follows the one-highlight rule: at most one per card or row, for New or Featured. It never marks a status, so it can’t compete with Critical.</li>
 <li>Critical is always the dark tag: black, yellow type. Magenta type on black or a magenta block were tried and dropped.</li>
 <li>The count of missing items next to a chart (“2 not recorded”) uses the dark tag too, because it’s part of the critical alert.</li>
 <li>A critical tag in a notification sits inside the <a href="inline-notification.html">inline notification</a> container (yellow rule on pale yellow).</li>

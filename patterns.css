@@ -47,6 +47,7 @@
    <span class="sys-tag">Critical</span>                        dark: black, yellow type (the default)
    <span class="sys-tag sys-tag--light">Working</span>          light: newsprint, black type (white on a newsprint panel)
    <span class="sys-tag sys-tag--white">SVG</span>              white: white, black type, for newsprint or a color behind it
+   <span class="sys-tag sys-tag--accent">New</span>             accent (3.2.0): magenta, white type; one per group, for what's new or featured
    <span class="sys-tag sys-tag--md">Case Study #5487</span>    medium: 32px, the height of a small content switcher
    Small (24px) is the default. Tags are the one rounded thing in the system, so they never read as buttons. */
 .sys-tag { display: inline-flex; align-items: center; height: 24px; padding: 0 10px; border-radius: 999px; background: var(--ink); color: var(--highlight);
@@ -54,6 +55,7 @@
 .sys-tag--md { height: 32px; padding: 0 14px; font-size: var(--size-tag); }
 .sys-tag--light, .sys-tag--plain { background: var(--newsprint); color: var(--ink); }
 .sys-tag--white { background: var(--paper); color: var(--ink); }
+.sys-tag--accent { background: var(--accent); color: var(--paper); }
 
 /* ---------- Button: black block; magenta on hover; ghost is an outline ----------
    Three sizes (3.0.0). Large (64px) is the default and the page call to action. Medium (.sys-btn--md, 40px) and

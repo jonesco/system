@@ -111,7 +111,6 @@ body{font-size:16px}
 .sp-copy{--icon-size:20px;margin:-10px -12px -10px 0}
 .sp-copy.is-done::after{opacity:1}
 /* technique tags are the system white tag (they sit on the newsprint card body), Interactive the dark one, New magenta */
-.tags .sp-new{background:var(--accent);color:var(--paper)}
 /* inside the plates; part of the artwork, so they keep its fonts and colors */
 .nogl{position:absolute;inset:0;display:grid;place-items:center;margin:0;font:500 12px var(--f-mono);color:var(--muted)}
 .pbtn{font:500 12px var(--f-mono);color:var(--ink);background:var(--surface);border:1px solid var(--ink);border-radius:99px;padding:5px 12px;cursor:pointer}
@@ -1386,7 +1385,7 @@ G.forEach(g=>{const sec=document.createElement('section');sec.className='group';
   const P=g.key==='illustration'?'I':'M';let k=0;
   g.secs.forEach(s=>{const ss=document.createElement('section');ss.className='sec';ss.innerHTML=`<h3>${s.t}</h3>`;const grid=document.createElement('div');grid.className='grid';
     s.items.forEach(it=>{k++;const num=P+'-'+String(k).padStart(2,'0'),a=document.createElement('article');a.className='card sys-card sys-card--sm';
-      a.innerHTML=`<div class="stage sys-card__art"${it.try?'':` role="img" aria-label="${it.name} example"`}></div><div class="meta sys-card__body"><h4 class="sys-card__title">${it.name}</h4><p class="desc sys-card__text">${it.d}</p><dl><div><dt>Use for</dt><dd>${it.use}</dd></div><div><dt>Built with</dt><dd>${it.how}</dd></div></dl><div class="sys-card__foot"><ul class="tags">${it.tags.map(t=>`<li class="sys-tag sys-tag--white">${t}</li>`).join('')}${it.try?'<li class="sys-tag try">Interactive</li>':''}${isNew(it)?'<li class="sys-tag sp-new">New</li>':''}</ul><button type="button" class="sys-icon-btn sp-copy" aria-label="Copy the ${it.name} style as AI context" data-tip="Copy style">${ICON_COPY}</button></div></div>`;
+      a.innerHTML=`<div class="stage sys-card__art"${it.try?'':` role="img" aria-label="${it.name} example"`}></div><div class="meta sys-card__body"><h4 class="sys-card__title">${it.name}</h4><p class="desc sys-card__text">${it.d}</p><dl><div><dt>Use for</dt><dd>${it.use}</dd></div><div><dt>Built with</dt><dd>${it.how}</dd></div></dl><div class="sys-card__foot"><ul class="tags">${it.tags.map(t=>`<li class="sys-tag sys-tag--white">${t}</li>`).join('')}${it.try?'<li class="sys-tag try">Interactive</li>':''}${isNew(it)?'<li class="sys-tag sys-tag--accent">New</li>':''}</ul><button type="button" class="sys-icon-btn sp-copy" aria-label="Copy the ${it.name} style as AI context" data-tip="Copy style">${ICON_COPY}</button></div></div>`;
       grid.appendChild(a);const c={el:a,it,stage:a.firstElementChild,visible:false,live:false,inited:false,frame:null,onLive:null};
       if(it.stage)c.stage.innerHTML=it.stage;cards.push(c);byEl.set(a,c);});
     ss.appendChild(grid);sec.appendChild(ss);});
