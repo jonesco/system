@@ -40,6 +40,7 @@ body{font-size:16px}
 .top h1{margin:0;font-family:var(--font-display);font-weight:700;text-transform:uppercase;letter-spacing:var(--track-display);
   font-size:clamp(56px,9vw,120px);line-height:.88}
 .lede{margin:0;font-size:19px;line-height:1.45}
+.top{grid-template-columns:minmax(0,max-content)}.top>div:last-child{contain:inline-size}   /* the line wraps to the title's width */
 
 /* Pinned under the intro: the system Section nav (jump links, plus the motion toggle on the right),
    then the filter row. Per the Section nav rules, the header scrolls away and only this block stays pinned. */
