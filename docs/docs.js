@@ -137,6 +137,6 @@ const NAV = [
 
   const foot = document.createElement("div");
   foot.className = "docs-foot";
-  foot.innerHTML = `Jonesco.design · v3.3.0 · <a href="${root}changelog.html">Changelog</a>`;
+  foot.innerHTML = `Jonesco.design · v3.3.1 · <a href="${root}changelog.html">Changelog</a>`;
   main.append(foot);
 })();

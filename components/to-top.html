@@ -49,7 +49,7 @@ top.addEventListener('click', e =&gt; {
 <li>Bottom right, 16px from the edges plus the device’s safe area, so it clears the iPhone toolbar.</li>
 <li>Hidden while the opening block is on screen; it appears once that block scrolls away and disappears again near the top.</li>
 <li>The white stroke stays on every background: it’s what keeps the pill visible over black areas and dark artwork.</li>
-<li>Type turns yellow on hover, as on any black. Smooth scroll, or a jump with reduced motion; focus moves to the page’s title so keyboard and screen reader users land at the top too.</li>
+<li>Type turns yellow on hover, as on any black. Smooth scroll, or a jump with reduced motion; focus moves to the page’s title so keyboard and screen reader users land at the top too. The title gets <code>tabindex="-1"</code>, which the system draws without a focus ring.</li>
 </ul>
 </main>
 <script src="../docs/docs.js"></script>
