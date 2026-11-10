@@ -1,0 +1,236 @@
+/* Jonesco system: opt-in patterns. Load after system.css.
+   Each pattern is a small, proven block from jonescoartdept.com or jonesco.com,
+   under a sys- prefix so it never collides with a site's own classes.
+   Use what fits; restyle freely in the site's stylesheet. */
+
+/* ---------- Wrap: the centered column ---------- */
+.sys-wrap { max-width: var(--wrap); margin: 0 auto; padding: 0 var(--gutter); }
+
+/* ---------- Type helpers ---------- */
+.sys-display { font-family: var(--font-display); font-weight: 700; text-transform: uppercase; letter-spacing: var(--track-display); line-height: .95; }
+.sys-label { font-family: var(--font-label); font-weight: 700; text-transform: uppercase; letter-spacing: var(--track-label); font-size: var(--size-label); }
+
+/* Sentence-case title: for titles read in groups or inside content (tiles, in-page headings, list titles).
+   The page hero stays .sys-display / condensed caps. */
+.sys-title { font-family: var(--font-label); font-weight: 700; text-transform: none; letter-spacing: 0; line-height: 1.15; }
+
+/* ---------- Header: black bar, white wordmark, label nav ----------
+   <header class="sys-header"><div class="sys-wrap sys-bar">
+     <a class="sys-brand" href="/">…wordmark…</a>
+     <nav class="sys-nav"><a href="…">Work</a>…</nav>
+   </div></header>
+   Add .sys-header--grow and toggle .is-scrolled on <html> for the big-then-shrink home header. */
+.sys-header { position: sticky; top: 0; z-index: 10; background: var(--ink); color: var(--paper); }
+.sys-bar { display: flex; align-items: center; justify-content: space-between; gap: 16px; height: var(--hdr); }
+.sys-brand { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+.sys-brand img { height: 52px; width: auto; filter: brightness(0) invert(1); }   /* dark logo art, shown pure white */
+.sys-brand span { font-family: var(--font-display); font-weight: 700; text-transform: uppercase; font-size: 32px; line-height: 1; white-space: nowrap; padding-top: 1px; }
+.sys-nav { display: flex; gap: 28px; }
+/* transparent top border balances the hover underline so the text stays vertically centered */
+.sys-nav a { font-family: var(--font-label); font-weight: 700; font-size: var(--size-label); letter-spacing: var(--track-label);
+  text-transform: uppercase; text-decoration: none; padding: 5px 0 3px; border-top: 3px solid transparent; border-bottom: 3px solid transparent; }
+.sys-nav a:hover { color: var(--highlight); border-bottom-color: var(--highlight); }
+.sys-header--grow { --hdr: 192px; }
+.sys-header--grow .sys-bar, .sys-header--grow .sys-brand img { transition: height var(--shrink); }
+.sys-header--grow .sys-brand img { height: 82px; }
+.is-scrolled .sys-header--grow .sys-bar { height: 80px; }
+.is-scrolled .sys-header--grow .sys-brand img { height: 34px; }
+@media (prefers-reduced-motion: reduce) { .sys-header--grow .sys-bar, .sys-header--grow .sys-brand img { transition: none; } }
+
+/* ---------- Section heading ---------- */
+.sys-section-head { padding: var(--space-section) 0 var(--space-head); }
+.sys-section-head h2 { font-family: var(--font-display); font-weight: 700; text-transform: uppercase; letter-spacing: var(--track-display);
+  font-size: var(--size-section); line-height: .95; margin: 0; }
+.sys-section-head p { margin: 8px 0 0; font-family: var(--font-label); font-weight: 700; text-transform: uppercase; letter-spacing: var(--track-label); font-size: var(--size-label); }
+
+/* ---------- Tag: black block, yellow label ---------- */
+.sys-tag { display: inline-block; background: var(--ink); color: var(--highlight); padding: 6px 12px;
+  font-family: var(--font-label); font-weight: 700; font-size: var(--size-tag); letter-spacing: var(--track-label); text-transform: uppercase; }
+
+/* ---------- Button: black block; magenta on hover; ghost is an outline ---------- */
+.sys-btn { display: inline-flex; align-items: center; justify-content: space-between; gap: 24px; min-height: 64px; padding: 10px 18px;
+  background: var(--ink); color: var(--paper); border: var(--thin); cursor: pointer; text-decoration: none;
+  font-family: var(--font-label); font-weight: 700; font-size: 15px; letter-spacing: var(--track-label); text-transform: uppercase;
+  transition: background var(--quick), color var(--quick), border-color var(--quick); }
+.sys-btn:hover { background: var(--accent); border-color: var(--accent); }
+.sys-btn--ghost { background: transparent; color: var(--ink); border-color: var(--ink); }
+.sys-btn--ghost:hover { background: var(--ink); border-color: var(--ink); color: var(--paper); }
+.sys-btn .plus { font-size: 28px; font-weight: 400; line-height: 1; }
+
+/* ---------- Tile: bordered image, small id, title over a thick rule ---------- */
+.sys-tiles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; }
+.sys-tile { display: flex; flex-direction: column; text-decoration: none; color: inherit; }
+.sys-tile__art { aspect-ratio: 4 / 3; border: var(--rule); overflow: hidden; background: var(--ink); }
+.sys-tile__art img { width: 100%; height: 100%; object-fit: cover; object-position: top; transition: transform .25s; }
+.sys-tile:hover .sys-tile__art img { transform: scale(1.04); }
+.sys-tile__id { margin: 14px 0 6px; font-family: var(--font-label); font-weight: 700; font-size: var(--size-tag); letter-spacing: var(--track-label); color: #888; }
+.sys-tile__title { margin: 0; padding-bottom: 12px; border-bottom: var(--rule); font-family: var(--font-label); font-weight: 700;
+  text-transform: none; letter-spacing: 0; font-size: 26px; line-height: 1.15; transition: color var(--quick); }
+.sys-tile:hover .sys-tile__title { color: var(--accent); }
+.sys-tile__text { margin: 12px 0 0; font-size: 15px; line-height: 1.45; color: var(--muted); }
+
+/* ---------- Spec list: label / value rows on thin rules ---------- */
+.sys-specs { list-style: none; margin: 0; padding: 0; }
+.sys-specs li { display: flex; justify-content: space-between; gap: 16px; padding: 10px 0; border-bottom: var(--thin); font-size: 15px; }
+.sys-specs b { font-family: var(--font-label); font-weight: 700; font-size: var(--size-tag); letter-spacing: var(--track-label); text-transform: uppercase; padding-top: 2px; }
+
+/* ---------- Paper: newsprint panel; scanned line art multiplies onto it ---------- */
+.sys-paper { background: var(--newsprint); border: var(--rule); }
+.sys-paper img { mix-blend-mode: multiply; }
+
+/* ---------- Band: full-width black block that runs into the footer ---------- */
+.sys-band { background: var(--ink); color: var(--paper); border-bottom: 1px solid var(--line-dark); }
+.sys-band--next { display: block; text-decoration: none; }
+.sys-band--next .sys-wrap { display: flex; flex-direction: column; align-items: flex-start; gap: 16px; padding-top: 48px; padding-bottom: 44px; min-height: 292px; }
+.sys-band--next .sys-label { line-height: 1; }
+.sys-band--next .sys-display { font-size: clamp(32px, 4.4vw, 56px); transition: color var(--quick); }
+.sys-band--next:hover .sys-display, .sys-band--next:hover .sys-label { color: var(--highlight); }
+
+/* ---------- Footer: black, label links, small © ---------- */
+.sys-footer { background: var(--ink); color: var(--paper); }
+.sys-footer .sys-wrap { display: flex; justify-content: space-between; align-items: center; gap: 24px; flex-wrap: wrap; padding-top: 32px; padding-bottom: 32px; }
+.sys-footer .links { display: flex; gap: 28px; flex-wrap: wrap; }
+.sys-footer a { font-family: var(--font-label); font-weight: 700; font-size: var(--size-label); letter-spacing: var(--track-label); text-transform: uppercase; text-decoration: none; }
+.sys-footer a:hover { color: var(--highlight); }
+.sys-footer small { font-size: 13px; }
+
+/* ---------- Phones ---------- */
+@media (max-width: 900px) { .sys-tiles { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 640px) {
+  :root { --gutter: var(--gutter-sm); --hdr: var(--hdr-sm); --space-section: 40px; --space-head: 24px; }
+  .sys-tiles { grid-template-columns: 1fr; row-gap: 80px; }
+  .sys-nav { gap: 16px; }
+  .sys-nav .opt { display: none; }
+  .sys-brand span { font-size: 22px; }
+  .sys-brand img { height: 42px; }
+  .sys-header--grow { --hdr: 115px; }
+  .sys-header--grow .sys-brand img { height: 43px; }
+  .is-scrolled .sys-header--grow .sys-bar { height: 64px; }
+  .is-scrolled .sys-header--grow .sys-brand img { height: 24px; }
+  .sys-band--next .sys-wrap { padding-top: 36px; padding-bottom: 32px; min-height: 290px; }
+}
+
+
+/* ======================================================================
+   DASHBOARD PATTERNS (1.2.0), from the Financial Dashboard.
+   Numbers, meters and controls for data-heavy pages. Built only from the
+   tokens above: square, thick rule for titles, thin for rows, one data color.
+   ====================================================================== */
+
+/* ---------- Block title: sentence-case title over a thick rule ----------
+   For titles inside a section (a card, a chart, a table). Same voice as a tile title. */
+.sys-block-title { margin: 0; padding-bottom: 10px; border-bottom: var(--rule); font-family: var(--font-label); font-weight: 700;
+  text-transform: none; letter-spacing: 0; font-size: 22px; line-height: 1.15; }
+.on-black .sys-block-title, .sys-band .sys-block-title { border-bottom-color: var(--paper); }
+
+/* ---------- Stat: caps label over a condensed figure ----------
+   <div class="sys-stat"><p class="sys-stat__label">Monthly surplus</p><p class="sys-stat__fig">+$2,250</p><p class="sys-stat__note">…</p></div> */
+.sys-stat { min-width: 0; }
+.sys-stat__label { margin: 0 0 8px; font-family: var(--font-label); font-weight: 700; font-size: var(--size-tag); letter-spacing: var(--track-label);
+  text-transform: uppercase; line-height: 1.2; }
+.sys-stat__fig { margin: 0; font-family: var(--font-display); font-weight: 700; letter-spacing: var(--track-display); line-height: .95;
+  font-size: 40px; font-variant-numeric: tabular-nums; }
+.sys-stat--sm .sys-stat__fig { font-size: 28px; }
+.sys-stat--lg .sys-stat__fig { font-size: 52px; }
+.sys-stat--xl .sys-stat__fig { font-size: clamp(64px, 7.4vw, 88px); }
+.sys-stat__note { margin: 8px 0 0; font-size: 15px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.on-black .sys-stat__note, .sys-band .sys-stat__note { color: #bbb; }
+
+/* ---------- Mark: the one headline figure on a yellow block ---------- */
+.sys-mark { display: inline-block; background: var(--highlight); color: var(--ink); padding: .06em .08em .02em; }
+
+/* ---------- Meter: data fill on the gray track, optional target ----------
+   <div class="sys-meter" role="meter" …>
+     <div class="sys-meter__fill" style="width:87%"></div>
+     <div class="sys-meter__over" style="left:67%;width:20%"></div>   (only past the target)
+     <div class="sys-meter__target" style="left:67%"></div>
+   </div> */
+.sys-meter { position: relative; height: 32px; background: var(--gray); }
+.sys-meter__fill { height: 100%; background: var(--data); }
+.sys-meter__over { position: absolute; top: 0; bottom: 0; background: repeating-linear-gradient(-45deg, rgb(255 255 255 / .6) 0 2px, transparent 2px 7px); }
+.sys-meter__target { position: absolute; top: 0; bottom: 0; width: 0; }
+.sys-meter__target::before { content: ""; position: absolute; top: 0; bottom: 0; left: -1.5px; width: 3px; background: var(--paper); }
+.sys-meter__target::after { content: ""; position: absolute; top: -10px; left: -6px; border: 6px solid transparent; border-top: 8px solid var(--ink); border-bottom: 0; }
+.on-black .sys-meter, .sys-band .sys-meter { background: var(--line-dark); }
+.on-black .sys-meter__fill, .sys-band .sys-meter__fill { background: var(--data-300); }
+.on-black .sys-meter__over, .sys-band .sys-meter__over { background: repeating-linear-gradient(-45deg, rgb(0 0 0 / .5) 0 2px, transparent 2px 7px); }
+.on-black .sys-meter__target::before, .sys-band .sys-meter__target::before { background: var(--ink); }
+.on-black .sys-meter__target::after, .sys-band .sys-meter__target::after { border-top-color: var(--highlight); }
+
+/* ---------- Split bar: one whole in two or three parts, darkest first ---------- */
+.sys-split { display: flex; height: 32px; gap: 3px; }
+.sys-split > * { height: 100%; background: var(--data); }
+.sys-split > :nth-child(2) { background: var(--data-300); }
+.sys-split > :nth-child(3) { background: var(--data-100); }
+.sys-split--remainder { gap: 0; }
+.sys-split--remainder > :nth-child(2) { background: var(--data-100); }
+
+/* ---------- Switch: segmented choice; the chosen option is filled black ----------
+   For /mo /yr and for tabs. <div class="sys-switch" role="group|tablist"><button aria-pressed|aria-selected="true">…</button>…</div> */
+.sys-switch { display: inline-flex; border: var(--thin); }
+.sys-switch > button { padding: 6px 12px; border: 0; background: none; color: var(--ink); cursor: pointer; line-height: 1.2;
+  font-family: var(--font-label); font-weight: 700; font-size: var(--size-tag); letter-spacing: var(--track-label); text-transform: uppercase;
+  transition: color var(--quick); }
+.sys-switch > button:hover { color: var(--accent); }
+.sys-switch > [aria-pressed="true"], .sys-switch > [aria-selected="true"] { background: var(--ink); color: var(--paper); }
+.sys-switch > [aria-pressed="true"]:hover, .sys-switch > [aria-selected="true"]:hover { color: var(--paper); }
+.sys-switch .count { margin-left: 6px; font-family: var(--font-body); font-weight: 400; color: var(--muted); }
+.sys-switch [aria-selected="true"] .count, .sys-switch [aria-pressed="true"] .count { color: #bbb; }
+/* Tabs: three or more options split the width evenly on phones and may wrap, so the row never scrolls. */
+.sys-switch--tabs > button { padding: 8px 16px; }
+
+/* ---------- Label button: caps text button ("Details +", "Show all") ---------- */
+.sys-link { padding: 4px 0; border: 0; background: none; color: inherit; cursor: pointer;
+  font-family: var(--font-label); font-weight: 700; font-size: var(--size-tag); letter-spacing: var(--track-label); text-transform: uppercase;
+  transition: color var(--quick); }
+.sys-link:hover { color: var(--accent); }
+.on-black .sys-link:hover, .sys-band .sys-link:hover { color: var(--highlight); }
+
+/* ---------- Icon button: icon only, with a yellow tooltip ----------
+   <button class="sys-icon-btn" aria-label="Changelog" data-tip="Changelog"><svg …/></button>
+   The 44px hit area is larger than the glyph; pull it out with negative margin to align the glyph. */
+.sys-icon-btn { position: relative; flex: none; display: grid; place-items: center; width: 44px; height: 44px;
+  border: 0; background: none; color: inherit; cursor: pointer; transition: color var(--quick); }
+.sys-icon-btn:hover, .sys-icon-btn:focus-visible { color: var(--accent); }
+.on-black .sys-icon-btn:hover, .on-black .sys-icon-btn:focus-visible,
+.sys-header .sys-icon-btn:hover, .sys-header .sys-icon-btn:focus-visible { color: var(--highlight); }
+.sys-icon-btn[data-tip]::after { content: attr(data-tip); position: absolute; top: calc(100% + 6px); right: 0; z-index: 30;
+  background: var(--highlight); color: var(--ink); padding: 5px 8px; white-space: nowrap; pointer-events: none; opacity: 0;
+  font-family: var(--font-label); font-weight: 700; font-size: 12px; letter-spacing: var(--track-label); text-transform: uppercase;
+  transition: opacity var(--quick); }
+.sys-icon-btn[data-tip]:hover::after, .sys-icon-btn[data-tip]:focus-visible::after { opacity: 1; }
+
+/* ---------- Section nav: pinned jump links under the header ----------
+   The current section takes the yellow underline. Pair with .sys-section (below).
+   <nav class="sys-section-nav"><div class="sys-wrap sys-nav"><a href="#income" class="is-current">Income</a>…</div></nav> */
+.sys-section-nav { --section-nav-h: 52px; position: sticky; top: 0; z-index: 10; background: var(--ink); color: var(--paper); border-top: 1px solid var(--line-dark); }
+.sys-section-nav .sys-nav { height: var(--section-nav-h); align-items: center; gap: 24px; overflow-x: auto; scrollbar-width: none; }
+.sys-section-nav .sys-nav::-webkit-scrollbar { display: none; }
+.sys-section-nav .sys-nav a { white-space: nowrap; flex-shrink: 0; transition: color var(--quick), border-color var(--quick); }
+.sys-section-nav .sys-nav a.is-current { color: var(--highlight); border-bottom-color: var(--highlight); }
+/* A section divided by the thick rule. Jumps land one rule-width higher than the nav,
+   so the rule tucks behind it instead of showing as a short line under the nav. */
+.sys-section { border-top: var(--rule); scroll-margin-top: calc(52px - var(--rule-w)); }
+
+/* ---------- Status tags: three levels by weight, not by color ----------
+   Critical is the plain .sys-tag (black, yellow type). */
+.sys-tag--outline { background: none; color: var(--ink); border: var(--thin); padding: 4px 10px; }
+.sys-tag--plain { background: var(--newsprint); color: var(--ink); }   /* Working: newsprint block, black type, no border */
+
+@media (max-width: 640px) {
+  .sys-switch--tabs { display: grid; grid-auto-columns: 1fr; grid-auto-flow: column; }
+  .sys-switch--tabs > button { padding: 8px 10px; text-align: center; }
+  .sys-stat--xl .sys-stat__fig { font-size: 64px; }
+}
+
+/* ---------- Inline notification: a note (context) or an alert (needs attention) ----------
+   <div class="sys-note">The demo is built from the same code with made-up data.</div>
+   <div class="sys-note sys-note--alert" role="status"><span class="sys-tag">Critical</span><p>July charges still not recorded</p></div>
+   Both share one container: a yellow rule on pale yellow. An alert adds a status tag at the front
+   (.sys-tag Critical / .sys-tag--outline Warning / .sys-tag--plain Working). Square corners, no icons. */
+.sys-note { border-left: var(--rule-w) solid var(--highlight); background: var(--highlight-soft); padding: 12px 16px; margin: 16px 0; }   /* full width of the container it refers to */
+.sys-note > :first-child { margin-top: 0; }
+.sys-note > :last-child { margin-bottom: 0; }
+.sys-note--alert { display: flex; align-items: center; gap: 14px; }
+.sys-note--alert p { margin: 0; }
+.sys-note--alert .sys-tag { flex: none; }

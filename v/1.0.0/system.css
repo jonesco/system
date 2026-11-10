@@ -1,0 +1,88 @@
+/* Jonesco system: the foundation every Jonesco site loads first.
+   Tokens, fonts and a minimal base. A site's own stylesheet loads after this and
+   overrides any token it needs to (its accent, its header heights, its body size).
+   Opt-in components live in patterns.css. */
+
+/* ===========================
+   FONTS
+   Trade Gothic Bold Condensed No. 20 (display) and Bold No. 2 (labels).
+   The overrides split each font's line height evenly around its cap height (722),
+   so all-caps text sits centered in its box.
+   =========================== */
+
+@font-face { font-family: 'Trade Gothic Bold Cond 20'; src: url('fonts/TradeGothic-BoldCondTwenty.woff2') format('woff2'); font-weight: 700; font-display: swap;
+  ascent-override: 88.4%; descent-override: 16.2%; line-gap-override: 0%; }
+@font-face { font-family: 'Trade Gothic Bold 2'; src: url('fonts/TradeGothic-BoldTwo.woff2') format('woff2'); font-weight: 700; font-display: swap;
+  ascent-override: 87.6%; descent-override: 15.4%; line-gap-override: 0%; }
+
+
+/* ===========================
+   TOKENS
+   =========================== */
+
+:root {
+  /* color: black, white and cream are the base; one accent per site */
+  --ink: #000;
+  --paper: #fff;
+  --cream: #fdf8dc;        /* "paper" for artwork and printed things */
+  --accent: #e4148c;       /* magenta by default; a site may set its own */
+  --highlight: #ffe500;    /* yellow: tags, hover on black, text selection */
+  --muted: #555;
+  --gray: #f2f2f2;
+  --line-dark: #333;       /* divider between two black blocks */
+
+  /* type */
+  --font-display: 'Trade Gothic Bold Cond 20', 'Libre Franklin', sans-serif;
+  --font-label: 'Trade Gothic Bold 2', 'Libre Franklin', sans-serif;
+  --font-body: 'Libre Franklin', system-ui, sans-serif;
+  --track-display: -.01em;
+  --track-label: .03em;
+  --size-h1: clamp(44px, 6.4vw, 88px);
+  --size-h2: clamp(30px, 3.6vw, 44px);
+  --size-section: clamp(36px, 4.8vw, 58px);
+  --size-label: 14px;
+  --size-tag: 13px;
+  --size-body: 17px;
+
+  /* rules: thick for structure, thin for lists; bordered things are square */
+  --rule-w: 4px;
+  --thin-w: 2px;
+  --rule: var(--rule-w) solid var(--ink);
+  --thin: var(--thin-w) solid var(--ink);
+
+  /* layout */
+  --wrap: 1200px;
+  --gutter: 24px;
+  --gutter-sm: 16px;      /* phones */
+  --space-section: 56px;  /* rule → section heading */
+  --space-head: 32px;     /* section heading → content */
+
+  /* header */
+  --hdr: 80px;
+  --hdr-sm: 64px;
+
+  /* motion */
+  --quick: .15s;          /* hover color changes */
+  --shrink: .25s ease;    /* header resize */
+  --lift: 700ms cubic-bezier(.32, .72, 0, 1);
+}
+
+
+/* ===========================
+   BASE
+   Only what every site already agrees on.
+   =========================== */
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+img { display: block; max-width: 100%; height: auto; }
+a { color: inherit; }
+::selection { background: var(--highlight); color: var(--ink); }

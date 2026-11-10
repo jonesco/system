@@ -14,12 +14,19 @@ The shared design language for Jonesco sites (jonescoartdept.com and jonesco.com
 ## Use it
 
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jonesco/system@3.3.1/system.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jonesco/system@3.3.1/patterns.css"> <!-- optional -->
+<link rel="stylesheet" href="https://design.jonesco.com/v/3.3.1/system.css">
+<link rel="stylesheet" href="https://design.jonesco.com/v/3.3.1/patterns.css"> <!-- optional -->
 <link rel="stylesheet" href="/css/site.css"> <!-- the site's own, last -->
 ```
 
-Pin an exact version. Release by tagging (`git tag v1.2.0 && git push --tags`); jsDelivr serves the tag.
+Pin an exact version. Each release is frozen at `design.jonesco.com/v/<version>/` (system.css, patterns.css, fonts, logos). To release: tag it, freeze it, push both:
+
+```sh
+git tag v3.4.0 && ./scripts/publish-version.sh v3.4.0
+git add v/3.4.0 && git commit -m "Publish 3.4.0" && git push && git push --tags
+```
+
+Never edit a `v/` folder once it’s pushed. jsDelivr (`cdn.jsdelivr.net/gh/jonesco/system@<version>/`) still serves every tag too, as a fallback.
 
 ## Docs
 
