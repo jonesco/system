@@ -14,8 +14,8 @@ The shared design language for Jonesco sites (jonescoartdept.com and jonesco.com
 ## Use it
 
 ```html
-<link rel="stylesheet" href="https://design.jonesco.com/v/3.3.1/system.css">
-<link rel="stylesheet" href="https://design.jonesco.com/v/3.3.1/patterns.css"> <!-- optional -->
+<link rel="stylesheet" href="https://design.jonesco.com/v/3.4.0/system.css">
+<link rel="stylesheet" href="https://design.jonesco.com/v/3.4.0/patterns.css"> <!-- optional -->
 <link rel="stylesheet" href="/css/site.css"> <!-- the site's own, last -->
 ```
 

@@ -18,10 +18,16 @@
 <body data-root="../" data-page="components/button">
 <main class="docs-main">
 <h1>Button</h1>
-<p class="lead">A black block with a label and a plus. Magenta on hover. The ghost button is an outline: no fill, black border, black on hover.</p>
+<p class="lead">A black block with a label and a plus. Magenta on hover. The secondary button is a newsprint block, and the ghost button is an outline: no fill, black border. Both turn black on hover.</p>
 <div class="demo"><div class="demo-stage ">
 <a class="sys-btn" href="#"><span>Shop the books</span><span class="plus">+</span></a>
 <a class="sys-btn sys-btn--ghost" href="#"><span>Look inside</span><span class="plus">↓</span></a>
+</div></div>
+<h2>Secondary</h2>
+<p>A newsprint block (<code>.sys-btn--secondary</code>) for the second action beside a black button, when an outline would feel too light. It comes from the jonesco.com hero. Black on hover, like the ghost.</p>
+<div class="demo"><div class="demo-stage ">
+<a class="sys-btn" href="#"><span>See selected work</span><span class="plus">↓</span></a>
+<a class="sys-btn sys-btn--secondary" href="#"><span>Apps I’ve built</span><span class="plus">→</span></a>
 </div></div>
 <h2>Sizes</h2>
 <p>Large is the default, for the call to action on a page. Medium (<code>.sys-btn--md</code>, 40px) and small (<code>.sys-btn--sm</code>, 32px) match the <a href="content-switcher.html">medium and small content switchers</a>, so a button lines up with a switcher, a <a href="text-input.html">text input</a> or a <a href="tag.html">tag</a> in the same row.</p>
@@ -53,9 +59,10 @@
 <tr><td>Large</td><td><code>.sys-btn</code></td><td>64px</td><td>15px caps, 28px plus</td><td>A page’s call to action</td></tr>
 <tr><td>Medium</td><td><code>.sys-btn--md</code></td><td>40px</td><td>13px caps, 20px plus</td><td>Medium content switcher, text input</td></tr>
 <tr><td>Small</td><td><code>.sys-btn--sm</code></td><td>32px</td><td>13px caps, 17px plus</td><td>Small content switcher, medium tag</td></tr>
+<tr><td>Secondary</td><td>add <code>.sys-btn--secondary</code> to any size</td><td>Same as its size</td><td>Same as its size</td><td>A black button on white</td></tr>
 <tr><td>Icon only</td><td>add <code>.sys-btn--icon</code> to any size</td><td>Square: 64, 40 or 32px</td><td>24, 20 or 16px glyph</td><td>The same row as a button of that size</td></tr>
 </table>
-<h2>Stipulations</h2><ul><li>One primary (black) button per area; the ghost is the secondary.</li><li>Square corners, always.</li><li>Buying goes through a black button that names where it goes: “Buy on Amazon”, “Buy now”.</li><li><b>Icon only needs words somewhere else:</b> a <a href="tooltip.html">tooltip</a> and an <code>aria-label</code> saying the same thing. Use it for actions people know by their icon (download, copy, add, close); anything else gets a label. Glyphs are 2px strokes with square ends, drawn in <code>currentColor</code>.</li><li><b>Icon only button or icon button?</b> A <code>.sys-btn--icon</code> is a full button, black or outlined, that sits in a row of buttons. A <a href="buttons-small.html">icon button</a> (<code>.sys-icon-btn</code>) is a quiet glyph with no box, for inside content and headers.</li><li><b>Size to the row.</b> Large stands alone as a page’s call to action. In a toolbar or a row of controls, match the button to its neighbors: medium beside a medium switcher or a text input, small beside a small switcher.</li></ul>
+<h2>Stipulations</h2><ul><li>One primary (black) button per area. The second action is a secondary (newsprint) or a ghost (outline): secondary on white, ghost on newsprint or a color, where a newsprint block would disappear.</li><li>Square corners, always.</li><li>Buying goes through a black button that names where it goes: “Buy on Amazon”, “Buy now”.</li><li><b>Icon only needs words somewhere else:</b> a <a href="tooltip.html">tooltip</a> and an <code>aria-label</code> saying the same thing. Use it for actions people know by their icon (download, copy, add, close); anything else gets a label. Glyphs are 2px strokes with square ends, drawn in <code>currentColor</code>.</li><li><b>Icon only button or icon button?</b> A <code>.sys-btn--icon</code> is a full button, black or outlined, that sits in a row of buttons. A <a href="buttons-small.html">icon button</a> (<code>.sys-icon-btn</code>) is a quiet glyph with no box, for inside content and headers.</li><li><b>Size to the row.</b> Large stands alone as a page’s call to action. In a toolbar or a row of controls, match the button to its neighbors: medium beside a medium switcher or a text input, small beside a small switcher.</li></ul>
 </main>
 <script src="../docs/docs.js"></script>
 </body>
