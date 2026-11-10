@@ -2,7 +2,7 @@
 
 The shared design language for Jonesco sites (jonescoartdept.com and jonesco.com).
 
-**Docs:** https://jonesco.github.io/system/
+**Docs:** https://design.jonesco.com/
 
 | File | What | Strictness |
 | --- | --- | --- |
