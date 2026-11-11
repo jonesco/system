@@ -126,5 +126,5 @@ body { font-size: 16px; }
 .logo-stage figure { align-items: flex-start; }
 
 /* Introduction banner (docs/intro-dots.js) */
-.intro-dots { margin: 0 0 40px; background: color-mix(in srgb, var(--accent) 9%, var(--paper)); }   /* light magenta; follows the accent */
+.intro-dots { margin: 0 0 40px; background: color-mix(in srgb, var(--accent) 6%, var(--paper)); }   /* light magenta; follows the accent */
 .intro-dots canvas { display: block; width: 100%; aspect-ratio: 3 / 1; min-height: 180px; touch-action: pan-y; }
