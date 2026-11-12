@@ -518,6 +518,75 @@ body{font-size:16px}
 .dm-t{position:absolute;left:0;top:50%;display:flex;gap:3cqw;padding:0 6cqw;transform:translate(0,-50%);will-change:transform}
 .dm-c{flex:none;width:22cqw;aspect-ratio:3/4;border-radius:2.4cqw;display:grid;align-content:end;padding:2.4cqw;font:600 3.4cqw var(--f-display);color:#fff;user-select:none;-webkit-user-select:none}
 .dm-h{position:absolute;left:0;right:0;bottom:4cqw;text-align:center;font:500 2.6cqw var(--f-mono);color:#7A808A;pointer-events:none}
+/* Plate controls: a strip along the bottom of an interactive plate (Moiré, Smear frames, Exploded view) */
+.pc{position:absolute;left:0;right:0;bottom:0;display:flex;align-items:center;gap:8px;padding:5px 10px;background:var(--surface);border-top:1px solid var(--line);font:500 11px var(--f-mono);color:var(--ink)}
+.pc input[type=range]{flex:1;min-width:0;margin:0;height:24px;accent-color:var(--accent);cursor:pointer}
+.pc output{min-width:4.6em;text-align:right;font-variant-numeric:tabular-nums}
+.pc .pbtn{padding:4px 10px;font-size:11px}
+.pbtn[aria-pressed="true"]{background:var(--ink);color:var(--surface)}
+/* Screen print: plate toggles beside the poster */
+.ssp{position:absolute;inset:0}
+.ssp>svg{display:block;width:100%;height:100%}
+.ssp-c{position:absolute;left:56%;right:4%;top:7%;display:grid;gap:5px;font:500 11px var(--f-mono)}
+.ssp-h{color:#5F584A;letter-spacing:.12em;text-transform:uppercase}
+.ssp-b{display:flex;align-items:center;gap:8px;padding:4px 8px;border:1px solid #16181C;background:#F6F0E1;color:#16181C;font:inherit;text-align:left;cursor:pointer}
+.ssp-b i{width:12px;height:12px;flex:none}
+.ssp-b::after{content:"On";margin-left:auto;color:#5F584A}
+.ssp-b[aria-pressed="false"]{background:transparent;border-style:dashed;color:#5F584A}
+.ssp-b[aria-pressed="false"] i{opacity:.25}
+.ssp-b[aria-pressed="false"]::after{content:"Off"}
+/* Moiré, Smear frames, Exploded view: the drawing fills the plate behind the control strip */
+.mo,.sm,.cx,.ft{position:absolute;inset:0}
+.mo>svg,.sm>svg,.cx>svg,.ft>svg{display:block;width:100%;height:100%}
+.sm-st{display:flex;gap:3px;margin:0;padding:0;list-style:none}
+.sm-st li{width:9px;height:12px;border:1px solid var(--ink);background:var(--surface)}
+.sm-st li.sm-x{border-color:#FF6B57;background:#FFD9D2}
+.sm-st li.on{background:var(--ink)}
+.sm-st li.sm-x.on{background:#FF6B57}
+.sm-n{flex:1;min-width:0;white-space:nowrap;overflow:hidden;color:var(--muted)}
+/* Follow-through: the pole's grab handle, also a keyboard slider */
+.ft-hit{position:absolute;width:13%;touch-action:none;cursor:grab}
+.ft-hit:active{cursor:grabbing}
+/* Interruptible transitions */
+.itd{position:absolute;inset:0;background:#E7ECF3;display:grid;grid-template-columns:56% minmax(0,1fr);gap:5cqw;padding:5cqw;align-items:center;font-family:var(--f-body)}
+.itd-app{position:relative;height:100%;background:#FFF;overflow:hidden}
+.itd-hd{display:flex;align-items:center;justify-content:space-between;gap:6px;padding:2.4cqw 3cqw;border-bottom:1px solid #E2E6EC;font-size:3.6cqw;color:#16181C}
+.itd-hd .pbtn{min-width:5.2em;font-size:11px;padding:4px 10px;color:#16181C;background:#fff;border-color:#16181C}
+.itd-l{list-style:none;margin:0;padding:0}
+.itd-l li{display:flex;align-items:center;gap:2.4cqw;padding:2.2cqw 3cqw;border-bottom:1px solid #EEF1F4;font-size:3cqw;color:#3A4048;white-space:nowrap}
+.itd-l i{width:3.4cqw;height:3.4cqw;border-radius:50%;background:#C9D3E0;flex:none}
+.itd-d{position:absolute;left:0;right:0;bottom:0;height:70%;background:#16181C;color:#F2F3F5;padding:2cqw 4cqw;display:grid;align-content:start;gap:1.8cqw;transform:translateY(100%);will-change:transform}
+.itd-grip{justify-self:center;width:9cqw;height:1cqw;border-radius:1cqw;background:#5A6068}
+.itd-d b{font:600 3.6cqw var(--f-display)}
+.itd-d p{margin:0;display:flex;justify-content:space-between;align-items:center;font-size:3cqw}
+.itd-d p i{position:relative;width:7cqw;height:4cqw;border-radius:4cqw;background:#3A3F47}
+.itd-d p i::after{content:"";position:absolute;top:.6cqw;left:.6cqw;width:2.8cqw;height:2.8cqw;border-radius:50%;background:#F2F3F5}
+.itd-d p i.on{background:#2D43D9}
+.itd-d p i.on::after{left:3.6cqw}
+.itd-plot{display:grid;gap:1.4cqw;font:500 2.6cqw var(--f-mono);color:#5A6068}
+.itd-plot svg{display:block;width:100%;height:30cqw;background:#F6F8FB}
+.itd-ax{fill:none;stroke:#C9D2DE;stroke-width:1;stroke-dasharray:3 3;vector-effect:non-scaling-stroke}
+.itd-tp{fill:none;stroke:#F25C3B;stroke-width:1;vector-effect:non-scaling-stroke}
+.itd-tr{fill:none;stroke:#2D43D9;stroke-width:2;vector-effect:non-scaling-stroke}
+.itd-k{display:flex;justify-content:space-between}
+.itd-k em{font-style:normal;display:flex;align-items:center;gap:1cqw}
+.itd-k i{width:2px;height:2.6cqw;background:#F25C3B}
+/* Gesture scrubbing: the panel's open fraction is --p */
+.gsc{position:absolute;inset:0;overflow:hidden;background:#F4F1EA;font-family:var(--f-body)}
+.gsc-hd{display:flex;align-items:center;justify-content:space-between;padding:3cqw 4cqw;font-size:3.8cqw;color:#16181C}
+.gsc-hd .pbtn{font-size:11px;padding:4px 10px;color:#16181C;background:#fff;border-color:#16181C}
+.gsc-gr{display:grid;grid-template-columns:repeat(4,1fr);gap:2cqw;padding:0 4cqw}
+.gsc-gr i{aspect-ratio:4/3;background:#D9CFBD}
+.gsc-gr i:nth-child(3n+1){background:#C8B79A}.gsc-gr i:nth-child(4n){background:#E3D9C6}
+.gsc-p{--p:0;position:absolute;top:13cqw;bottom:0;right:0;width:62%;background:#16181C;color:#F2F3F5;padding:4cqw 5cqw;display:grid;align-content:start;gap:2.4cqw;transform:translateX(calc((1 - var(--p)) * 100%));touch-action:pan-y;cursor:grab;user-select:none;-webkit-user-select:none}
+.gsc-p:active{cursor:grabbing}
+.gsc-tab{position:absolute;left:-6cqw;top:50%;width:6cqw;height:20cqw;margin-top:-10cqw;background:#16181C;display:grid;place-items:center}
+.gsc-tab::after{content:"";width:.8cqw;height:9cqw;border-left:.5cqw solid #6A7079;border-right:.5cqw solid #6A7079}
+.gsc-p b{font:600 4cqw var(--f-display)}
+.gsc-kv{display:grid;grid-template-columns:auto 1fr;gap:1.4cqw 3cqw;font-size:3cqw}   /* not a <dl>: the copy action reads the card’s own <dd>s */
+.gsc-kv span:nth-child(odd){color:#9AA0A7}
+.gsc-dot{position:absolute;top:56%;width:5cqw;height:5cqw;margin:-2.5cqw 0 0 -2.5cqw;border-radius:50%;background:rgba(242,92,59,.85);box-shadow:0 0 0 1.4cqw rgba(242,92,59,.25);pointer-events:none}
+.gsc-out{position:absolute;left:4cqw;bottom:3cqw;margin:0;max-width:34%;font:500 2.6cqw/1.35 var(--f-mono);color:#5A6068;pointer-events:none}
 </style>
 
 <header class="sys-header"><div class="sys-wrap sys-bar">
@@ -567,7 +636,7 @@ body{font-size:16px}
 
 <footer class="sys-footer"><div class="sys-wrap">
   <nav class="links"><a href="../index.html">Jonesco.design</a><a href="#illustration">Illustration</a><a href="#motion">Motion</a></nav>
-  <p>Updated November 8, 2026. Motion follows your reduced-motion setting; the toggle overrides it for this page.</p>
+  <p>Updated November 12, 2026. Motion follows your reduced-motion setting; the toggle overrides it for this page.</p>
 </div></footer>
 
 
@@ -627,7 +696,7 @@ function glStageU(st,frag,w,h,names){if(!hasGL())return null;const c=document.cr
 const ptr=(st,e)=>{const b=st.getBoundingClientRect();return [(e.clientX-b.left)/b.width*400,(e.clientY-b.top)/b.height*300];};
 /* ================= Specimens ================= */
 // The newest batch. Specimens with this added date show a New tag and the New filter; set it to the next batch's date when adding more.
-const NEW_BATCH='2026-11-08',isNew=it=>it.added===NEW_BATCH;
+const NEW_BATCH='2026-11-12',isNew=it=>it.added===NEW_BATCH;
 const G=[
 {key:'illustration',title:'Illustration',intro:'Pictures and surfaces. A few drift gently when motion is on, but the look is the point.',secs:[
 {t:'Vector and graphic',items:[
@@ -716,6 +785,49 @@ const G=[
   const f=p=>(p[0]+200).toFixed(1)+' '+(p[1]+150).toFixed(1);let a='',b='',e='';
   for(const [c,A,B,C] of tr){if(Math.abs(A[0])>240&&Math.abs(B[0])>240)continue;const d=`M${f(A)}L${f(B)}L${f(C)}Z`;if(c===0)a+=d;else b+=d;e+=`M${f(C)}L${f(A)}L${f(B)}`;}
   st.innerHTML=svg(`<rect width="400" height="300" fill="#F3E9D2"/><path d="${a}" fill="#1B4965"/><path d="${b}" fill="#E2B04A"/><path d="${e}" fill="none" stroke="#F3E9D2" stroke-width="1.1" stroke-linejoin="round"/>`);}},
+{name:'Stained glass',added:'2026-11-12',d:'A bird built from irregular panes of colored glass, held together by thick lead lines that trace its outline and its wing feathers.',use:'Window and Art Nouveau motifs, bird and botanical art, warm hero illustrations',how:'Convex SVG polygons split by cut lines, a noise filter for mottled glass, then lead strokes drawn over each region',tags:['SVG'],
+ ctx:'Color sits in separate flat panes, never one gradient across a shape, and every pane is ringed by a thick dark lead line with a faint sheen. The leads follow the subject: a heavier line around the bird’s silhouette, cuts along the wing feathers and tail, looser irregular cuts in the sky. Each pane is slightly mottled and varies a little in tone, and panes near the sun glow lighter.',
+ init(st){const r=rng(41),f=v=>v.toFixed(1),LEAD='#1F1C1A';
+  const ell=(cx,cy,rx,ry,rot,n)=>{n=n||30;const c=Math.cos(rot),s=Math.sin(rot),o=[];for(let i=0;i<n;i++){const a=i/n*TAU,x=Math.cos(a)*rx,y=Math.sin(a)*ry;o.push([cx+x*c-y*s,cy+x*s+y*c]);}return o;};
+  // Keep the side of a line a·x + b·y ≤ c (Sutherland–Hodgman against one half-plane; the regions are convex)
+  const half=(P,a,b,c)=>{const o=[];for(let i=0;i<P.length;i++){const p=P[i],q=P[(i+1)%P.length],sp=a*p[0]+b*p[1]-c,sq=a*q[0]+b*q[1]-c;if(sp<=0)o.push(p);if(sp*sq<0){const t=sp/(sp-sq);o.push([p[0]+(q[0]-p[0])*t,p[1]+(q[1]-p[1])*t]);}}return o;};
+  const area=P=>Math.abs(P.reduce((s,p,i)=>{const q=P[(i+1)%P.length];return s+p[0]*q[1]-q[0]*p[1];},0))/2;
+  const cut=(ps,[px,py,ang])=>{const a=-Math.sin(ang),b=Math.cos(ang),c=a*px+b*py;return ps.flatMap(P=>[half(P,a,b,c),half(P,-a,-b,-c)].filter(Q=>Q.length>2&&area(Q)>14));};
+  const rnd=(n,x,y,w,h,a0,a1)=>Array.from({length:n},()=>[x+r()*w,y+r()*h,a0+r()*(a1-a0)]);
+  const hex=h=>[1,3,5].map(i=>parseInt(h.slice(i,i+2),16));
+  // Each pane gets a small random shift in tone, lighter toward the sun
+  const tone=(h,[x,y])=>{const k=(r()-.5)*.2+.3*Math.exp(-((x-338)**2+(y-56)**2)/(2*105*105));return 'rgb('+hex(h).map(v=>Math.round(k>0?v+(255-v)*k:v*(1+k))).join(',')+')';};
+  const cen=P=>P.reduce((s,p)=>[s[0]+p[0]/P.length,s[1]+p[1]/P.length],[0,0]);
+  const D=P=>'M'+P.map(p=>f(p[0])+' '+f(p[1])).join('L')+'Z';
+  let out='';
+  const reg=(poly,cuts,pal,lw)=>{let ps=[poly];cuts.forEach(c=>ps=cut(ps,c));
+   out+=`<g filter="url(#sg-m)">${ps.map(P=>{const c=cen(P),cs=typeof pal==='function'?pal(c):pal;return `<path d="${D(P)}" fill="${tone(cs[r()*cs.length|0],c)}"/>`;}).join('')}</g>`;
+   const all=ps.map(D).join('');out+=`<path d="${all}" fill="none" stroke="${LEAD}" stroke-width="3.6" stroke-linejoin="round"/><path d="${all}" fill="none" stroke="#fff" stroke-opacity=".14" stroke-width=".8" stroke-linejoin="round"/>`;
+   if(lw)out+=`<path d="${D(poly)}" fill="none" stroke="${LEAD}" stroke-width="${lw}" stroke-linejoin="round"/>`;};
+  const SKY=['#5B8FB9','#3E6D9C','#7FB3C8','#9CC9C9','#4F7F8F','#A8C6DA','#6C9EC4'],SLATE=['#56677F','#4A5B73','#62748C','#3F4F66'],GREEN=['#5E8C3A','#77A04A','#4B7330'];
+  reg([[0,0],[400,0],[400,300],[0,300]],rnd(13,0,0,400,300,0,Math.PI),SKY,0);
+  reg(ell(338,56,32,32,0,28),[[338,56,0],[338,56,1.05],[338,56,2.1]],['#F6C04D','#F2A93B','#F9D776'],4.5);
+  reg([[0,236],[400,206],[400,226],[0,258]],rnd(5,20,200,360,60,1.25,1.9),['#7A4E2D','#8B5A34','#5E3B22'],4.5);
+  [[60,233,22,10,-.5],[332,203,24,10,.45],[372,229,18,8,-.3]].forEach(([x,y,a,b,t])=>reg(ell(x,y,a,b,t,20),[[x,y,t]],GREEN,4));
+  out+=`<path d="M198 210L193 238M214 210L212 233" stroke="${LEAD}" stroke-width="4.5" stroke-linecap="round"/>`;
+  reg([[272,170],[372,206],[360,236],[258,198]],[[312,210,.35],[318,194,.35],[330,212,1.92]],['#2F4A7A','#355C8C','#27406B'],6.5);
+  reg(ell(212,160,88,56,-.2,36),rnd(5,140,110,150,100,0,Math.PI),([x,y])=>x<215&&y>150?['#E8742F','#F08A3C','#D9622A']:SLATE,6.5);
+  reg(ell(132,112,36,34,0,30),[[132,112,.6],[140,100,2.3]],['#3D4C63','#475871','#56677F'],6.5);
+  const wc=[234,148],wa=-.3,wx=Math.cos(wa),wy=Math.sin(wa),feather=[-.7,-.4,-.1,.2,.5,.75].map(s=>[wc[0]+s*72*wx,wc[1]+s*72*wy,wa+1.15]);
+  reg(ell(234,148,72,28,wa,32),feather.concat([[wc[0]-wy*-7,wc[1]+wx*7,wa]]),['#24527A','#2D6A8F','#1F4466','#3B7FA3'],6.5);
+  reg([[100,103],[66,116],[101,124]],[],['#E9B23C'],5);
+  reg(ell(123,106,6,6,0,14),[],['#121212'],3);
+  st.innerHTML=svg(`<defs><filter id="sg-m" x="-.1" y="-.1" width="1.2" height="1.2"><feTurbulence type="fractalNoise" baseFrequency=".06" numOctaves="3" seed="5" result="n"/><feColorMatrix in="n" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  .75 0 0 0 -.2" result="m"/><feComposite in="m" in2="SourceGraphic" operator="in" result="mm"/><feMerge><feMergeNode in="SourceGraphic"/><feMergeNode in="mm"/></feMerge></filter></defs>${out}<rect x="2" y="2" width="396" height="296" fill="none" stroke="${LEAD}" stroke-width="7"/>`);}},
+{name:'Moiré interference',added:'2026-11-12',d:'Two fine line grids, one turned over the other. The broad bands aren’t drawn anywhere; they come from the interference. Change the angle to move them.',use:'Op-art backgrounds, music and tech posters, scanning and signal motifs, used sparingly',how:'Two SVG pattern fills, the top one rotated by a slider. Band spacing is the line pitch over 2·sin(angle/2)',tags:['SVG','JS'],try:true,
+ ctx:'Only two sets of evenly spaced thin parallel lines are drawn, in one ink on paper. The large soft bands are an emergent interference pattern: at a small angle they are wide and run nearly perpendicular to the lines; as the angle grows they get narrower and turn. At 0° the bands vanish into an even tint. Keep the lines fine and high-contrast; it shimmers, so keep it away from text.',
+ init(st,card){const id='mo'+Math.random().toString(36).slice(2,7);
+  st.innerHTML=`<div class="mo">${svg(`<defs><pattern id="${id}" width="8" height="8" patternUnits="userSpaceOnUse"><rect width="8" height="3.6" fill="#141414"/></pattern></defs><rect width="400" height="300" fill="#F3EFE4"/><rect width="400" height="300" fill="url(#${id})"/><g class="mo-r"><rect x="-300" y="-250" width="1000" height="800" fill="url(#${id})"/></g>`)}<div class="pc"><label for="${id}-a">Angle</label><input type="range" id="${id}-a" min="0" max="30" step="0.5" value="5"><output for="${id}-a">5°</output></div></div>`;
+  const g=st.querySelector('.mo-r'),inp=st.querySelector('input'),o=st.querySelector('output');let a=5,last=-1e9,ph=0;
+  const set=v=>{a=v;g.setAttribute('transform',`rotate(${a.toFixed(2)} 200 150)`);o.textContent=(Math.round(a*2)/2)+'°';};
+  const phase=()=>{ph=Math.acos(Math.max(-1,Math.min(1,(6.5-a)/4.5)));};   // resume the drift from wherever the angle is
+  inp.addEventListener('input',()=>{last=performance.now();set(+inp.value);phase();});set(a);phase();
+  // Left alone, the angle drifts slowly between 2° and 11° so the bands sweep and turn
+  return (t,dt)=>{if(performance.now()-last<4000)return;ph+=dt*.3;set(6.5-4.5*Math.cos(ph));inp.value=Math.round(a*2)/2;};}},
 ]},
 {t:'Print and texture',items:[
 {name:'Duotone',d:'An image remapped to two inks, dark for shadows and bright for highlights.',use:'Unifying mixed photography, editorial headers',how:'Luminance mapped to a two-color ramp per pixel; an SVG feColorMatrix filter does the same',tags:['Canvas'],
@@ -769,6 +881,66 @@ const G=[
   x.fillStyle='#2B2D42';x.font='700 22px Caveat, cursive';x.fillText('sign in',88,78);x.fillText('dashboard',262,78);x.font='500 18px Caveat, cursive';x.fillText('then',194,128);}},
 {name:'Zine collage',d:'Torn paper, tape, ransom-note letters and a rubber stamp.',use:'Culture brands, editorial features, event flyers',how:'CSS clip-path polygons, rotations, mixed fonts',tags:['CSS'],
  stage:'<div class="zine"><div class="zn-p1"></div><div class="zn-p2"></div><div class="zn-tape"></div><div class="zn-stamp">No. 07</div><div class="zn-word"><span>c</span><span>U</span><span>t</span><span>&amp;</span><span>P</span><span>a</span><span>s</span><span>T</span><span>e</span></div></div>'},
+{name:'Engraved linework',added:'2026-11-12',d:'A fish shaded only with lines that follow its body. They crowd together and thicken in shadow, then thin out and stop in the highlights.',use:'Heritage packaging, menus, stamps and banknote looks, editorial spot art',how:'SVG ribbons generated along the body’s contours; one lighting function sets both the spacing and the stroke weight',tags:['SVG'],
+ ctx:'Every tone is made of engraved lines, with no fills, dots or gradients. The lines run along the form (contour hatching), so they also describe its curvature. Darker areas get lines that are closer together and heavier; the brightest highlight is bare paper where the lines break off. Fins and tail are fans of finer strokes.',
+ init(st){const f=v=>v.toFixed(1),INK='#1C2430',PAPER='#F2EAD7';
+  const X=u=>60+242*u,yc=u=>150-10*Math.sin(Math.PI*u)+4*u,hh=u=>56*Math.pow(Math.sin(Math.PI*Math.pow(u,.72)),.85)+11*u*u;
+  const P=(u,v)=>[X(u),yc(u)+v*hh(u)],pt=p=>f(p[0])+' '+f(p[1]);
+  // Light from the upper left and front: the back catches it, the belly turns away
+  const lit=(u,v)=>{const nz=Math.sqrt(Math.max(0,1-v*v)),nx=u<.3?-(.3-u)*2.2*nz:0;return Math.max(0,Math.min(1,-.62*v+.7*nz-.35*nx));};
+  // Contour lines across the body: the step between them grows with the light
+  const lv=[];for(let v=-.97;v<.985;){lv.push(v);v+=.045+.13*Math.pow(lit(.5,v),1.6);}
+  // Each line is a filled ribbon, so its weight can swell in shadow and break off in the highlight
+  let body='';
+  for(const v of lv){let run=[];
+   const flush=()=>{if(run.length>2)body+='M'+run.map(r=>pt(r[0])).join('L')+'L'+run.map(r=>pt(r[1])).reverse().join('L')+'Z';run=[];};
+   for(let i=1;i<=99;i++){const u=i/100,[x,y]=P(u,v),a=P(u-.005,v),b=P(u+.005,v),tx=b[0]-a[0],ty=b[1]-a[1],tl=Math.hypot(tx,ty)||1,nx=-ty/tl,ny=tx/tl;
+    const d=1-lit(u,v),w=(.22+2.2*Math.pow(d,1.5))*Math.min(1,u*9,(1-u)*12)*(.6+.4*Math.min(1,hh(u)/40));
+    if(d<.16||w<.2){flush();continue;}run.push([[x+nx*w/2,y+ny*w/2],[x-nx*w/2,y-ny*w/2]]);}
+   flush();}
+  let top='',bot='';for(let i=0;i<=100;i++){const u=i/100;top+=(i?'L':'M')+pt(P(u,-1));bot+=(i?'L':'M')+pt(P(u,1));}
+  const T0=P(1,-1),T1=P(1,1),up=[364,90],no=[344,152],lo=[368,214];let tail='';
+  for(let k=0;k<=16;k++){const s=k/16,r=[T0[0]+(T1[0]-T0[0])*s,T0[1]+(T1[1]-T0[1])*s],e=s<.5?[up[0]+(no[0]-up[0])*s*2,up[1]+(no[1]-up[1])*s*2]:[no[0]+(lo[0]-no[0])*(s-.5)*2,no[1]+(lo[1]-no[1])*(s-.5)*2];
+   tail+=`<path d="M${pt(r)}Q${f((r[0]+e[0])/2+4)} ${f((r[1]+e[1])/2-(s-.5)*6)} ${pt(e)}" stroke-width="${(.6+1.3*s).toFixed(2)}"/>`;}
+  tail+=`<path d="M${pt(T0)}L${pt(up)}Q356 132 ${pt(no)}Q356 172 ${pt(lo)}L${pt(T1)}" stroke-width="1.3"/>`;
+  let dor='';const dE=[];for(let k=0;k<=12;k++){const s=k/12,b=P(.34+.28*s,-1),e=[b[0]+10+16*s,b[1]-(4+30*Math.sin(Math.PI*Math.pow(s,.55)))];dE.push(e);dor+=`<path d="M${pt(b)}L${pt(e)}" stroke-width=".8"/>`;}
+  dor+=`<path d="M${pt(P(.34,-1))}L${dE.map(pt).join('L')}L${pt(P(.62,-1))}" stroke-width="1.2"/>`;
+  let ven='';const vE=[];for(let k=0;k<=8;k++){const s=k/8,b=P(.56+.16*s,1),e=[b[0]+12+8*s,b[1]+3+20*Math.sin(Math.PI*Math.pow(s,.6))];vE.push(e);ven+=`<path d="M${pt(b)}L${pt(e)}" stroke-width=".9"/>`;}
+  ven+=`<path d="M${pt(P(.56,1))}L${vE.map(pt).join('L')}L${pt(P(.72,1))}" stroke-width="1.1"/>`;
+  const R=P(.27,.22),pE=[];for(let k=0;k<=7;k++){const a=.12+.11*k,l=36-k*1.6;pE.push([R[0]+Math.cos(a)*l,R[1]+Math.sin(a)*l]);}
+  const pec=`<path d="M${pt(R)}L${pE.map(pt).join('L')}Z" fill="${PAPER}" stroke-width="1.1"/>`+pE.map(e=>`<path d="M${pt(R)}L${pt(e)}" stroke-width=".7"/>`).join('');
+  const arc=(u,du)=>`M${pt(P(u,-.82))}Q${f(X(u+du))} ${f(yc(u+du*.6))} ${pt(P(u,.82))}`;
+  const gill=[[.2,.075],[.175,.06]].map(([u,du],i)=>`<path d="${arc(u,du)}" stroke="${PAPER}" stroke-width="4"/><path d="${arc(u,du)}" stroke-width="${i?.9:1.5}"/>`).join('');
+  const E=P(.085,-.28),eye=`<circle cx="${f(E[0])}" cy="${f(E[1])}" r="7.5" fill="${PAPER}" stroke-width="1.4"/><circle cx="${f(E[0]+.6)}" cy="${f(E[1])}" r="3.8" fill="${INK}" stroke="none"/><circle cx="${f(E[0]-.8)}" cy="${f(E[1]-1.4)}" r="1.1" fill="${PAPER}" stroke="none"/>`;
+  const mouth=`<path d="M${pt(P(.012,.12))}Q${f(X(.04))} ${f(yc(.04)+hh(.04)*.4)} ${pt(P(.065,.2))}" stroke-width="1.3"/>`;
+  let water='';for(let k=0;k<7;k++){const y=250+k*4.6+k*k*.35;let p='';for(let x=24;x<=376;x+=4)p+=(x>24?'L':'M')+x+' '+f(y+Math.sin(x*.045+k*1.3)*1.6);water+=`<path d="${p}" stroke-width="${(.35+k*.1).toFixed(2)}"/>`;}
+  const frame='<rect x="10" y="10" width="380" height="280" stroke-width="1.2"/><rect x="14.5" y="14.5" width="371" height="271" stroke-width=".5"/>';
+  st.innerHTML=svg(`<rect width="400" height="300" fill="${PAPER}"/><g fill="none" stroke="${INK}" stroke-linecap="round" stroke-linejoin="round">${frame}${water}${tail}${dor}${ven}</g><path d="${body}" fill="${INK}"/><g fill="none" stroke="${INK}" stroke-linecap="round" stroke-linejoin="round"><path d="${top}" stroke-width="1.4"/><path d="${bot}" stroke-width="1.7"/>${gill}${pec}${eye}${mouth}</g>`);}},
+{name:'Screen-print spot colors',added:'2026-11-12',d:'A gig poster pulled in three flat inks. Where the plates overlap, the inks mix into new colors. Turn a plate off to see the others alone.',use:'Gig and event posters, merch, packaging on a small ink budget',how:'One SVG group per ink, blended with mix-blend-mode: multiply over paper, with a speckled ink texture and a slight misregistration',tags:['SVG','JS'],try:true,
+ ctx:'Only three spot inks, each printed as its own flat plate with no gradients. Overlaps multiply: yellow over pink makes red-orange, yellow over blue makes green, pink over blue makes violet, and all three go nearly black. Bold shapes and type; a slight misregistration between plates and a speckled, uneven ink layer show it was pulled through a screen, not rendered.',
+ init(st){const INKS=[['y','Yellow','#FFC62E',''],['p','Pink','#F0457A','translate(1.4 -.9)'],['b','Blue','#2F80D1','translate(-1 .8)']];
+  const F='font-family="Bricolage Grotesque, sans-serif" font-weight="800"',MO='font-family="JetBrains Mono, monospace" font-weight="500"';
+  const PL={y:'<circle cx="112" cy="104" r="56"/><rect x="22" y="226" width="180" height="40"/><circle cx="290" cy="238" r="17"/>',
+   p:`<path d="M22 204L62 160L96 190L140 134L202 196V266H22Z"/><circle cx="112" cy="104" r="65" fill="none" stroke="#F0457A" stroke-width="5"/><text x="194" y="40" text-anchor="end" font-size="12" letter-spacing="2" ${MO}>LIVE</text><circle cx="314" cy="238" r="17"/>`,
+   b:`<text x="112" y="58" text-anchor="middle" font-size="17" letter-spacing="5" ${F}>THE</text><text x="112" y="101" text-anchor="middle" font-size="44" letter-spacing="-1" ${F}>MOTHS</text><path d="M22 218Q62 204 102 218T202 218" fill="none" stroke="#2F80D1" stroke-width="3"/><text x="112" y="251" text-anchor="middle" font-size="9.5" letter-spacing="1" ${MO}>FRI 21 NOV · DOORS 8</text><circle cx="302" cy="259" r="17"/>`};
+  st.innerHTML=`<div class="ssp"><svg viewBox="0 0 400 300" aria-hidden="true" style="isolation:isolate"><defs><filter id="ssp-t" x="-.05" y="-.05" width="1.1" height="1.1"><feTurbulence type="fractalNoise" baseFrequency=".85" numOctaves="2" seed="4" result="n"/><feColorMatrix in="n" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 -30 22.3" result="m"/><feComposite in="SourceGraphic" in2="m" operator="in"/></filter></defs>
+   <rect width="400" height="300" fill="#D8D1C1"/><rect x="25" y="27" width="180" height="252" fill="#000" opacity=".12"/><rect x="22" y="24" width="180" height="252" fill="#F6F0E1"/>
+   <text x="230" y="222" font-size="9" letter-spacing="1.5" fill="#6B655A" ${MO}>OVERLAPS</text>
+   ${INKS.map(([k,,c,tr])=>`<g class="ssp-ink" data-ink="${k}" fill="${c}" filter="url(#ssp-t)" style="mix-blend-mode:multiply"${tr?` transform="${tr}"`:''}>${PL[k]}</g>`).join('')}</svg>
+   <div class="ssp-c" role="group" aria-label="Ink plates"><span class="ssp-h">Plates</span>${INKS.map(([k,n,c])=>`<button type="button" class="ssp-b" aria-pressed="true" data-k="${k}"><i style="background:${c}"></i>${n}</button>`).join('')}</div></div>`;
+  st.querySelectorAll('.ssp-b').forEach(b=>b.addEventListener('click',()=>{const on=b.getAttribute('aria-pressed')!=='true';b.setAttribute('aria-pressed',String(on));st.querySelector(`.ssp-ink[data-ink="${b.dataset.k}"]`).style.display=on?'':'none';}));}},
+{name:'Embossing and debossing',added:'2026-11-12',d:'One mark raised out of the paper and the same mark pressed into it, both lit from the top left.',use:'Stationery, packaging, premium cards, quiet logos on paper',how:'SVG lighting: the blurred mark is a height map for feDiffuseLighting. A negative surface scale turns the raise into a press',tags:['SVG'],
+ ctx:'There is no ink: the mark exists only as light and shadow on the paper. With one light from the top left, the raised mark is bright on its top-left edges and shadowed on the bottom right; the pressed mark swaps them, which is what tells the eye it is sunk into the sheet. Flat paper around and inside the mark stays exactly the paper color.',
+ init(st){const PA='#E9E3D6',MO='font-family="JetBrains Mono, monospace" font-weight="500"';
+  const star=(cx,cy,R,r)=>{let p='';for(let i=0;i<10;i++){const a=-Math.PI/2+i*Math.PI/5,q=i%2?r:R;p+=(i?'L':'M')+(cx+Math.cos(a)*q).toFixed(1)+' '+(cy+Math.sin(a)*q).toFixed(1);}return p+'Z';};
+  // flat paper lights to sin(38°); k1 = 1/sin(38°) brings it back to the paper color exactly
+  const filt=(id,s,x)=>`<filter id="${id}" filterUnits="userSpaceOnUse" x="${x}" y="40" width="180" height="180" color-interpolation-filters="sRGB"><feGaussianBlur in="SourceAlpha" stdDeviation="2.6" result="h"/><feDiffuseLighting in="h" surfaceScale="${s}" diffuseConstant="1" lighting-color="#fff" result="d"><feDistantLight azimuth="225" elevation="38"/></feDiffuseLighting><feFlood flood-color="${PA}" result="p"/><feComposite in="d" in2="p" operator="arithmetic" k1="1.624" k2="0" k3="0" k4="0"/></filter>`;
+  const mark=(cx,id)=>`<g filter="url(#${id})"><circle cx="${cx}" cy="130" r="56" fill="none" stroke="#000" stroke-width="9"/><path d="${star(cx,130,33,14)}" fill="#000"/></g>`;
+  const lab=(cx,a,b)=>`<text x="${cx}" y="226" text-anchor="middle" font-size="11" letter-spacing="2" fill="#5F584A" ${MO}>${a}</text><text x="${cx}" y="242" text-anchor="middle" font-size="9.5" fill="#8A8272" ${MO}>${b}</text>`;
+  st.innerHTML=svg(`<defs>${filt('ebm-up',2.6,16)}${filt('ebm-dn',-2.6,204)}<filter id="ebm-f" x="0" y="0" width="1" height="1"><feTurbulence type="fractalNoise" baseFrequency=".8" numOctaves="3" seed="2"/><feColorMatrix type="matrix" values="0 0 0 0 .3  0 0 0 0 .26  0 0 0 0 .2  0 0 0 .16 0"/></filter></defs>
+   <rect width="400" height="300" fill="${PA}"/>${mark(106,'ebm-up')}${mark(294,'ebm-dn')}${lab(106,'EMBOSSED','raised')}${lab(294,'DEBOSSED','pressed in')}
+   <g stroke="#8A8272" stroke-width="1.3" stroke-linecap="round" fill="none"><circle cx="26" cy="24" r="5"/><path d="M26 13v3M26 32v3M15 24h3M34 24h3M18.2 16.2l2.1 2.1M31.7 29.7l2.1 2.1M18.2 31.8l2.1-2.1M31.7 18.3l2.1-2.1M40 38l12 12M52 44v6h-6"/></g><text x="60" y="28" font-size="9" letter-spacing="1.5" fill="#8A8272" ${MO}>LIGHT</text>
+   <rect width="400" height="300" filter="url(#ebm-f)"/>`);}},
 ]},
 {t:'Interface surfaces',items:[
 {name:'Glassmorphism',d:'Frosted translucent panels over color, with a thin bright edge.',use:'Overlays, media controls, OS-like surfaces',how:'CSS backdrop-filter blur on a semi-transparent panel',tags:['CSS'],
@@ -1010,6 +1182,52 @@ vec2 v=u*(1.-u.yx);col*=pow(v.x*v.y*18.,.28);gl_FragColor=vec4(col,1.);}`,640,48
   draw();return (t,dt)=>{auto+=dt;if(auto>1.8&&performance.now()-last>3500){auto=0;[tx,ty]=pts[pi];pi=(pi+1)%pts.length;}step(a,180,7,dt);step(b,180,2*Math.sqrt(180),dt);draw();};}},
 {name:'Seamless loop',d:'Rings rotate at whole-number speed ratios, so the loop has no visible seam.',use:'Ambient states, idle screens, splash art',how:'CSS rotations with durations that divide evenly',tags:['SVG','CSS'],
  stage:svg('<g class="lp" fill="none" stroke="currentColor"><circle cx="200" cy="150" r="110" stroke-opacity=".25"/><circle cx="200" cy="150" r="80" stroke-opacity=".25"/><circle cx="200" cy="150" r="50" stroke-opacity=".25"/><g class="lp1"><circle cx="200" cy="150" r="110" stroke-dasharray="2 10" stroke-width="2"/><circle cx="310" cy="150" r="9" fill="#FF6B57" stroke="none"/></g><g class="lp2"><circle cx="200" cy="150" r="80" stroke-dasharray="40 14" stroke-width="2"/><circle cx="120" cy="150" r="7" fill="#4D7CFF" stroke="none"/></g><g class="lp3"><circle cx="200" cy="150" r="50" stroke-dasharray="6 6" stroke-width="2"/><circle cx="250" cy="150" r="6" fill="#FFC145" stroke="none"/></g><circle cx="200" cy="150" r="14" fill="currentColor" stroke="none"/></g>')},
+{name:'Follow-through and overlap',added:'2026-11-12',d:'Drag the pole. The pennant’s tip trails behind when the pole changes direction and keeps swinging after the pole stops.',use:'Secondary motion: hair, tails, flags, cables, dangling UI; playful drag and drop',how:'A chain of linked springs with fixed segment lengths, stepped each frame and drawn as one SVG path',tags:['SVG','JS'],try:true,
+ ctx:'The pole (the main action) starts and stops at once; the pennant attached to it (the secondary action) does not. Each segment follows the one before it with a delay, so the tip lags furthest, overshoots when the pole stops, and settles in a few decaying swings. Parts moving at different rates is the overlap; the swing that continues after the stop is the follow-through.',
+ init(st,card){const N=10,L=12.5,RA=.14,RX=Math.cos(RA),RY=Math.sin(RA),H=150;
+  st.innerHTML=`<div class="ft">${svg('<rect width="400" height="300" fill="#DCEDE6"/><path d="M0 268H400" stroke="#9CBFAE" stroke-width="2"/><g class="ft-g"></g><path class="ft-f" fill="#E8433A" stroke="#B5302A" stroke-width="1.2" stroke-linejoin="round"/><path class="ft-p" stroke="#2E3236" stroke-width="5" stroke-linecap="round"/><circle class="ft-k" r="5.5" fill="#2E3236"/><rect class="ft-h" width="12" height="40" rx="3" fill="#2E3236"/>')}<div class="ft-hit" role="slider" tabindex="0" aria-label="Pole position" aria-valuemin="0" aria-valuemax="100" aria-valuenow="40"></div></div>`;
+  const G=st.querySelector('.ft-g'),F=st.querySelector('.ft-f'),Pp=st.querySelector('.ft-p'),Kn=st.querySelector('.ft-k'),Hd=st.querySelector('.ft-h'),hit=st.querySelector('.ft-hit');
+  let bx=150,by=252,drag=null,lastUser=-1e9,auto=null,acc=0,px=bx,py=by,vx=0,vy=0;const pts=[],A=[],W=[];
+  const cx=x=>Math.max(70,Math.min(270,x)),cy=y=>Math.max(200,Math.min(262,y)),root=()=>[bx+2,by-H+19];
+  const fk=()=>{pts[0]=root();for(let i=1;i<=N;i++)pts[i]=[pts[i-1][0]+Math.cos(A[i])*L,pts[i-1][1]+Math.sin(A[i])*L];};
+  const rest=()=>{for(let i=1;i<=N;i++){A[i]=RA;W[i]=0;}px=bx;py=by;vx=vy=0;fk();};
+  // Each segment is an angle, so the pennant can bend but never stretch. At a fixed 240 steps a second, each angle springs
+  // toward its parent's (the cloth's stiffness) and toward the oncoming air: a light breeze plus the pole's own motion.
+  // The tip only learns about a change through the segments before it, so it lags most and swings longest.
+  const wrap=d=>Math.atan2(Math.sin(d),Math.cos(d));
+  const step=h=>{const ax=40-.3*vx,ay=5.6-.3*vy,ph=Math.atan2(ay,ax),st=Math.min(1.4,Math.hypot(ax,ay)/90);
+   for(let i=1;i<=N;i++){const tq=160*(wrap((i>1?A[i-1]:RA)-A[i])+(i<N?.7*wrap(A[i+1]-A[i]):0))+110*st*(1-.4*i/N)*wrap(ph-A[i])-9*W[i];W[i]+=tq*h;A[i]+=W[i]*h;}
+   // The hoist keeps it on the pennant's side of the pole, and cloth only bends so far between segments
+   if(Math.abs(A[1])>1.35){A[1]=Math.sign(A[1])*1.35;W[1]*=-.3;}
+   for(let i=2;i<=N;i++){const r=wrap(A[i]-A[i-1]);if(Math.abs(r)>.5){A[i]=A[i-1]+Math.sign(r)*.5;W[i]=W[i-1];}if(Math.abs(A[i])>1.6){A[i]=Math.sign(A[i])*1.6;W[i]*=-.3;}}};
+  const sim=dt=>{if(dt>0){const k=Math.min(1,dt*18);vx+=((bx-px)/dt-vx)*k;vy+=((by-py)/dt-vy)*k;}px=bx;py=by;
+   acc=Math.min(acc+dt,.1);while(acc>=1/240){acc-=1/240;step(1/240);}fk();};
+  // When the pennant streams to the left of the pole its edges swap sides, so the upper edge stays at the top of the pole
+  const flag=()=>{const top=by-H,up=[],lo=[],sg=Math.cos(A[1])<0?-1:1;for(let i=0;i<=N;i++){if(!i){up.push([bx+1,top+3]);lo.push([bx+1,top+35]);continue;}
+    const a=pts[i-1],b=pts[Math.min(N,i+1)],p=pts[i];let tx=b[0]-a[0],ty=b[1]-a[1];const tl=Math.hypot(tx,ty)||1,w=17*(1-i/N)*sg;up.push([p[0]+ty/tl*w,p[1]-tx/tl*w]);lo.push([p[0]-ty/tl*w,p[1]+tx/tl*w]);}
+   return 'M'+up.concat(lo.reverse()).map(q=>q[0].toFixed(1)+' '+q[1].toFixed(1)).join('L')+'Z';};
+  const draw=()=>{const top=by-H;Pp.setAttribute('d',`M${bx} ${by}V${top}`);Kn.setAttribute('cx',bx);Kn.setAttribute('cy',top-3);Hd.setAttribute('x',bx-6);Hd.setAttribute('y',by-40);F.setAttribute('d',flag());
+   hit.style.left=((bx-26)/4)+'%';hit.style.top=((top-10)/3)+'%';hit.style.height=((by-top+14)/3)+'%';hit.setAttribute('aria-valuenow',String(Math.round((bx-70)/2)));};
+  // The still: the pole has just swept right and stopped; the pennant is still hanging back. A ghost shows where it started.
+  const still=()=>{bx=110;by=252;rest();draw();const gh=`<g opacity=".2"><path d="${F.getAttribute('d')}" fill="#E8433A"/><path d="M110 252V102" stroke="#2E3236" stroke-width="5" stroke-linecap="round"/></g><path d="M126 76H226M218 70l8 6-8 6" fill="none" stroke="#2E3236" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" opacity=".55"/>`;
+   for(let i=0;i<=40;i++){const a=Math.min(1,i/34),e=a<.5?4*a*a*a:1-Math.pow(-2*a+2,3)/2;bx=110+140*e;sim(1/60);}draw();G.innerHTML=gh;};
+  const U=e=>{const b=st.getBoundingClientRect();return [(e.clientX-b.left)/b.width*400,(e.clientY-b.top)/b.height*300];};
+  const user=()=>{lastUser=performance.now();auto=null;G.innerHTML='';};
+  hit.addEventListener('pointerdown',e=>{if(e.button>0)return;e.preventDefault();hit.setPointerCapture(e.pointerId);const [x,y]=U(e);drag={id:e.pointerId,dx:bx-x,dy:by-y};user();hit.focus({preventScroll:true});});
+  hit.addEventListener('pointermove',e=>{if(!drag||e.pointerId!==drag.id)return;const [x,y]=U(e);bx=cx(x+drag.dx);by=cy(y+drag.dy);user();if(!card.live)rest();draw();});
+  const end=e=>{if(drag&&e.pointerId===drag.id){drag=null;user();}};
+  ['pointerup','pointercancel','lostpointercapture'].forEach(n=>hit.addEventListener(n,end));
+  hit.addEventListener('keydown',e=>{const s=e.shiftKey?60:30,k=e.key;let x=bx;
+   if(k==='ArrowLeft'||k==='ArrowDown')x-=s;else if(k==='ArrowRight'||k==='ArrowUp')x+=s;else if(k==='Home')x=70;else if(k==='End')x=270;else return;
+   e.preventDefault();bx=cx(x);user();if(!card.live)rest();draw();});
+  card.onLive=l=>{if(!l&&!drag&&!G.innerHTML){rest();draw();}};
+  still();
+  // Left alone, the pole sweeps from side to side and holds, so the follow-through plays out
+  let ap=1;
+  return (t,dt)=>{const now=performance.now();
+   if(!drag&&now-lastUser>2500){if(!auto||(ap>=1&&now-auto.end>1800)){if(G.innerHTML)G.innerHTML='';auto={x0:bx,to:bx<170?250:90,end:0};ap=0;}
+    if(ap<1){ap=Math.min(1,ap+dt/.7);const e=ap<.5?4*ap*ap*ap:1-Math.pow(-2*ap+2,3)/2;bx=auto.x0+(auto.to-auto.x0)*e;if(ap>=1)auto.end=now;}}
+   sim(dt);draw();};}},
 ]},
 {t:'SVG motion',items:[
 {name:'Line drawing',d:'Strokes appear as if drawn by a pen, then erase.',use:'Signatures, logos, route reveals, checkmarks',how:'SVG pathLength plus stroke-dashoffset keyframes',tags:['SVG','CSS'],
@@ -1046,6 +1264,36 @@ vec2 v=u*(1.-u.yx);col*=pow(v.x*v.y*18.,.28);gl_FragColor=vec4(col,1.);}`,640,48
   const url=c.toDataURL();st.innerHTML=`<div class="spr-s"><div class="spr-big" style="background-image:url(${url})"></div><div class="spr-strip" style="background-image:url(${url})"></div><span>8 frames, steps(8)</span></div>`;}},
 {name:'Blob morph',d:'An organic shape that slowly changes its outline.',use:'Avatars, backgrounds, soft focal points',how:'CSS border-radius keyframes with eight radii',tags:['CSS'],
  stage:'<div class="blb"><i></i></div>'},
+{name:'Smear frames',added:'2026-11-12',d:'On the fastest frames of a move the character is drawn stretched into a streak, then snaps back to its normal shape as it lands.',use:'Character animation, mascots, snappy transitions with personality',how:'Stepped SVG frame swaps at 12 fps: each frame shows one drawing, and the three fastest show two smear drawings',tags:['SVG','JS'],try:true,
+ ctx:'Speed is shown by the drawing, not by blur or tweening. The move takes only a few stepped frames; on the fastest one or two the character is replaced by an elongated smear drawing (a tapered streak with fading multiples and speed lines), then the normal silhouette returns with a squash on landing. Holds at each end make the dash read as a snap.',
+ init(st,card){const BODY='#FF6B57',INK='#1B1B1F',MO='font-family="JetBrains Mono, monospace" font-weight="500"';
+  // The drawings, facing right with the center at 0,0; the reverse trip mirrors them
+  const D={n:`<circle r="28" fill="${BODY}"/><circle cx="12" cy="-7" r="4.5" fill="${INK}"/>`,
+   sq:`<ellipse cx="-3" cy="5" rx="33" ry="23" fill="${BODY}"/><circle cx="10" cy="-1" r="4.5" fill="${INK}"/>`,
+   a:`<path d="M-104 -14H-136M-110 0H-150M-104 14H-132" stroke="${INK}" stroke-width="2.5" stroke-linecap="round" opacity=".45"/><path d="M26 0C26 16 14 26 0 26C-30 26 -60 10 -94 2C-60 -6 -30 -26 0 -26C14 -26 26 -16 26 0Z" fill="${BODY}"/><ellipse cx="12" cy="-7" rx="6" ry="3.6" fill="${INK}"/>`,
+   b:`<circle cx="-118" r="15" fill="${BODY}" opacity=".3"/><circle cx="-70" r="20" fill="${BODY}" opacity=".5"/><path d="M24 0C24 14 14 21 0 21C-50 21 -110 7 -172 1C-110 -6 -50 -21 0 -21C14 -21 24 -14 24 0Z" fill="${BODY}"/><ellipse cx="11" cy="-6" rx="7" ry="3" fill="${INK}"/>`,
+   im:`<ellipse cx="3" rx="22" ry="31" fill="${BODY}"/><circle cx="9" cy="-9" r="4.5" fill="${INK}"/>`};
+  // [drawing, x, frames held]: hold, wind-up, three fast frames (two smears), landing squash, settle, hold
+  const SEQ=[['n',90,6],['sq',84,2],['a',150,1],['b',240,1],['a',294,1],['im',318,2],['n',312,1],['n',310,6]],SM=k=>k==='a'||k==='b';
+  st.innerHTML=`<div class="sm">${svg(`<rect width="400" height="300" fill="#FDF1DC"/><path d="M30 196H370" stroke="#E2CDA8" stroke-width="3" stroke-linecap="round"/><ellipse class="sm-sh" cx="90" cy="196" rx="22" ry="4" fill="#000" opacity=".12"/><g class="sm-on"></g><g class="sm-ch"></g>`)}<div class="pc"><ol class="sm-st" aria-hidden="true">${SEQ.map(s=>`<li${SM(s[0])?' class="sm-x"':''}></li>`).join('')}</ol><span class="sm-n"></span><button type="button" class="pbtn sm-slow" aria-pressed="false" hidden>Slow</button><button type="button" class="pbtn sm-go">Step</button></div></div>`;
+  const ch=st.querySelector('.sm-ch'),sh=st.querySelector('.sm-sh'),on=st.querySelector('.sm-on'),cells=[...st.querySelectorAll('.sm-st li')],go=st.querySelector('.sm-go'),slow=st.querySelector('.sm-slow'),lab=st.querySelector('.sm-n');
+  let dir=1,si=SEQ.length-1,held=0,acc=0,wait=.8,playing=false,still=true,lastUser=-1e9;
+  const X=x=>dir>0?x:400-x;
+  const show=i=>{const [k,x]=SEQ[i];still=false;on.innerHTML='';ch.innerHTML=D[k];ch.setAttribute('transform',`translate(${X(x)} 166) scale(${dir} 1)`);
+   sh.setAttribute('cx',X(x)-dir*(k==='b'?60:k==='a'?30:0));sh.setAttribute('rx',k==='b'?70:k==='a'?44:22);cells.forEach((c,j)=>c.classList.toggle('on',j===i));lab.textContent=`${i+1}/${SEQ.length}${SM(k)?' smear':''}`;};
+  // The still: one trip as onion skins, with the long smear drawn solid
+  const composite=()=>{still=true;dir=1;ch.innerHTML='';sh.setAttribute('cx',90);sh.setAttribute('rx',22);cells.forEach(c=>c.classList.remove('on'));lab.textContent='';
+   on.innerHTML=[0,2,3,7].map(i=>{const [k,x]=SEQ[i];return `<g transform="translate(${x} 166)" opacity="${i===3||i===7?1:.28}">${D[k]}</g>`;}).join('')+`<path d="M236 112V128" stroke="${INK}" stroke-width="1.2"/><text x="236" y="104" text-anchor="middle" font-size="11" fill="${INK}" ${MO}>smear frame</text>`;};
+  const begin=()=>{if(still)dir=1;else if(!playing)dir=-dir;si=0;held=0;acc=0;playing=true;show(0);};
+  go.addEventListener('click',()=>{lastUser=performance.now();if(card.live){begin();return;}
+   // Motion off: no playback. Each press shows the next drawing instead.
+   if(still||si>=SEQ.length-1){if(!still)dir=-dir;si=0;}else si++;show(si);});
+  slow.addEventListener('click',()=>{lastUser=performance.now();slow.setAttribute('aria-pressed',String(slow.getAttribute('aria-pressed')!=='true'));});
+  card.onLive=l=>{go.textContent=l?'Replay':'Step';slow.hidden=!l;if(!l){playing=false;composite();}else wait=.8;};
+  composite();
+  return (t,dt)=>{const fps=slow.getAttribute('aria-pressed')==='true'?3:12;
+   if(!playing){wait-=dt;if(wait<=0&&performance.now()-lastUser>1500)begin();return;}
+   acc+=dt;while(playing&&acc>=1/fps){acc-=1/fps;if(++held>=SEQ[si][2]){held=0;if(++si>=SEQ.length){si=SEQ.length-1;playing=false;wait=.7;}else show(si);}}};}},
 ]},
 {t:'Type in motion',items:[
 {name:'Kinetic type',d:'Letters move as a group with a rolling delay.',use:'Headlines, intros, launch moments',how:'Split into spans, staggered CSS keyframes',tags:['CSS'],
@@ -1131,6 +1379,61 @@ vec2 v=u*(1.-u.yx);col*=pow(v.x*v.y*18.,.28);gl_FragColor=vec4(col,1.);}`,640,48
   return (t,dt)=>{if(drag)return;const now=performance.now(),f=Math.min(3,dt*60);if(now-last>4000&&now>auto){v=(pos>minX()/2?-1:1)*(26+Math.random()*14);auto=now+4200;last=now-3000;}
    const lo=minX(),was=pos>0?1:pos<lo?-1:0;pos+=v*f;v*=Math.pow(.94,f);if(pos>0){v+=(-pos*.12)*f;v*=Math.pow(.8,f);}else if(pos<lo){v+=((lo-pos)*.12)*f;v*=Math.pow(.8,f);}
    const now2=pos>0?1:pos<lo?-1:0;if(was&&now2!==was){pos=was>0?0:lo;v=0;}if(Math.abs(v)<.02&&pos<=0&&pos>=lo)v=0;set();};}},
+{name:'Interruptible transitions',added:'2026-11-12',d:'Tap Open, then tap again mid-slide. The drawer turns around from where it is, with no jump and no restart.',use:'Drawers, sheets, menus and accordions: anything people tap twice quickly',how:'A spring whose target changes on each tap; position and velocity carry over, so a reversal stays continuous',tags:['JS'],try:true,
+ ctx:'The transition has no fixed start, end or duration. A tap only changes the target; the drawer keeps its current position and speed and curves smoothly toward the new target. The button’s label and expanded state follow the target, so after any number of quick taps the button and the drawer agree. The trace beside it shows a reversal as a rounded turn, never a jump back to the start.',
+ init(st,card){const id='itd'+Math.random().toString(36).slice(2,6),MAIL=['Weekly report','Lunch Thursday?','Invoice #2041','Design review','Trip photos'];
+  st.innerHTML=`<div class="itd"><div class="itd-app"><div class="itd-hd"><b>Inbox</b><button type="button" class="pbtn" aria-expanded="false" aria-controls="${id}">Open</button></div><ul class="itd-l">${MAIL.map(x=>`<li><i></i><span>${x}</span></li>`).join('')}</ul>
+   <div class="itd-d" id="${id}" role="region" aria-label="Filters" inert><span class="itd-grip"></span><b>Filters</b><p><span>Unread only</span><i class="on"></i></p><p><span>From people</span><i></i></p><p><span>With files</span><i class="on"></i></p></div></div>
+   <div class="itd-plot" aria-hidden="true"><span>Drawer, last 3 s</span><svg viewBox="0 0 120 80" preserveAspectRatio="none"><path class="itd-ax" d="M0 8H120M0 72H120"/><path class="itd-tp"/><path class="itd-tr"/></svg><span class="itd-k"><em>top: open</em><em><i></i>tap</em></span></div></div>`;
+  const btn=st.querySelector('.itd-hd .pbtn'),dr=st.querySelector('.itd-d'),tr=st.querySelector('.itd-tr'),tp=st.querySelector('.itd-tp');
+  const K=190,C=2*Math.sqrt(K)*.86,SPAN=3,Hs=[],TAPS=[];let p=0,v=0,target=0,clock=0,lastUser=-1e9,nextAuto=1.2,ai=0;
+  const render=()=>{dr.style.transform=`translateY(${((1-p)*100).toFixed(2)}%)`;if(target===1)dr.removeAttribute('inert');else if(p<.02)dr.setAttribute('inert','');};
+  const sync=()=>{const open=target===1;btn.textContent=open?'Close':'Open';btn.setAttribute('aria-expanded',String(open));};
+  const plot=()=>{while(Hs.length&&clock-Hs[0][0]>SPAN)Hs.shift();while(TAPS.length&&clock-TAPS[0]>SPAN)TAPS.shift();const X=s=>((s-clock+SPAN)/SPAN*120).toFixed(1);
+   tr.setAttribute('d',Hs.map((h,i)=>(i?'L':'M')+X(h[0])+' '+(72-h[1]*64).toFixed(1)).join(''));tp.setAttribute('d',TAPS.map(s=>`M${X(s)} 0V80`).join(''));};
+  const step=dt=>{const n=3,h=dt/n;for(let i=0;i<n;i++){v+=(K*(target-p)-C*v)*h;p+=v*h;}};
+  const flip=()=>{target=target?0:1;TAPS.push(clock);sync();};
+  btn.addEventListener('click',()=>{lastUser=performance.now();flip();if(!card.live){p=target;v=0;}render();});
+  // The still: a recorded run, opening, reversed partway, then opened again
+  for(let i=0;i<=180;i++){if(i===12||i===27||i===70)flip();step(1/60);clock=i/60;Hs.push([clock,p]);}
+  p=target;v=0;render();sync();plot();nextAuto=clock+1.5;
+  card.onLive=l=>{if(!l){p=target;v=0;render();}};
+  // Left alone it taps itself, sometimes twice in quick succession so the reversal shows
+  const GAPS=[.24,1.7,1.6,1.9];
+  return (t,dt)=>{clock+=dt;if(performance.now()-lastUser<3500)nextAuto=clock+1.5;else if(clock>=nextAuto){flip();nextAuto=clock+GAPS[ai++%GAPS.length];}
+   step(dt);render();Hs.push([clock,p]);plot();};}},
+{name:'Gesture scrubbing',added:'2026-11-12',d:'Pull the panel and it stays under your finger. Let go and it settles open or closed, depending on how far and how fast you pulled.',use:'Side panels, bottom sheets, swipe actions and pull-to-reveal on touch screens',how:'Pointer events with pointer capture; on release, distance plus projected velocity picks the end state, and a spring starts at the release speed',tags:['JS'],try:true,
+ ctx:'During the drag there is no easing at all: the panel edge stays exactly under the finger, with resistance past either end. Animation only starts on release. A quick flick opens or closes even from a short pull, a slow pull goes to whichever side is nearer, and the settle begins at the finger’s speed so there is no hitch. A canceled gesture goes back to where it started, and a button does the same open and close from the keyboard.',
+ init(st,card){const id='gs'+Math.random().toString(36).slice(2,6);
+  st.innerHTML=`<div class="gsc"><div class="gsc-bg"><div class="gsc-hd"><b>Photos</b><button type="button" class="pbtn" aria-expanded="false" aria-controls="${id}">Open panel</button></div><div class="gsc-gr">${'<i></i>'.repeat(8)}</div></div>
+   <div class="gsc-p" id="${id}" role="region" aria-label="Photo details" aria-hidden="true"><span class="gsc-tab"></span><b>Details</b><div class="gsc-kv"><span>Taken</span><span>Nov 12, 8:14</span><span>Size</span><span>4032 × 3024</span><span>Place</span><span>Marfa, TX</span></div></div><i class="gsc-dot" aria-hidden="true"></i><p class="gsc-out" aria-hidden="true"></p></div>`;
+  const box=st.firstElementChild,P=st.querySelector('.gsc-p'),btn=st.querySelector('.gsc-hd .pbtn'),dot=st.querySelector('.gsc-dot'),out=st.querySelector('.gsc-out');
+  const K=260,C=2*Math.sqrt(K)*.82,WF=.62;let p=.38,v=0,target=null,drag=null,lastUser=-1e9,auto=null,ai=0;
+  const W=()=>P.offsetWidth||1;
+  const set=()=>{P.style.setProperty('--p',p.toFixed(4));dot.style.left=((1-WF*Math.max(0,Math.min(1.05,p)))*100+2.5)+'%';};
+  const sync=()=>{const open=target===1;btn.textContent=open?'Close panel':'Open panel';btn.setAttribute('aria-expanded',String(open));P.setAttribute('aria-hidden',String(!open));};
+  const band=x=>x<0?x*.3:x>1?1+(x-1)*.3:x;
+  const settle=(to,vel,msg)=>{target=to;v=vel;out.textContent=msg;sync();if(!card.live){p=to;v=0;}set();};
+  // Release: a fast flick decides by direction; otherwise where it would coast to in 0.2 s decides
+  const decide=(vel)=>{const open=Math.abs(vel)>1.4?vel>0:p+vel*.2>.5;settle(open?1:0,vel,`Let go at ${Math.round(Math.max(0,Math.min(1,p))*100)}%, ${Math.abs(vel).toFixed(1)}/s → ${open?'opens':'closes'}`);};
+  P.addEventListener('pointerdown',e=>{if(e.button>0)return;P.setPointerCapture(e.pointerId);drag={id:e.pointerId,x0:e.clientX,p0:p,from:target===null?(p>.5?1:0):target,hist:[[e.clientX,performance.now()]]};target=null;v=0;auto=null;dot.hidden=true;lastUser=performance.now();out.textContent='Dragging: 1:1 with the pointer';});
+  P.addEventListener('pointermove',e=>{if(!drag||e.pointerId!==drag.id)return;const now=performance.now();drag.hist.push([e.clientX,now]);if(drag.hist.length>12)drag.hist.shift();p=band(drag.p0+(drag.x0-e.clientX)/W());set();lastUser=now;});
+  const release=(e,cancel)=>{if(!drag||e.pointerId!==drag.id)return;const d=drag;drag=null;lastUser=performance.now();
+   if(cancel){settle(d.from,0,'Gesture canceled → back to '+(d.from?'open':'closed'));return;}
+   const now=performance.now(),h=d.hist.filter(s=>now-s[1]<=100);let vel=0;if(h.length>1){const a=h[0],b=h[h.length-1];vel=(a[0]-b[0])/W()/(Math.max(16,b[1]-a[1])/1000);}decide(vel);};
+  P.addEventListener('pointerup',e=>release(e,false));P.addEventListener('pointercancel',e=>release(e,true));P.addEventListener('lostpointercapture',e=>release(e,false));
+  btn.addEventListener('click',()=>{lastUser=performance.now();auto=null;dot.hidden=true;const to=target===1?0:1;settle(to,0,'Button → '+(to?'opens':'closes'));});
+  // The still: caught mid-drag, with the pointer on the panel's edge
+  out.textContent='Drag follows the pointer. Fast, or past halfway, opens';set();sync();
+  card.onLive=l=>{if(!l&&!drag&&target!==null){p=target;v=0;set();}};
+  // Left alone, a pretend finger shows both rules: a short fast flick, a slow pull that springs back, a slow pull past halfway
+  return (t,dt)=>{const now=performance.now();
+   if(!drag&&!auto&&now-lastUser>(target===null?1200:4500)&&(target===null||Math.abs(target-p)<.003&&Math.abs(v)<.02)){
+    if(target===null){dot.hidden=true;decide(0);lastUser=now-2500;}
+    else{const s=target===0?[.26,.14]:ai++%2?[.3,1.1]:[.62,.9];auto={p0:p,to:s[0],dur:s[1],k:0};dot.hidden=false;out.textContent='Dragging: 1:1 with the pointer';}}
+   if(auto){auto.k=Math.min(1,auto.k+dt/auto.dur);const e=auto.k<.5?2*auto.k*auto.k:1-Math.pow(-2*auto.k+2,2)/2;p=auto.p0+(auto.to-auto.p0)*e;set();
+    if(auto.k>=1){const vel=(auto.to-auto.p0)/auto.dur;auto=null;dot.hidden=true;decide(vel);lastUser=now;}return;}
+   if(drag||target===null)return;const n=3,h=dt/n;for(let i=0;i<n;i++){v+=(K*(target-p)-C*v)*h;p+=v*h;}set();};}},
 ]},
 {t:'Layout and page',items:[
 {name:'FLIP reorder',d:'Tiles glide to their new spots when the order changes.',use:'Sorting, filtering, drag-and-drop grids',how:'First, Last, Invert, Play with the Web Animations API',tags:['JS'],try:true,
@@ -1180,6 +1483,50 @@ vec2 v=u*(1.-u.yx);col*=pow(v.x*v.y*18.,.28);gl_FragColor=vec4(col,1.);}`,640,48
    .addLabel('built')
    .to(q('.gs-p'),{opacity:0,y:-8,duration:.4,ease:'power2.in'},'+=1.6');
   tl.seek('built');card.onLive=l=>{if(l)tl.play();else{tl.pause();tl.seek('built');}};}},
+{name:'Exploded-view assembly',added:'2026-11-12',d:'A cassette taken apart along its axes: the shells lift away, the reels slide out to the sides and the screws rise out of their holes. Slide between assembled and exploded.',use:'Product pages, how-it’s-made stories, hardware onboarding, technical explainers',how:'Layered SVG parts in a 3/4 oblique view; one slider value moves each part along its own axis, with dashed guides',tags:['SVG','JS'],try:true,
+ ctx:'Every part keeps its shape and orientation and only changes position, each along its own assembly axis: shells along the vertical, reels along the cassette’s long axis, screws straight up out of their holes. The assembled end reads as one clean object; the exploded end spaces the parts out with dashed guide lines and labels. One control drives the whole stack, so every in-between state is valid.',
+ init(st,card){const id='cx'+Math.random().toString(36).slice(2,6),CX=200,CY=140,MO='font-family="JetBrains Mono, monospace" font-weight="500"',f=v=>v.toFixed(1);
+  // Plan coordinates (x along the cassette, y across it) to the screen, with z straight up
+  const pr=(x,y,z)=>[CX+.78*x+.36*y,CY+.17*x+.37*y-z],MX='matrix(.78 .17 .36 .37 0 0)';
+  const rr=(x0,y0,x1,y1,r)=>`M${x0+r} ${y0}H${x1-r}A${r} ${r} 0 0 1 ${x1} ${y0+r}V${y1-r}A${r} ${r} 0 0 1 ${x1-r} ${y1}H${x0+r}A${r} ${r} 0 0 1 ${x0} ${y1-r}V${y0+r}A${r} ${r} 0 0 1 ${x0+r} ${y0}Z`;
+  const SH=rr(-95,-60,95,60,8),RIM=SH+rr(-89,-54,89,54,5),WIN=rr(-56,-17,56,17,15);
+  // A part: its side drawn as stacked copies below the top face, then the face, all in plan coordinates
+  const slab=(side,sideFill,face,th)=>{let s='';for(let k=th;k>0;k--)s+=`<path transform="translate(0 ${k}) ${MX}" d="${side}" fill="${sideFill}" fill-rule="evenodd"/>`;return s+`<g transform="${MX}">${face}</g>`;};
+  const teeth=Array.from({length:6},(_,i)=>`<rect x="-1.3" y="-6.6" width="2.6" height="3" fill="#EDEDED" transform="rotate(${i*60})"/>`).join('');
+  const reel=x=>`<g transform="translate(${x} 0)"><circle r="30" fill="#4B3426"/><circle r="27" fill="none" stroke="#5E4232" stroke-width=".8"/><circle r="12" fill="#EDEDED"/><circle r="6.6" fill="#22252A"/>${teeth}</g>`;
+  const SCREWS=[[-86,-50],[86,-50],[-86,50],[86,50],[0,52]];
+  const parts={
+   bot:slab(SH,'#1E2228',`<path d="${SH}" fill="#2C3139"/><path d="M-46 60L-38 47H38L46 60Z" fill="#171A1F"/>${[-30,0,30].map(x=>`<rect x="${x-5}" y="50" width="10" height="7" fill="#15181C"/>`).join('')}<circle cx="-70" cy="47" r="4" fill="#15181C"/><circle cx="70" cy="47" r="4" fill="#15181C"/>${SCREWS.map(([x,y])=>`<circle cx="${x}" cy="${y}" r="3" fill="#15181C"/>`).join('')}`,6),
+   rl:slab('M-30 0a30 30 0 1 0 60 0a30 30 0 1 0 -60 0','#3A281D',reel(0),3),
+   rr:slab('M-30 0a30 30 0 1 0 60 0a30 30 0 1 0 -60 0','#3A281D',reel(0),3),
+   top:slab(RIM,'#BDB6A6',`<path d="${SH}${WIN}" fill="#E9E4D8" fill-rule="evenodd"/><path d="${WIN}" fill="#fff" fill-opacity=".16" stroke="#9D968A" stroke-width="1.2"/><rect x="-80" y="-54" width="160" height="30" fill="#F25C3B"/><rect x="-80" y="-30" width="160" height="2.5" fill="#16181C"/><text x="-74" y="-36" font-size="13" fill="#fff" ${MO}>SIDE A</text><text x="74" y="-36" text-anchor="end" font-size="13" fill="#fff" ${MO}>C-60</text><path d="M-46 60L-38 46H38L46 60Z" fill="#CFC8B9"/>${SCREWS.map(([x,y])=>`<circle cx="${x}" cy="${y}" r="4.5" fill="#B9B2A3"/>`).join('')}`,6)};
+  const screw='<rect class="cx-sf" x="-2.2" y="0" width="4.4" height="0" fill="#8E949C"/><ellipse rx="5.6" ry="2.8" fill="#C9CED5" stroke="#7D838B" stroke-width=".8"/><path d="M-3 .8L3 -.8" stroke="#5F656D" stroke-width="1.1"/>';
+  const lab=(y,txt,cls)=>`<text class="${cls}" x="14" y="${y}" font-size="10" letter-spacing="1" fill="#4A5059" ${MO}>${txt}</text>`;
+  st.innerHTML=`<div class="cx">${svg(`<rect width="400" height="300" fill="#E8ECEF"/><ellipse class="cx-shadow" cx="${CX}" cy="${CY+52}" rx="120" ry="16" fill="#000" opacity=".08"/><g class="cx-gd" fill="none" stroke="#7D8794" stroke-width="1" stroke-dasharray="3 3"></g>
+   <g class="cx-p" data-k="bot">${parts.bot}</g><g class="cx-p" data-k="rl">${parts.rl}</g><g class="cx-p" data-k="rr">${parts.rr}</g><g class="cx-p" data-k="top">${parts.top}</g>${SCREWS.map((_,i)=>`<g class="cx-s">${screw}</g>`).join('')}
+   <g class="cx-lb">${lab(0,'TOP SHELL','l-top')}${lab(0,'REELS','l-reel')}${lab(0,'BOTTOM SHELL','l-bot')}<text class="l-scr" x="386" y="16" text-anchor="end" font-size="10" letter-spacing="1" fill="#4A5059" ${MO}>SCREWS ×5</text></g>`)}<div class="pc"><label for="${id}">Assembly</label><input type="range" id="${id}" min="0" max="100" step="1" value="55"><output for="${id}"></output></div></div>`;
+  const P={};st.querySelectorAll('.cx-p').forEach(g=>P[g.dataset.k]=g);
+  const S=[...st.querySelectorAll('.cx-s')],gd=st.querySelector('.cx-gd'),lb=st.querySelector('.cx-lb'),inp=st.querySelector('input'),o=st.querySelector('output'),sh=st.querySelector('.cx-shadow');
+  const L={top:lb.querySelector('.l-top'),reel:lb.querySelector('.l-reel'),bot:lb.querySelector('.l-bot')};
+  const at=(g,x,y,z)=>{const [a,b]=pr(x,y,z);g.setAttribute('transform',`translate(${f(a)} ${f(b)})`);};
+  let T=.55,last=-1e9,auto=null;
+  const set=t=>{T=Math.max(0,Math.min(1,t));const zB=-72*T,zT=8+78*T,zS=8+88*T,rx=42+30*T;
+   at(P.bot,0,0,zB);at(P.rl,-rx,0,2);at(P.rr,rx,0,2);at(P.top,0,0,zT);
+   S.forEach((g,i)=>{const [x,y]=SCREWS[i];at(g,x,y,zS);g.querySelector('.cx-sf').setAttribute('height',f(Math.min(14,(zS-8)*.6)));});
+   // Guides: each part's path from where it sits assembled to where it is now
+   let d='';const seg=(a,b)=>{d+=`M${f(a[0])} ${f(a[1])}L${f(b[0])} ${f(b[1])}`;};
+   if(T>.01){[[-95,60],[95,60]].forEach(([x,y])=>{seg(pr(x,y,0),pr(x,y,zB));seg(pr(x,y,8),pr(x,y,zT));});seg(pr(-42,0,2),pr(-rx,0,2));seg(pr(42,0,2),pr(rx,0,2));SCREWS.forEach(([x,y])=>seg(pr(x,y,8),pr(x,y,zS)));}
+   gd.innerHTML=`<path d="${d}"/>`;gd.setAttribute('opacity',f(Math.min(1,T*2)));
+   L.top.setAttribute('y',f(pr(0,0,zT)[1]+4));L.reel.setAttribute('y',f(pr(0,0,2)[1]+4));L.bot.setAttribute('y',f(pr(0,0,zB)[1]+4));lb.setAttribute('opacity',f(Math.max(0,Math.min(1,(T-.55)/.3))));
+   sh.setAttribute('cy',f(CY+52-zB));sh.setAttribute('opacity',f(.08-.03*T));
+   const v=Math.round(T*100);inp.value=v;o.textContent=v===0?'Assembled':v===100?'Exploded':v+'%';inp.setAttribute('aria-valuetext',v===0?'Assembled':v===100?'Fully exploded':v+'% exploded');};
+  inp.addEventListener('input',()=>{last=performance.now();auto=null;set(+inp.value/100);});
+  set(T);
+  // Left alone, it eases to one end, holds, then eases to the other
+  return (t,dt)=>{const now=performance.now();if(now-last<3500)return;
+   if(!auto)auto={from:T,to:T<.5?1:0,k:0,hold:0};
+   if(auto.k<1){auto.k=Math.min(1,auto.k+dt/2.2);const e=auto.k<.5?4*auto.k**3:1-Math.pow(-2*auto.k+2,3)/2;set(auto.from+(auto.to-auto.from)*e);}
+   else if((auto.hold+=dt)>1.6)auto=null;};}},
 ]},
 {t:'Effects and simulation',items:[
 {name:'Particles',d:'A fountain of short-lived particles. Tap for a burst.',use:'Celebrations, ambient sparkle, feedback',how:'Canvas, velocity, gravity and additive blending',tags:['Canvas'],try:true,
@@ -1430,7 +1777,7 @@ const fsel=document.getElementById('sp-f');
 fsel.addEventListener('change',()=>{f=fsel.value;apply();});
 q.addEventListener('input',apply);
 
-// Copy a style as AI context: name, look, use, how it's built, technique. Read from the card so new specimens get it too.
+// Copy a style as AI context: name, look, use, how it's built, what sets it apart (ctx, where a specimen has one), technique. Read from the card so new specimens get it too.
 const plain=el=>el?el.textContent.replace(/\s+/g,' ').trim():'';
 function contextFor(c){const el=c.el,dd=el.querySelectorAll('dd'),grp=el.closest('.group'),sec=el.closest('.sec');
   return [`Visual style: ${plain(el.querySelector('.sys-card__title'))}`,
@@ -1438,8 +1785,9 @@ function contextFor(c){const el=c.el,dd=el.querySelectorAll('dd'),grp=el.closest
     `Look: ${plain(el.querySelector('.desc'))}`,
     `Use for: ${plain(dd[0])}`,
     `How to build it: ${plain(dd[1])}`,
+    c.it.ctx?`What sets it apart: ${c.it.ctx}`:'',
     `Technique: ${c.it.tags.join(', ')}${c.it.try?' (interactive)':''}`,
-    'Draw it in code (SVG, CSS, canvas or WebGL), with no image files.'].join('\n');}
+    'Draw it in code (SVG, CSS, canvas or WebGL), with no image files.'].filter(Boolean).join('\n');}
 async function copyText(t){try{await navigator.clipboard.writeText(t);return true;}catch(e){
   const ta=document.createElement('textarea');ta.value=t;ta.style.cssText='position:fixed;opacity:0';document.body.appendChild(ta);ta.select();
   let ok=false;try{ok=document.execCommand('copy');}catch(_){}ta.remove();return ok;}}
