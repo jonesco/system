@@ -582,6 +582,67 @@ body{font-size:16px}
 .gsc-kv span:nth-child(odd){color:#9AA0A7}
 .gsc-dot{position:absolute;top:56%;width:5cqw;height:5cqw;margin:-2.5cqw 0 0 -2.5cqw;border-radius:50%;background:rgba(242,92,59,.85);box-shadow:0 0 0 1.4cqw rgba(242,92,59,.25);pointer-events:none}
 .gsc-out{position:absolute;left:4cqw;bottom:3cqw;margin:0;max-width:34%;font:500 2.6cqw/1.35 var(--f-mono);color:#5A6068;pointer-events:none}
+/* Hint line inside an interactive plate */
+.ph{position:absolute;left:0;right:0;bottom:3cqw;text-align:center;font:500 2.6cqw var(--f-mono);color:#8A909A;pointer-events:none}
+/* Holographic foil: --mx/--my (pointer on the card) move the sheen and glare; --rx/--ry tilt it */
+.holo{position:absolute;inset:0;background:#17171D;display:grid;place-items:center;perspective:700px}
+.holo-c{--mx:50%;--my:50%;--rx:0deg;--ry:0deg;position:relative;width:38cqw;aspect-ratio:5/7;border-radius:2.6cqw;overflow:hidden;transform:rotateY(var(--rx)) rotateX(var(--ry));background:linear-gradient(135deg,#C9CED6,#8E96A3 45%,#DDE1E7);box-shadow:0 2cqw 5cqw rgba(0,0,0,.5)}
+.holo-c::before{content:"";position:absolute;inset:0;z-index:1;background:repeating-linear-gradient(115deg,#ff5f6d 0%,#ffc371 7%,#f9f871 14%,#64f38c 21%,#47cacc 28%,#7f7fd5 35%,#ff5f6d 42%);background-size:300% 300%;background-position:var(--mx) var(--my);mix-blend-mode:color-dodge;opacity:.7}
+.holo-c::after{content:"";position:absolute;inset:0;z-index:2;background:radial-gradient(circle at var(--mx) var(--my),rgba(255,255,255,.85),rgba(255,255,255,0) 45%);mix-blend-mode:overlay}
+.holo-in{position:absolute;inset:3cqw;border:.4cqw solid rgba(30,34,44,.55);border-radius:1.6cqw;display:grid;place-items:center;align-content:center;gap:1cqw;color:#1E222C}
+.holo-in svg{width:16cqw;fill:rgba(30,34,44,.75)}
+.holo-in b{font:800 6.6cqw var(--f-display);letter-spacing:.1em}
+.holo-in span{font:500 2.2cqw var(--f-mono)}
+/* Before and after: --p is the divider's position; a transparent range input on top does the dragging */
+.ba{--p:50%;position:absolute;inset:0}
+.ba-a,.ba-b{position:absolute;inset:0}
+.ba svg{display:block;width:100%;height:100%}
+.ba-b{clip-path:inset(0 0 0 var(--p))}
+.ba-h{position:absolute;top:0;bottom:0;left:var(--p);border-left:.5cqw solid #fff;pointer-events:none}
+.ba-h i{position:absolute;top:50%;left:-.25cqw;width:9cqw;height:9cqw;transform:translate(-50%,-50%);border-radius:50%;background:#fff;box-shadow:0 1cqw 3cqw rgba(0,0,0,.25);display:grid;place-items:center}
+.ba-h i::after{content:"‹ ›";font:700 3.6cqw var(--f-body);color:#333}
+.ba:has(input:focus-visible) .ba-h i{outline:.6cqw solid #E4148C}
+.ba-l{position:absolute;top:3cqw;left:3cqw;padding:.6cqw 1.4cqw;background:rgba(255,255,255,.88);font:700 2.5cqw var(--f-body);letter-spacing:.08em;text-transform:uppercase;color:#222;pointer-events:none}
+.ba-l.r{left:auto;right:3cqw}
+.ba input{position:absolute;inset:0;width:100%;height:100%;margin:0;opacity:0;cursor:ew-resize;touch-action:pan-y}
+/* Spotlight: the lit copy is masked to a soft circle at --x/--y */
+.spot{--x:50%;--y:50%;position:absolute;inset:0}
+.spot-d,.spot-l{position:absolute;inset:0}
+.spot svg{display:block;width:100%;height:100%}
+.spot-d{filter:brightness(.2) saturate(.35)}
+.spot-l{-webkit-mask-image:radial-gradient(circle 17cqw at var(--x) var(--y),#000 50%,transparent 100%);mask-image:radial-gradient(circle 17cqw at var(--x) var(--y),#000 50%,transparent 100%)}
+/* Swipe stack */
+.swp{position:absolute;inset:0;background:#EDE9E3;overflow:hidden;touch-action:pan-y}
+.swp-c{position:absolute;left:50%;top:46%;width:40cqw;aspect-ratio:3/4;transform:translate(-50%,-50%);background:#fff;border-radius:2.4cqw;box-shadow:0 1cqw 3cqw rgba(0,0,0,.15);padding:2cqw;display:grid;grid-template-rows:1fr auto auto;gap:.8cqw;cursor:grab;user-select:none;-webkit-user-select:none;font-family:var(--f-body)}
+.swp-i{border-radius:1.6cqw}
+.swp-c b{font-size:3.6cqw;color:#1E1E24}
+.swp-c span{font-size:2.6cqw;color:#7A7468}
+.swp-c em{position:absolute;top:5cqw;padding:.4cqw 1.4cqw;border:.6cqw solid;border-radius:1cqw;font:700 4cqw var(--f-body);font-style:normal;opacity:0;background:rgba(255,255,255,.85)}
+.swp-y{left:4cqw;color:#2A9D8F;transform:rotate(-12deg)}
+.swp-n{right:4cqw;color:#E4572E;transform:rotate(12deg)}
+/* Pull to refresh */
+.ptr{position:absolute;inset:0;background:#E7EAEF;display:grid;grid-template-rows:auto 1fr;font-family:var(--f-body)}
+.ptr-h{display:flex;justify-content:space-between;align-items:baseline;padding:3cqw 5cqw 2cqw;font-weight:700;font-size:4.4cqw;color:#16181C;background:#E7EAEF;position:relative;z-index:1}
+.ptr-h span{font:500 2.5cqw var(--f-mono);color:#8A909A}
+.ptr-b{position:relative;overflow:hidden;touch-action:pan-x;cursor:grab}
+.ptr-s{position:absolute;left:50%;top:0;width:7cqw;height:7cqw;transform:translate(-50%,-30px)}
+.ptr-s circle{fill:none;stroke:#E4148C;stroke-width:2.6;stroke-linecap:round;stroke-dasharray:100;stroke-dashoffset:100}
+.ptr-s.is-spin{animation:ptr-spin .7s linear infinite}
+@keyframes ptr-spin{to{rotate:360deg}}
+.ptr ul{list-style:none;margin:0;padding:0 4cqw;display:grid;gap:1.6cqw;user-select:none;-webkit-user-select:none}
+.ptr li{display:grid;grid-template-columns:auto 1fr;grid-template-rows:auto auto;column-gap:2.4cqw;align-items:center;padding:2cqw 2.4cqw;background:#fff;border-radius:1.6cqw}
+.ptr li i{grid-row:1/3;width:7cqw;height:7cqw;border-radius:50%;display:grid;place-items:center;font:700 3cqw var(--f-body);font-style:normal;color:#fff}
+.ptr li b{font-size:3.2cqw;color:#16181C}
+.ptr li span{font-size:2.7cqw;color:#6B717A}
+.ptr li.is-new{animation:ptr-in .45s cubic-bezier(.16,1,.3,1)}
+@keyframes ptr-in{from{opacity:0;transform:translateY(-4cqw)}}
+/* Scroll-read highlight: words fade from faint to ink past the reading line */
+.srh{position:absolute;inset:0;background:#F4F1EA}
+.srh-sc{position:absolute;inset:0;overflow-y:auto;scrollbar-width:none;padding:0 6cqw}
+.srh-sc::-webkit-scrollbar{display:none}
+.srh-sc p{margin:0;padding:38cqw 0 40cqw;font:700 6.2cqw/1.25 var(--f-body);color:#16181C}
+.srh-sc span{opacity:.16}
+.srh-ln{position:absolute;left:0;top:50%;width:3cqw;height:.5cqw;background:#E4148C;pointer-events:none}
 </style>
 
 <header class="sys-header"><div class="sys-wrap sys-bar">
@@ -823,6 +884,28 @@ const G=[
   inp.addEventListener('input',()=>{last=performance.now();set(+inp.value);phase();});set(a);phase();
   // Left alone, the angle drifts slowly between 2° and 11° so the bands sweep and turn
   return (t,dt)=>{if(performance.now()-last<4000)return;ph+=dt*.3;set(6.5-4.5*Math.cos(ph));inp.value=Math.round(a*2)/2;};}},
+{name:'Mosaic',look:'An image laid in small square tiles with grout between them, the rows of tiles bending to follow each shape’s outline.',added:'2026-11-12',d:'A sun over the sea in small square tiles. The rows ring the sun and ripple with the waves, with grout showing between them.',use:'Mediterranean and civic motifs, warm hero art, pattern bands',how:'Canvas: tiles stepped along each shape’s contour lines, turned to the curve, with jittered size and tone',tags:['Canvas'],
+ ctx:'The rows of tiles (the andamento) follow the forms: rings around round shapes, waves along water, one darker outline row around the main subject, plain straight rows in the background. Every tile is a slightly irregular square with a grout gap, turned to the line it sits on, and each varies a little in tone.',
+ init(st){const [c,x]=cv(st),r=rng(23),T=8.6,SX=282,SY=98,SR=48,HZ=178;
+  x.fillStyle='#CEC4B0';x.fillRect(0,0,400,300);
+  const pick=a=>a[r()*a.length|0],hex=h=>[1,3,5].map(i=>parseInt(h.slice(i,i+2),16));
+  const tile=(px,py,a,col)=>{const s=T*(.8+r()*.14),k=1+(r()-.5)*.18,v=hex(col).map(n=>Math.min(255,n*k)|0);
+   x.save();x.translate(px+(r()-.5),py+(r()-.5));x.rotate(a+(r()-.5)*.16);x.fillStyle=`rgb(${v})`;x.fillRect(-s/2,-s/2,s,s);x.restore();};
+  // walk a curve and drop a tile every T along it, turned to the curve
+  const along=(fn,u0,u1,col)=>{let [px,py]=fn(u0),acc=T;const du=(u1-u0)/900;
+   for(let u=u0+du;u<=u1+1e-9;u+=du){const [qx,qy]=fn(u);acc+=Math.hypot(qx-px,qy-py);if(acc>=T){acc=0;const cl=col(qx,qy);if(cl)tile(qx,qy,Math.atan2(qy-py,qx-px),cl);}px=qx;py=qy;}};
+  const ring=(rr,col)=>along(u=>[SX+Math.cos(u)*rr,SY+Math.sin(u)*rr],0,TAU-T/rr*.9,col);
+  // sky: straight rows, kept clear of the sun's halo
+  for(let y=T/2;y<HZ-T/2;y+=T){const k=y/HZ;along(u=>[u,y],-6,406,(px,py)=>Math.hypot(px-SX,py-SY)<SR+T*2.2?null:pick(k<.4?['#2D5A86','#33669A','#284F7A']:k<.75?['#4C82B4','#5990C0','#447AAB']:['#86B4D6','#9CC3DE','#94BEDC']));}
+  // the sun: a pale halo, a dark outline row, then rings that follow its edge in to the center
+  ring(SR+T*1.5,()=>pick(['#9CC3DE','#B7D3E6','#A8CBE2']));
+  ring(SR+T*.5,()=>pick(['#B8472A','#C2532E']));
+  for(let rr=SR-T/2;rr>T*.6;rr-=T)ring(rr,()=>pick(rr>SR*.6?['#F09A33','#EE8C2A','#F4A73E']:['#F8D44C','#F6C735','#FADF6A']));
+  tile(SX,SY,0,'#FADF6A');
+  // horizon, then waves; tiles on the sun's line pick up its reflection
+  along(u=>[u,HZ],-6,406,()=>pick(['#14364A','#1A3F55']));
+  for(let y=HZ+T;y<306;y+=T)along(u=>[u,y+4*Math.sin(u*.045+y*.025)],-6,406,(px,py)=>{const w=34*(1-(py-HZ)/150);
+   return Math.abs(px-SX)<w*(.5+r()*.6)?pick(['#F2B23E','#E99A35']):r()<.035?'#E6EEF0':pick(['#1D5470','#235E7C','#194B65','#2B6B87']);});}},
 ]},
 {t:'Print and texture',items:[
 {name:'Duotone',d:'An image remapped to two inks, dark for shadows and bright for highlights.',use:'Unifying mixed photography, editorial headers',how:'Luminance mapped to a two-color ramp per pixel; an SVG feColorMatrix filter does the same',tags:['Canvas'],
@@ -936,6 +1019,86 @@ const G=[
    <rect width="400" height="300" fill="${PA}"/>${mark(106,'ebm-up')}${mark(294,'ebm-dn')}${lab(106,'EMBOSSED','raised')}${lab(294,'DEBOSSED','pressed in')}
    <g stroke="#8A8272" stroke-width="1.3" stroke-linecap="round" fill="none"><circle cx="26" cy="24" r="5"/><path d="M26 13v3M26 32v3M15 24h3M34 24h3M18.2 16.2l2.1 2.1M31.7 29.7l2.1 2.1M18.2 31.8l2.1-2.1M31.7 18.3l2.1-2.1M40 38l12 12M52 44v6h-6"/></g><text x="60" y="28" font-size="9" letter-spacing="1.5" fill="#8A8272" ${MO}>LIGHT</text>
    <rect width="400" height="300" filter="url(#ebm-f)"/>`);}},
+{name:'Paper marbling',look:'Bands of ink floated on water, then combed into chevrons and feathered waves, with flat color and soft edges.',added:'2026-11-12',d:'Ink stripes floated on water and combed into feathered chevrons, like the endpapers of an old book.',use:'Endpapers, packaging, craft and luxury brands, backgrounds',how:'Canvas pixel loop: stripes of color pushed through comb and wave displacements, each one a formula',tags:['Canvas'],
+ ctx:'Every pattern starts as plain bands of ink. Combs drag tines through them, pulling hardest right at each tine and less with distance, so the bands stretch into chevrons and feathers; a gentle wave runs over the result. Colors stay flat and few, edges stay soft, and nothing repeats exactly.',
+ init(st){const W=800,H=600,[c,x]=raw(st,W,H),im=x.createImageData(W,H),d=im.data;
+  const P=[[30,58,95],[241,230,207],[181,72,46],[241,230,207],[217,164,65],[47,111,106],[241,230,207],[30,58,95],[196,124,84],[241,230,207]],N=P.length,B=9;
+  for(let py=0;py<H;py++)for(let px=0;px<W;px++){let X=px/2,Y=py/2;
+   // a wave, then a comb with vertical tines, then one with horizontal tines; each pulls hardest at its tines
+   X+=7*Math.sin(Y*.06);
+   {const s=50,k=Math.round(X/s),dd=Math.abs(X-k*s);Y+=(k&1?1:-1)*40*7/(dd+7);}
+   {const s=26,k=Math.round(Y/s),dd=Math.abs(Y-k*s);X+=(k&1?1:-1)*28*6/(dd+6);}
+   const u=(X+Y*.15)/B,i=Math.floor(u),f=u-i,a=P[((i%N)+N)%N],b=P[(((i+1)%N)+N)%N],m=f>.88?(f-.88)/.12:0,o=(py*W+px)*4;
+   for(let ch=0;ch<3;ch++)d[o+ch]=a[ch]+(b[ch]-a[ch])*m;d[o+3]=255;}
+  x.putImageData(im,0,0);}},
+{name:'Cross-stitch',look:'A picture made of tiny X stitches on an even-weave fabric grid, each X two crossed threads with a slight sheen, framed by a running backstitch.',added:'2026-11-12',d:'A heart and four flowers in X stitches on aida cloth: each square of the grid holds one crossed pair of threads.',use:'Craft and handmade brands, cozy seasonal art, pixel art with a softer finish',how:'Canvas: a pixel map drawn as two diagonal thread strokes per cell over a woven grid',tags:['Canvas'],
+ ctx:'It’s pixel art rendered as thread. The fabric shows between stitches, with holes at every grid corner. Every X is two diagonal strokes, the top one always crossing the same way, each with a lighter sheen along its middle and a hint of shadow. Outlines are a thin running stitch from hole to hole.',
+ init(st){const [c,x]=cv(st),S=12,X0=2,Y0=6,r=rng(4);
+  x.fillStyle='#EFE8D6';x.fillRect(0,0,400,300);
+  // the weave: faint threads both ways, a hole at every corner
+  x.strokeStyle='rgba(150,130,100,.13)';x.lineWidth=1;
+  for(let i=X0;i<=400;i+=S/2){x.beginPath();x.moveTo(i,0);x.lineTo(i,300);x.stroke();}for(let j=Y0;j<=300;j+=S/2){x.beginPath();x.moveTo(0,j);x.lineTo(400,j);x.stroke();}
+  x.fillStyle='rgba(120,100,70,.35)';for(let i=X0;i<=400;i+=S)for(let j=Y0;j<=300;j+=S){x.beginPath();x.arc(i,j,1.1,0,TAU);x.fill();}
+  const thr=(a,b,e,f,col,hi)=>{x.strokeStyle=col;x.lineWidth=3.6;x.beginPath();x.moveTo(a,b);x.lineTo(e,f);x.stroke();
+   x.save();x.shadowColor='transparent';x.strokeStyle=hi;x.lineWidth=1.1;x.beginPath();x.moveTo(a+(e-a)*.22,b+(f-b)*.22);x.lineTo(a+(e-a)*.78,b+(f-b)*.78);x.stroke();x.restore();};
+  const jt=()=>(r()-.5)*.6;
+  const stitch=(i,j,col,hi)=>{const L=X0+i*S+1.6,T=Y0+j*S+1.6,R=L+S-3.2,Bm=T+S-3.2;thr(L+jt(),Bm+jt(),R+jt(),T+jt(),col,hi);thr(L+jt(),T+jt(),R+jt(),Bm+jt(),col,hi);};
+  const C={X:['#C8323C','rgba(255,190,190,.55)'],h:['#E8737A','rgba(255,225,225,.6)'],d:['#8E1F2A','rgba(230,120,130,.45)'],p:['#D9609A','rgba(255,200,225,.6)'],y:['#F2C230','rgba(255,245,200,.7)'],g:['#4F8A4B','rgba(190,230,180,.5)']};
+  const put=(rows,ci,cj)=>rows.forEach((row,j)=>[...row].forEach((ch,i)=>{if(C[ch])stitch(ci+i,cj+j,...C[ch]);}));
+  x.lineCap='round';x.shadowColor='rgba(60,40,20,.35)';x.shadowBlur=1.2;x.shadowOffsetY=.7;
+  put(['..XXX...XXX..','.XhhXX.XXXXX.','XXhXXXXXXXXXX','XXXXXXXXXXXXd','XXXXXXXXXXXXd','.XXXXXXXXXXd.','..XXXXXXXXd..','...XXXXXXd...','....XXXXd....','.....XXd.....','......d......'],10,6);
+  const flower=['.p.','pyp','.p.','g.g'];[[3,3],[27,3],[3,17],[27,17]].forEach(([i,j])=>put(flower,i,j));
+  // backstitch frame: short runs from hole to hole, with a gap between
+  x.strokeStyle='#3B6E8F';x.lineWidth=2.2;const bs=(i0,j0,i1,j1)=>{const n=Math.max(Math.abs(i1-i0),Math.abs(j1-j0));for(let k=0;k<n;k+=2){x.beginPath();x.moveTo(X0+(i0+(i1-i0)*k/n)*S,Y0+(j0+(j1-j0)*k/n)*S);x.lineTo(X0+(i0+(i1-i0)*(k+1)/n)*S,Y0+(j0+(j1-j0)*(k+1)/n)*S);x.stroke();}};
+  bs(1,1,32,1);bs(32,1,32,23);bs(32,23,1,23);bs(1,23,1,1);}},
+{name:'Pointillism',look:'A scene painted entirely in small dots of pure, unmixed color; dots of neighboring hues mix into the in-between colors only at a distance.',added:'2026-11-12',d:'A harbor at dusk in dots of pure color. Up close it’s confetti; from across the room the oranges and blues mix into sky.',use:'Art-led editorial, gallery and culture brands, warm hero images',how:'Canvas: thousands of dots, each a pure palette color picked by how close it is to the scene’s color at that spot',tags:['Canvas'],
+ ctx:'No color is mixed on the canvas. Each area is built from a few pure hues side by side, chosen so they average to the color wanted there, plus the odd contrasting dot for vibration. Dots are similar in size and lie close together, with a little paper showing through.',
+ init(st){const [c,x]=cv(st),r=rng(31);x.fillStyle='#F4EEDF';x.fillRect(0,0,400,300);
+  const PAL=[[38,70,160],[60,130,200],[120,190,230],[245,215,70],[240,140,50],[215,60,60],[230,120,170],[70,150,80],[30,90,60],[250,245,225],[120,80,170]];
+  const lerp=(a,b,t)=>a.map((v,i)=>v+(b[i]-v)*t);
+  const scene=(X,Y)=>{const hill=166-16*Math.exp(-((X-96)**2)/2600)-5*Math.sin(X*.04);
+   if(Y<hill){const sun=Math.hypot(X-292,Y-104);if(sun<24)return [252,228,120];const t=Y/170;return lerp(lerp([60,80,160],[240,160,110],t*t),[250,210,130],Math.max(0,1-sun/120)*.7);}
+   if(Y<184)return [50,110,62];
+   return Math.abs(X-292)<30-(Y-184)*.14+6*Math.sin(Y*.6)?[245,190,90]:lerp([70,120,190],[30,60,130],(Y-184)/116);};
+  for(let n=0;n<17000;n++){const X=r()*400,Y=r()*300,col=scene(X,Y),ds=PAL.map((p,i)=>[Math.hypot(p[0]-col[0],p[1]-col[1],p[2]-col[2]),i]).sort((a,b)=>a[0]-b[0]);let k=ds[0][1];
+   if(r()<.05)k=ds[3+(r()*3|0)][1];   // the odd contrasting dot
+   else{const w=ds.slice(0,3).map(q=>1/(q[0]+14)**2);let z=r()*(w[0]+w[1]+w[2]);for(let i=0;i<3;i++){z-=w[i];if(z<=0){k=ds[i][1];break;}}}
+   x.fillStyle=`rgb(${PAL[k]})`;x.beginPath();x.arc(X,Y,1.7+r()*.7,0,TAU);x.fill();}}},
+{name:'Sumi-e brush',look:'Ink brush painting: one-pass strokes that swell and taper with pressure and go dry and streaky as the brush runs out, in black and grays on warm paper with lots of empty space.',added:'2026-11-12',d:'Bamboo in single brush strokes: each stalk swells, tapers and breaks into dry streaks as the ink runs out.',use:'Calm editorial art, tea, food and wellness brands, section openers',how:'Canvas: each stroke is a bundle of bristle lines along a curve; width follows pressure and each bristle runs dry at its own point',tags:['Canvas'],
+ ctx:'Each mark is one confident stroke, never reworked. Width follows brush pressure, swelling and lifting to a point. The brush carries a limited load, so strokes start wet and solid and end dry, splitting into streaks where single bristles run out. Distance is shown with paler ink. A small red seal is the only color, and most of the paper stays empty.',
+ init(st){const [c,x]=cv(st),r=rng(12);x.fillStyle='#F2ECDD';x.fillRect(0,0,400,300);
+  for(let i=0;i<500;i++){x.strokeStyle=`rgba(160,140,110,${.04+r()*.05})`;x.lineWidth=.5;const a=r()*TAU,X=r()*400,Y=r()*300,L=4+r()*10;x.beginPath();x.moveTo(X,Y);x.lineTo(X+Math.cos(a)*L,Y+Math.sin(a)*L);x.stroke();}
+  const bez=(p0,p1,p2,n)=>Array.from({length:n+1},(_,i)=>{const t=i/n,u=1-t;return [u*u*p0[0]+2*u*t*p1[0]+t*t*p2[0],u*u*p0[1]+2*u*t*p1[1]+t*t*p2[1]];});
+  // one stroke: bristles spread across the width; each runs dry at its own point along the stroke
+  const stroke=(pts,wf,ink,load)=>{const n=18,seg=70,P=t=>{const m=(pts.length-1)*t,i=Math.min(pts.length-2,m|0),f=m-i,a=pts[i],b=pts[i+1];return [a[0]+(b[0]-a[0])*f,a[1]+(b[1]-a[1])*f];};
+   x.strokeStyle=ink;x.lineCap='round';
+   for(let b=0;b<n;b++){const off=(b/(n-1)-.5)*2,dry=load*(.6+r()*.55)*(1-Math.abs(off)*.3);
+    for(let s=0;s<seg;s++){const t0=s/seg,t1=(s+1)/seg;if(t0>dry+.18)break;if(t0>dry&&r()<.7)continue;
+     const [ax,ay]=P(t0),[bx,by]=P(t1),nx=-(by-ay),ny=bx-ax,nl=Math.hypot(nx,ny)||1,w0=wf(t0),w1=wf(t1);
+     x.globalAlpha=t0>dry?.45:.8;x.lineWidth=Math.max(.6,w0/n*1.7);x.beginPath();x.moveTo(ax+nx/nl*off*w0/2,ay+ny/nl*off*w0/2);x.lineTo(bx+nx/nl*off*w1/2,by+ny/nl*off*w1/2);x.stroke();}}
+   x.globalAlpha=1;};
+  // a stalk: segments that flare at each node, with a short dark node stroke between them
+  const stalk=(x0,lean,w,ink,load)=>{let y=316;const ys=[];while(y>-30){const h=46+r()*22;ys.push([y,y-h]);y-=h+4;}
+   ys.forEach(([y0,y1])=>{const X=t=>x0+lean*(316-t);stroke(bez([X(y0),y0],[X((y0+y1)/2)+1.5,(y0+y1)/2],[X(y1),y1],12),t=>w*(t<.1?1.15-t*1.5:t>.9?1+(t-.9)*1.5:1),ink,load);
+    stroke(bez([X(y1)-w*.7,y1-1],[X(y1),y1-3],[X(y1)+w*.7,y1-1],6),()=>3,ink,1);});return ys.map(([,y1])=>[x0+lean*(316-y1),y1]);};
+  const leaf=(p,a,L,w,ink)=>{const e=[p[0]+Math.cos(a)*L,p[1]+Math.sin(a)*L],m=[p[0]+Math.cos(a+.25)*L*.5,p[1]+Math.sin(a+.25)*L*.5];stroke(bez(p,m,e,14),t=>w*Math.pow(Math.sin(Math.PI*Math.min(1,t*1.1)),.7)+.4,ink,.95);};
+  stalk(92,.07,7,'#ABA79E',.9);
+  const back=stalk(244,-.05,11,'#83817A',.85);
+  const main=stalk(158,.03,16,'#161514',.8);
+  [[main[1],-2.6],[main[2],-.4],[main[3],-2.9],[back[2],-.5]].forEach(([p,a],k)=>{if(!p)return;const ink=k===3?'#83817A':'#161514';
+   stroke(bez(p,[p[0]+Math.cos(a)*14,p[1]+Math.sin(a)*14-6],[p[0]+Math.cos(a)*30,p[1]+Math.sin(a)*30-4],8),()=>2,ink,1);
+   const q=[p[0]+Math.cos(a)*28,p[1]+Math.sin(a)*28-4];for(let i=0;i<3;i++)leaf(q,a+(a<-1.5?-.5:.5)+(a<-1.5?1:-1)*i*.32+(r()-.5)*.15,64+r()*20,10,ink);});
+  x.fillStyle='#B8322A';x.fillRect(338,226,24,32);x.strokeStyle='#F2ECDD';x.lineWidth=2.2;x.lineCap='square';
+  x.beginPath();x.moveTo(343,233);x.lineTo(357,233);x.moveTo(350,233);x.lineTo(350,252);x.moveTo(343,243);x.lineTo(357,243);x.moveTo(344,252);x.lineTo(356,252);x.stroke();}},
+{name:'Anaglyph 3D',look:'Line art printed twice, once in red and once in cyan, offset sideways by depth, so it stands up through red-cyan glasses and reads as a buzzing double image without them.',added:'2026-11-12',d:'Red and cyan copies of the same drawing, offset more the nearer each layer sits. Put on 3D glasses and it stands up off the page.',use:'Retro comics and B-movie looks, music and event posters, playful 3D gimmicks',how:'SVG: each layer drawn twice in red and cyan, shifted by its depth, blended with multiply',tags:['SVG'],
+ ctx:'Every element exists twice: a red copy shifted one way and a cyan copy shifted the other, by an amount set by its depth. Far layers barely separate, near layers split wide. The inks multiply where they overlap, so shared areas go dark and the edges carry colored fringes. Keep the art to lines and flat fills on white.',
+ init(st){// cyan goes right and red left for things in front of the page (the red lens is on the left eye)
+  const layer=(dz,g)=>`<g style="mix-blend-mode:multiply" transform="translate(${-dz} 0)" stroke="#EE2A2F" color="#EE2A2F" fill="none">${g}</g><g style="mix-blend-mode:multiply" transform="translate(${dz} 0)" stroke="#00AEEF" color="#00AEEF" fill="none">${g}</g>`;
+  let grid='';for(let i=0;i<=400;i+=25)grid+=`<path d="M${i} 0V300"/>`;for(let j=0;j<=300;j+=25)grid+=`<path d="M0 ${j}H400"/>`;
+  const planet='<circle cx="200" cy="132" r="56" stroke-width="3"/><ellipse cx="200" cy="132" rx="106" ry="26" stroke-width="3" transform="rotate(-14 200 132)"/><path d="M160 98q40-16 80 4M150 134q50 10 100-6M162 166q36 10 74-4" stroke-width="2"/>';
+  const star=(cx,cy,R)=>{let d='';for(let i=0;i<10;i++){const a=i/10*TAU-Math.PI/2,rr=i%2?R*.42:R;d+=(i?'L':'M')+(cx+Math.cos(a)*rr).toFixed(1)+' '+(cy+Math.sin(a)*rr).toFixed(1);}return `<path d="${d}Z" fill="currentColor" stroke="none"/>`;};
+  const front=`<text x="200" y="272" text-anchor="middle" font-family="Bricolage Grotesque,sans-serif" font-weight="800" font-size="60" fill="currentColor" stroke="none" letter-spacing="2">3-D!</text>${star(66,66,22)}${star(338,214,15)}`;
+  st.innerHTML=svg(`<rect width="400" height="300" fill="#fff"/><g style="isolation:isolate">${layer(1,`<g stroke-width="1" stroke-opacity=".45">${grid}</g>`)}${layer(2.6,planet)}${layer(4.5,front)}</g>`);}},
 ]},
 {t:'Interface surfaces',items:[
 {name:'Glassmorphism',d:'Frosted translucent panels over color, with a thin bright edge.',use:'Overlays, media controls, OS-like surfaces',how:'CSS backdrop-filter blur on a semi-transparent panel',tags:['CSS'],
@@ -968,6 +1131,14 @@ const G=[
   const place=t=>{const dx=Math.sin(t*.55)*72,dy=Math.cos(t*.4)*24,x=100+dx,y=95+dy;fm.setAttribute('x',x.toFixed(1));fm.setAttribute('y',y.toFixed(1));cr.setAttribute('x',x.toFixed(1));cr.setAttribute('y',y.toFixed(1));
    const tr=`translate(${dx.toFixed(1)} ${dy.toFixed(1)})`;top.setAttribute('transform',tr);rim.setAttribute('transform',tr);};
   place(.6);return t=>place(.6+t);}},
+{name:'Holographic foil',look:'A metallic card whose rainbow sheen and glare slide across its surface as it tilts toward the light.',added:'2026-11-12',d:'A foil card that tilts toward your pointer while a rainbow sheen and a glare slide across it.',use:'Collectible and premium cards, membership passes, launch badges',how:'CSS: a rainbow gradient and a glare whose positions follow pointer variables, blended over a metal base, plus a 3D tilt',tags:['CSS','JS'],try:true,
+ ctx:'A cool metallic base, then a repeating rainbow gradient blended with color-dodge and a soft white glare blended with overlay. Both move with the viewing angle (the pointer), opposite to the tilt, so the light seems to stay put while the card turns. Printed artwork sits under the sheen and keeps its own dark ink.',
+ init(st,card){st.innerHTML='<div class="holo"><div class="holo-c"><div class="holo-in"><svg viewBox="0 0 100 100" aria-hidden="true"><path d="M50 8l11 27 29 2-22 19 7 28-25-15-25 15 7-28-22-19 29-2z"/></svg><b>FOIL</b><span>No. 042 / 500</span></div></div><span class="ph">Move over the card</span></div>';
+  const cd=st.querySelector('.holo-c');let tx=.5,ty=.5,cx=.5,cy=.5,last=-1e9;
+  const set=()=>{const s=cd.style;s.setProperty('--mx',(cx*100).toFixed(1)+'%');s.setProperty('--my',(cy*100).toFixed(1)+'%');s.setProperty('--rx',((cx-.5)*28).toFixed(2)+'deg');s.setProperty('--ry',((.5-cy)*28).toFixed(2)+'deg');};
+  st.addEventListener('pointermove',e=>{const b=cd.getBoundingClientRect();tx=Math.max(0,Math.min(1,(e.clientX-b.left)/b.width));ty=Math.max(0,Math.min(1,(e.clientY-b.top)/b.height));last=performance.now();if(!card.live){cx=tx;cy=ty;set();}});
+  st.addEventListener('pointerleave',()=>{last=-1e9;});
+  set();return t=>{if(performance.now()-last>2500){tx=.5+.42*Math.sin(t*.9);ty=.5+.32*Math.sin(t*1.3+1);}cx+=(tx-cx)*.12;cy+=(ty-cy)*.12;set();};}},
 ]},
 {t:'Pixels and characters',items:[
 {name:'Pixel art',d:'A tiny grid of hard-edged pixels, scaled up without smoothing.',use:'Games, retro features, achievement badges',how:'Canvas drawn from a text map, image-rendering: pixelated',tags:['Canvas'],
@@ -999,6 +1170,25 @@ const G=[
   for(let X=0;X<W;X++){let y=0;while(y<H){while(y<H&&!(lum((y*W+X)*4)>70&&lum((y*W+X)*4)<246))y++;const s0=y;while(y<H&&lum((y*W+X)*4)>70&&lum((y*W+X)*4)<246)y++;const s1=y;
     if(s1-s0>3){const run=[];for(let k=s0;k<s1;k++){const o=(k*W+X)*4;run.push([lum(o),d[o],d[o+1],d[o+2]]);}run.sort((a,b)=>b[0]-a[0]);for(let k=s0;k<s1;k++){const o=(k*W+X)*4,p=run[k-s0];d[o]=p[1];d[o+1]=p[2];d[o+2]=p[3];}}}}
   x.putImageData(im,0,0);}},
+{name:'Vector display',look:'Thin glowing lines on black, like an old vector arcade screen: wireframe 3D shapes and a perspective grid, no fills, a soft bloom.',added:'2026-11-12',d:'A wireframe shape turns over a scrolling grid in glowing green lines, like a vector arcade screen.',use:'Retro game and tech promos, loading screens, music visuals',how:'Canvas: 3D points projected each frame and stroked twice, once blurred for the glow',tags:['Canvas'],
+ ctx:'Everything is a line: no fills, no textures. Shapes are wireframes with every edge visible, projected in simple perspective. Lines are thin and bright with a soft bloom, on pure black, in one phosphor color (green or white). Type is a plain stroked or mono face in the same color.',
+ init(st){const [c,x]=cv(st),ph=(1+Math.sqrt(5))/2,V=[];
+  for(const a of [-1,1])for(const b of [-ph,ph]){V.push([0,a,b],[a,b,0],[b,0,a]);}
+  const E=[];for(let i=0;i<V.length;i++)for(let j=i+1;j<V.length;j++)if(Math.abs(Math.hypot(V[i][0]-V[j][0],V[i][1]-V[j][1],V[i][2]-V[j][2])-2)<.01)E.push([i,j]);
+  const lines=(segs,w)=>{x.lineCap='round';x.strokeStyle='#4CFF84';x.shadowColor='#4CFF84';x.shadowBlur=9;x.lineWidth=w*1.6;x.beginPath();segs.forEach(s=>{x.moveTo(s[0],s[1]);x.lineTo(s[2],s[3]);});x.stroke();
+   x.shadowBlur=0;x.strokeStyle='#D6FFE2';x.lineWidth=w*.6;x.stroke();};
+  const draw=t=>{x.fillStyle='#020503';x.fillRect(0,0,400,300);
+   // ground grid: lines run toward the horizon and scroll toward the viewer
+   const g=[],HY=176,f=150,sc=(t*1.4)%1;
+   for(let k=-12;k<=12;k++){const xa=200+k*f/1,xb=200+k*f/18;g.push([xa*1,HY+f*1.2,xb,HY+f*1.2/18]);}
+   for(let z=1;z<18;z++){const zz=z-sc;if(zz<.6)continue;const y=HY+f*1.2/zz;g.push([0,y,400,y]);}
+   x.globalAlpha=.55;lines(g.map(s=>s.map(v=>v)),1);x.globalAlpha=1;
+   x.beginPath();x.strokeStyle='#4CFF84';x.lineWidth=1;x.moveTo(0,HY);x.lineTo(400,HY);x.stroke();
+   const ca=Math.cos(t*.7),sa=Math.sin(t*.7),cb=Math.cos(t*.43),sb=Math.sin(t*.43);
+   const P=V.map(([a,b,cc])=>{const X=a*ca+cc*sa,Z=-a*sa+cc*ca,Y=b*cb-Z*sb,Z2=b*sb+Z*cb,k=210/(Z2+5.2);return [200+X*k*1.05,118+Y*k*1.05];});
+   lines(E.map(([i,j])=>[P[i][0],P[i][1],P[j][0],P[j][1]]),1.2);
+   x.fillStyle='#4CFF84';x.font='500 11px "JetBrains Mono", monospace';x.fillText('SCORE 004210',16,24);x.textAlign='right';x.fillText('HI 019950',384,24);x.textAlign='left';};
+  draw(1.2);return t=>draw(t);}},
 ]},
 {t:'Generative',items:[
 {name:'Flow field',d:'Particles tracing a noise field, leaving soft trails.',use:'Data art, hero art, ambient backgrounds',how:'Canvas, Perlin noise angles, accumulated strokes',tags:['Canvas'],
@@ -1100,6 +1290,72 @@ if(it>219.){gl_FragColor=vec4(.02,.02,.05,1.);return;}float sm=it-log2(log2(dot(
   const draw=t=>{paint(t);x.fillStyle='#120A1F';x.fillRect(0,0,400,300);x.save();x.translate(200,150);
    for(let k=0;k<N;k++){x.save();x.rotate(k*a);if(k%2)x.scale(1,-1);x.beginPath();x.moveTo(0,0);x.lineTo(R,0);x.lineTo(R*Math.cos(a)+1,R*Math.sin(a)+1);x.closePath();x.clip();x.drawImage(src,0,0,S,S,0,0,R,R);x.restore();}x.restore();};
   draw(1);return t=>draw(1+t);}},
+{name:'Harmonograph',look:'One continuous fine line drawn by decaying pendulums: looping, nested curves that spiral inward as the swing dies away.',added:'2026-11-12',d:'A pen on two decaying pendulums draws one long line that loops and spirals inward as the swing dies.',use:'Science and music themes, elegant backgrounds, generative covers',how:'Canvas: x and y are each a sum of two damped sine waves, traced point by point',tags:['Canvas'],
+ ctx:'One unbroken hairline. Each axis is a couple of sine waves at near-whole-number frequency ratios (2:3, 3:2, 1:1 slightly detuned), each fading slowly, so the figure repeats almost exactly and drifts inward into dense moiré-like bands. Thin dark ink on pale paper; the density does the shading.',
+ init(st){const [c,x]=cv(st);let seed=3,prog=1,hold=0,p;
+  const make=s=>{const r=rng(s),q=()=>({f:[2,3,2,3,1.5,1][r()*6|0]+(r()-.5)*.02,ph:r()*TAU,d:.0018+r()*.003});return {a:[q(),q()],b:[q(),q()]};};
+  const pt=(P,t)=>[200+P.a.reduce((s,o)=>s+76*Math.sin(o.f*t+o.ph)*Math.exp(-o.d*t),0),150+P.b.reduce((s,o)=>s+64*Math.sin(o.f*t+o.ph)*Math.exp(-o.d*t),0)];
+  const TMAX=640,draw=u=>{x.fillStyle='#F5F1E8';x.fillRect(0,0,400,300);x.strokeStyle='rgba(26,35,64,.78)';x.lineWidth=.55;x.beginPath();const n=u*TMAX*12|0;
+   for(let i=0;i<=n;i++){const [X,Y]=pt(p,i/12);i?x.lineTo(X,Y):x.moveTo(X,Y);}x.stroke();
+   if(u<1&&n>0){const [X,Y]=pt(p,n/12);x.fillStyle='#E4148C';x.beginPath();x.arc(X,Y,2.4,0,TAU);x.fill();}};
+  p=make(seed);draw(1);
+  return (t,dt)=>{if(prog<1){prog=Math.min(1,prog+dt/9);draw(prog);}else if((hold+=dt)>3){hold=0;prog=0;p=make(++seed);}};}},
+{name:'Single-line drawing',look:'An image rendered as one unbroken pen line that never lifts, crowding into dark areas and thinning out in light ones.',added:'2026-11-12',d:'A shaded sphere drawn as one unbroken line: it crowds into the shadows and thins out in the light.',use:'Portraits and product art with a hand-made feel, plotter prints, minimal posters',how:'Canvas: dots scattered by darkness, joined into one short path (nearest neighbor, then 2-opt), then stroked',tags:['Canvas'],
+ ctx:'The pen never lifts: the whole picture is a single path. Tone comes only from how densely the line wanders, packed tight in shadow and opening up in light. The line itself stays one weight and never crosses itself much, so it reads as a calm scribble from far away.',
+ init(st){const [c,x]=cv(st),r=rng(17),P=[];
+  while(P.length<1900){const X=10+r()*380,Y=10+r()*280,v=shade(X,Y);if(v>.12&&r()<Math.pow(v,1.4))P.push([X,Y]);}
+  // nearest-neighbor tour
+  const n=P.length,used=new Uint8Array(n),T=[0];used[0]=1;
+  for(let k=1;k<n;k++){const [ax,ay]=P[T[k-1]];let b=-1,bd=1e9;for(let i=0;i<n;i++)if(!used[i]){const d=(P[i][0]-ax)**2+(P[i][1]-ay)**2;if(d<bd){bd=d;b=i;}}used[b]=1;T.push(b);}
+  // 2-opt: reverse any stretch that makes the path shorter
+  const D=(i,j)=>Math.hypot(P[T[i]][0]-P[T[j]][0],P[T[i]][1]-P[T[j]][1]);
+  for(let it=0;it<500000;it++){const i=1+(r()*(n-3)|0),j=r()<.5?i+1+(r()*60|0):i+1+(r()*(n-i-2)|0);if(j>=n-1)continue;
+   if(D(i-1,j)+D(i,j+1)<D(i-1,i)+D(j,j+1))for(let a=i,b=j;a<b;a++,b--){const s=T[a];T[a]=T[b];T[b]=s;}}
+  x.fillStyle='#F7F3EA';x.fillRect(0,0,400,300);x.strokeStyle='#15171C';x.lineWidth=.8;x.lineJoin='round';x.beginPath();
+  T.forEach((k,i)=>i?x.lineTo(P[k][0],P[k][1]):x.moveTo(P[k][0],P[k][1]));x.stroke();}},
+{name:'Wave function collapse',look:'A grid of tiles that all fit their neighbors, solved one cell at a time, so every path, trace or wall connects and nothing dead-ends at a mismatched edge.',added:'2026-11-12',d:'A circuit board laid out tile by tile: each cell picks a piece that fits its neighbors, so every trace connects.',use:'Generative maps, level and dungeon layouts, circuit and pipe patterns, endless backgrounds',how:'Canvas and JS: every cell starts as all tiles; the most constrained one picks, and its edges narrow its neighbors',tags:['Canvas','JS'],
+ ctx:'Built from a small tile set whose edges either connect or don’t. Each cell starts able to be any tile; the most constrained one is fixed first, and its edges rule out tiles next door. The result looks designed: every line runs on into the next tile with no mismatches. Tile weights decide how busy it gets.',
+ init(st){const [c,x]=cv(st),S=20,CW=20,CH=15,r=rng(8),ALL=0xFFFF;
+  // tile k: bit 0 N, 1 E, 2 S, 3 W is set when that edge carries a trace
+  const bit=(k,e)=>k>>e&1,cnt=k=>bit(k,0)+bit(k,1)+bit(k,2)+bit(k,3);
+  const WT=Array.from({length:16},(_,k)=>{const n=cnt(k);return n===0?2.4:n===1?.35:n===2?(k===5||k===10?1.6:.8):n===3?.22:.1;});
+  const EM=[0,1,2,3].map(e=>[0,1].map(v=>{let m=0;for(let k=0;k<16;k++)if(bit(k,e)===v)m|=1<<k;return m;}));
+  const DIR=[[0,-1,0,2],[1,0,1,3],[0,1,2,0],[-1,0,3,1]],pc=m=>{let n=0;while(m){m&=m-1;n++;}return n;};
+  let cell;
+  const prop=s=>{const stack=[s];while(stack.length){const i=stack.pop(),cx=i%CW,cy=i/CW|0;
+   for(const [dx,dy,e,o] of DIR){const X=cx+dx,Y=cy+dy;if(X<0||Y<0||X>=CW||Y>=CH)continue;const j=Y*CW+X;
+    const allow=(cell[i]&EM[e][0]?EM[o][0]:0)|(cell[i]&EM[e][1]?EM[o][1]:0),nm=cell[j]&allow;if(nm!==cell[j]){cell[j]=nm;stack.push(j);}}}};
+  // no traces run off the board
+  const reset=()=>{cell=new Int32Array(CW*CH).fill(ALL);for(let i=0;i<CW*CH;i++){const X=i%CW,Y=i/CW|0;if(!Y)cell[i]&=EM[0][0];if(X===CW-1)cell[i]&=EM[1][0];if(Y===CH-1)cell[i]&=EM[2][0];if(!X)cell[i]&=EM[3][0];}};
+  const step=()=>{let best=-1,bn=99;for(let i=0;i<CW*CH;i++){const n=pc(cell[i]);if(n>1&&(n<bn||(n===bn&&r()<.3))){bn=n;best=i;}}if(best<0)return false;
+   let z=0;for(let k=0;k<16;k++)if(cell[best]>>k&1)z+=WT[k];z*=r();let pickK=0;for(let k=0;k<16;k++)if(cell[best]>>k&1){pickK=k;z-=WT[k];if(z<=0)break;}
+   cell[best]=1<<pickK;prop(best);return true;};
+  const draw=()=>{x.fillStyle='#0E3A2D';x.fillRect(0,0,400,300);x.lineCap='round';
+   for(let i=0;i<CW*CH;i++){const X=(i%CW)*S+S/2,Y=(i/CW|0)*S+S/2,n=pc(cell[i]);
+    if(n!==1){x.fillStyle=`rgba(140,200,160,${.08+.25*(1-n/16)})`;x.fillRect(X-1.5,Y-1.5,3,3);continue;}
+    const k=31-Math.clz32(cell[i]),es=[0,1,2,3].filter(e=>bit(k,e)),pt=e=>[X+DIR[e][0]*S/2,Y+DIR[e][1]*S/2];
+    x.strokeStyle='#D7A85B';x.lineWidth=4;x.beginPath();
+    if(es.length===2&&(es[1]-es[0])%2){const a=pt(es[0]),b=pt(es[1]);x.moveTo(a[0],a[1]);x.quadraticCurveTo(X,Y,b[0],b[1]);}
+    else es.forEach(e=>{const a=pt(e);x.moveTo(X,Y);x.lineTo(a[0],a[1]);});x.stroke();
+    if(es.length===1||es.length>2){x.fillStyle='#D7A85B';x.beginPath();x.arc(X,Y,es.length===1?5.5:3.6,0,TAU);x.fill();if(es.length===1){x.fillStyle='#0E3A2D';x.beginPath();x.arc(X,Y,2,0,TAU);x.fill();}}}};
+  reset();while(step());draw();let hold=0,done=true;
+  return (t,dt)=>{if(done){if((hold+=dt)>2.6){hold=0;done=false;reset();}else return;}for(let k=0;k<2;k++)if(!step()){done=true;break;}draw();};}},
+{name:'Differential growth',look:'A single closed line that keeps lengthening while refusing to touch itself, so it folds into dense coral- or brain-like meanders.',added:'2026-11-12',d:'A closed line keeps growing but can’t touch itself, so it folds into coral-like meanders.',use:'Organic backgrounds, biotech and nature brands, generative prints',how:'Canvas: points on a loop pull toward their neighbors, push away from anything close and split when stretched; a grid keeps the search fast',tags:['Canvas'],
+ ctx:'One closed outline that only ever grows. Each point is pulled smooth by its two neighbors and pushed away by anything else nearby, and stretched edges split in two. The line buckles into evenly spaced folds that never touch, like coral, lettuce or a brain. Usually filled with one flat color and a darker edge.',
+ init(st){const [c,x]=cv(st),r=rng(5),R=6,ML=4.2,MAX=2400,G=R,GW=Math.ceil(400/G)+2;let P,hold=0;
+  const reset=()=>{P=[];for(let i=0;i<40;i++){const a=i/40*TAU;P.push([200+Math.cos(a)*14,150+Math.sin(a)*14]);}};
+  const step=()=>{const n=P.length,grid=new Map();P.forEach((p,i)=>{const k=(p[0]/G|0)+(p[1]/G|0)*GW;let a=grid.get(k);if(!a)grid.set(k,a=[]);a.push(i);});
+   const F=P.map(()=>[0,0]);
+   for(let i=0;i<n;i++){const p=P[i],a=P[(i+n-1)%n],b=P[(i+1)%n];F[i][0]+=((a[0]+b[0])/2-p[0])*.45;F[i][1]+=((a[1]+b[1])/2-p[1])*.45;
+    const gx=p[0]/G|0,gy=p[1]/G|0;for(let yy=gy-1;yy<=gy+1;yy++)for(let xx=gx-1;xx<=gx+1;xx++){const L=grid.get(xx+yy*GW);if(!L)continue;
+     for(const j of L){if(j===i)continue;const dx=p[0]-P[j][0],dy=p[1]-P[j][1],d=Math.hypot(dx,dy);if(d<R&&d>0){const f=(R-d)/R*.6;F[i][0]+=dx/d*f;F[i][1]+=dy/d*f;}}}}
+   for(let i=0;i<n;i++){P[i][0]=Math.max(12,Math.min(388,P[i][0]+F[i][0]));P[i][1]=Math.max(12,Math.min(288,P[i][1]+F[i][1]));}
+   if(P.length<MAX){const Q=[];for(let i=0;i<P.length;i++){const p=P[i],q=P[(i+1)%P.length];Q.push(p);
+    if(Math.hypot(q[0]-p[0],q[1]-p[1])>ML||r()<.004)Q.push([(p[0]+q[0])/2+(r()-.5)*.4,(p[1]+q[1])/2+(r()-.5)*.4]);}P=Q;}};
+  const draw=()=>{x.fillStyle='#F3E9DC';x.fillRect(0,0,400,300);x.beginPath();P.forEach((p,i)=>i?x.lineTo(p[0],p[1]):x.moveTo(p[0],p[1]));x.closePath();
+   x.fillStyle='#E7755B';x.fill();x.strokeStyle='#7A2E22';x.lineWidth=1.3;x.lineJoin='round';x.stroke();};
+  reset();for(let k=0;k<320;k++)step();draw();
+  return (t,dt)=>{if(P.length>=MAX){if((hold+=dt)>3){hold=0;reset();}else return;}step();step();draw();};}},
 ]},
 {t:'Period and revival',items:[
 {name:'1-bit dithering',d:'Two colors only. Tone comes from the pattern of dots, like early Mac screens and receipt printers.',use:'Retro product moments, editorial texture, low-fi brands',how:'Canvas Floyd-Steinberg error diffusion, scaled up without smoothing',tags:['Canvas'],
@@ -1223,6 +1479,40 @@ vec2 v=u*(1.-u.yx);col*=pow(v.x*v.y*18.,.28);gl_FragColor=vec4(col,1.);}`,640,48
    if(!drag&&now-lastUser>2500){if(!auto||(ap>=1&&now-auto.end>1800)){if(G.innerHTML)G.innerHTML='';auto={x0:bx,to:bx<170?250:90,end:0};ap=0;}
     if(ap<1){ap=Math.min(1,ap+dt/.7);const e=ap<.5?4*ap*ap*ap:1-Math.pow(-2*ap+2,3)/2;bx=auto.x0+(auto.to-auto.x0)*e;if(ap>=1)auto.end=now;}}
    sim(dt);draw();};}},
+{name:'Screen shake and hit-stop',look:'On impact the action freezes for a few frames and the struck thing flashes, then the whole view shakes and settles.',added:'2026-11-12',d:'A strike freezes for a few frames, the target flashes, then the view shakes and settles. Tap to strike.',use:'Game feel, error and confirm feedback, impact moments in motion pieces',how:'JS: a short pause on contact, then a decaying noise offset and tilt applied to the whole scene',tags:['Canvas','JS'],try:true,
+ ctx:'Impact reads through timing, not size. Everything stops dead for roughly 60 to 100 ms on contact and the struck object flashes white; then the camera (the whole scene, not one object) jitters with smooth noise whose strength falls off fast, usually squared. A little knockback and some debris sell the hit.',
+ init(st){const [c,x]=cv(st,400,300,DPR()),r=rng(3),CYC=2.3,HIT=.9;let T=0,trauma=0,flash=0,stop=0,hit=false,kb=0,kv=0,parts=[];
+  const nz=(t,s)=>Math.sin(t*43+s)*.6+Math.sin(t*71+s*2.3)*.4;
+  const ease=(u,p)=>u<0?0:u>1?1:p>0?1-Math.pow(1-u,p):Math.pow(u,-p);
+  const px=()=>T<.32?70:T<.62?70-18*ease((T-.32)/.3,2):T<HIT?52+184*ease((T-.62)/(HIT-.62),-3):236-166*ease((T-HIT)/(CYC-HIT-.3),3);
+  st.addEventListener('pointerdown',()=>{if(T<.62||T>HIT+.25){T=.62;hit=false;}});
+  const draw=t=>{const k=trauma*trauma,ox=k*11*nz(t,1),oy=k*9*nz(t,7),rot=k*.045*nz(t,3);
+   x.fillStyle='#211D2B';x.fillRect(0,0,400,300);
+   x.save();x.translate(200+ox,150+oy);x.rotate(rot);x.translate(-200,-150);
+   x.fillStyle='#F3EEE5';x.fillRect(-20,-20,440,250);x.fillStyle='#E0D6C4';x.fillRect(-20,230,440,90);x.fillStyle='#CFC3AD';x.fillRect(-20,230,440,3);
+   const p=px(),dash=T>.62&&T<HIT?(T-.62)/(HIT-.62):0,w=26*(1+.45*dash),h=66/(1+.45*dash);
+   x.fillStyle='#1F2A44';x.fillRect(p+26-w,230-h,w,h);x.fillStyle='#F3EEE5';x.fillRect(p+26-9,230-h+12,4,8);
+   x.fillStyle=flash>0?'#fff':'#E4572E';x.fillRect(262+kb,150,62,80);if(flash<=0){x.fillStyle='#B83F1F';x.fillRect(262+kb,150,62,6);}
+   parts.forEach(q=>{x.fillStyle=`rgba(228,87,46,${Math.max(0,q.l)})`;x.fillRect(q.x-2,q.y-2,4,4);});
+   x.restore();
+   x.font='500 11px "JetBrains Mono", monospace';x.fillStyle=stop>0?'#FFD166':'#8F889C';x.fillText('HIT-STOP 90 MS',16,24);
+   x.fillStyle='#8F889C';x.fillText('SHAKE',16,42);x.fillStyle='#3A3448';x.fillRect(66,34,90,8);x.fillStyle='#FFD166';x.fillRect(66,34,90*k,8);};
+  draw(0);
+  return (t,dt)=>{if(stop>0){stop-=dt;draw(t);return;}T+=dt;if(T>=CYC){T=0;hit=false;}
+   if(!hit&&T>=HIT){hit=true;stop=.09;flash=.09;trauma=1;kv=7;for(let i=0;i<16;i++)parts.push({x:262,y:152+r()*76,vx:1+r()*4,vy:-2-r()*3.5,l:1});}
+   const f=Math.min(2,dt*60);trauma=Math.max(0,trauma-dt*1.7);flash-=dt;kv+=-kb*.25*f;kv*=Math.pow(.78,f);kb+=kv*f;
+   parts.forEach(q=>{q.x+=q.vx*f;q.y+=q.vy*f;q.vy+=.25*f;q.l-=dt*1.3;if(q.y>228){q.y=228;q.vy*=-.3;q.vx*=.6;}});parts=parts.filter(q=>q.l>0);draw(t);};}},
+{name:'Animating on twos',look:'Motion that holds each drawing for two or three frames, so it moves in small deliberate steps instead of gliding.',added:'2026-11-12',d:'One bounce at three frame rates: a new drawing every frame (ones), every second frame (twos) and every third (threes).',use:'Hand-made and stop-motion feel, illustrated loops, characterful UI motion',how:'JS or CSS steps(): time is rounded down to 24, 12 or 8 drawings a second before posing',tags:['Canvas','JS'],
+ ctx:'The motion curve stays the same; only the sampling changes. Time is quantized so each pose is held for two or three frames at 24 fps, which reads as hand-made and intentional rather than laggy. Holding works best with strong poses and squash and stretch. In CSS, steps() does the same.',
+ init(st){const [c,x]=cv(st,400,300,DPR()),L=[['ONES','24 drawings/s',24],['TWOS','12 drawings/s',12],['THREES','8 drawings/s',8]],D=2.6;
+  const pose=u=>{const b=u*3%1,y=Math.abs(Math.sin(Math.PI*b)),sq=b<.08||b>.92?1:0;return {x:58+u*300,y:-y*46,sx:sq?1.35:1-.12*y,sy:sq?.68:1+.18*y};};
+  const draw=t=>{x.fillStyle='#F2F0EA';x.fillRect(0,0,400,300);
+   L.forEach(([n,s,fps],i)=>{const fy=86+i*92,tq=Math.floor(t*fps)/fps,p=pose((tq%D)/D);
+    x.fillStyle='#D9D3C5';x.fillRect(24,fy,352,2);
+    x.fillStyle='#1E1E24';x.font='700 12px "Trade Gothic", system-ui, sans-serif';x.fillText(n,24,fy-62);x.fillStyle='#8A857A';x.font='500 10px "JetBrains Mono", monospace';x.fillText(s,24,fy-48);
+    x.fillStyle='rgba(0,0,0,.12)';x.beginPath();x.ellipse(p.x,fy,14*(1-Math.min(.6,-p.y/80)),3,0,0,TAU);x.fill();
+    x.fillStyle=['#2D6CDF','#E4572E','#2A9D8F'][i];x.beginPath();x.ellipse(p.x,fy-14*p.sy+p.y,14*p.sx,14*p.sy,0,0,TAU);x.fill();});};
+  draw(.4);return t=>draw(t);}},
 ]},
 {t:'SVG motion',items:[
 {name:'Line drawing',d:'Strokes appear as if drawn by a pen, then erase.',use:'Signatures, logos, route reveals, checkmarks',how:'SVG pathLength plus stroke-dashoffset keyframes',tags:['SVG','CSS'],
@@ -1289,6 +1579,30 @@ vec2 v=u*(1.-u.yx);col*=pow(v.x*v.y*18.,.28);gl_FragColor=vec4(col,1.);}`,640,48
   return (t,dt)=>{const fps=slow.getAttribute('aria-pressed')==='true'?3:12;
    if(!playing){wait-=dt;if(wait<=0&&performance.now()-lastUser>1500)begin();return;}
    acc+=dt;while(playing&&acc>=1/fps){acc-=1/fps;if(++held>=SEQ[si][2]){held=0;if(++si>=SEQ.length){si=SEQ.length-1;playing=false;wait=.7;}else show(si);}}};}},
+{name:'Inverse kinematics',look:'Jointed limbs that solve their own angles to reach a target: a stiff three-part arm and a long tentacle following the same point.',added:'2026-11-12',d:'A robot arm and a tentacle both reach for your pointer, each joint solving its own angle.',use:'Creatures and characters that follow the cursor, rigged mascots, playful product demos',how:'JS: FABRIK, which drags the chain to the target and back to its base a few times a frame',tags:['Canvas','JS'],try:true,
+ ctx:'Only the tip is told where to go; every joint angle is solved from that. Chains are fixed-length bones anchored at a base, and when the target is out of reach the limb straightens and points at it. Short chains of thick bones read as mechanical; long chains of thinning segments read as organic.',
+ init(st,card){const [c,x]=cv(st,400,300,DPR());let mx=200,my=110,last=-1e9;
+  const chain=(bx,by,lens,curl)=>{const p=[[bx,by]];let a=-Math.PI/2;lens.forEach(l=>{a+=curl;const q=p[p.length-1];p.push([q[0]+Math.cos(a)*l,q[1]+Math.sin(a)*l]);});return {b:[bx,by],L:lens,p};};
+  const arm=chain(300,276,[72,62,34],-.3),ten=chain(92,300,Array.from({length:16},(_,i)=>15.5-i*.6),.16);
+  const fab=(C,tx,ty)=>{const p=C.p,L=C.L,n=p.length;for(let it=0;it<6;it++){p[n-1]=[tx,ty];
+   for(let i=n-2;i>=0;i--){const dx=p[i][0]-p[i+1][0],dy=p[i][1]-p[i+1][1],d=Math.hypot(dx,dy)||1;p[i]=[p[i+1][0]+dx/d*L[i],p[i+1][1]+dy/d*L[i]];}
+   p[0]=[...C.b];for(let i=1;i<n;i++){const dx=p[i][0]-p[i-1][0],dy=p[i][1]-p[i-1][1],d=Math.hypot(dx,dy)||1;p[i]=[p[i-1][0]+dx/d*L[i-1],p[i-1][1]+dy/d*L[i-1]];}}};
+  const draw=()=>{x.fillStyle='#ECEFF5';x.fillRect(0,0,400,300);x.fillStyle='#D8DDE8';x.fillRect(0,284,400,16);
+   x.strokeStyle='#E4148C';x.lineWidth=2;x.beginPath();x.arc(mx,my,9,0,TAU);x.stroke();x.fillStyle='#E4148C';x.beginPath();x.arc(mx,my,3,0,TAU);x.fill();
+   // tentacle: thick at the root, thinning to the tip, with suckers along the underside
+   const tp=ten.p;x.lineCap='round';for(let i=0;i<tp.length-1;i++){x.strokeStyle='#7B4FD6';x.lineWidth=22-i*1.25;x.beginPath();x.moveTo(tp[i][0],tp[i][1]);x.lineTo(tp[i+1][0],tp[i+1][1]);x.stroke();}
+   for(let i=1;i<tp.length-2;i+=1){const dx=tp[i+1][0]-tp[i][0],dy=tp[i+1][1]-tp[i][1],d=Math.hypot(dx,dy)||1,w=(22-i*1.25)/2-1.5;x.fillStyle='#C9B3F5';x.beginPath();x.arc(tp[i][0]-dy/d*w,tp[i][1]+dx/d*w,Math.max(1,2.6-i*.1),0,TAU);x.fill();}
+   // arm: thick bones, round joints, a two-finger gripper
+   const ap=arm.p;x.fillStyle='#2B3A55';x.fillRect(278,272,44,14);[16,12,8].forEach((w,i)=>{x.strokeStyle='#2B3A55';x.lineWidth=w;x.beginPath();x.moveTo(ap[i][0],ap[i][1]);x.lineTo(ap[i+1][0],ap[i+1][1]);x.stroke();});
+   ap.slice(0,3).forEach((q,i)=>{x.fillStyle='#F2B33D';x.beginPath();x.arc(q[0],q[1],[9,7,5][i],0,TAU);x.fill();});
+   const e=ap[3],f=ap[2],a=Math.atan2(e[1]-f[1],e[0]-f[0]);x.strokeStyle='#2B3A55';x.lineWidth=3.5;
+   [.6,-.6].forEach(s=>{x.beginPath();x.moveTo(e[0],e[1]);x.lineTo(e[0]+Math.cos(a+s)*12,e[1]+Math.sin(a+s)*12);x.lineTo(e[0]+Math.cos(a+s*.2)*20,e[1]+Math.sin(a+s*.2)*20);x.stroke();});};
+  const solve=t=>{fab(arm,mx,my);
+   // the tentacle keeps a slow wave running down it, so it reaches like something alive
+   const tp=ten.p;if(t!==undefined)for(let i=1;i<tp.length-1;i++){const a=tp[i-1],b=tp[i+1],dx=b[0]-a[0],dy=b[1]-a[1],d=Math.hypot(dx,dy)||1,w=Math.sin(t*2.6-i*.55)*1.6;tp[i]=[tp[i][0]-dy/d*w,tp[i][1]+dx/d*w];}
+   fab(ten,mx,my);draw();};
+  st.addEventListener('pointermove',e=>{[mx,my]=ptr(st,e);last=performance.now();if(!card.live)solve();});
+  solve();return t=>{if(performance.now()-last>2500){mx=200+130*Math.sin(t*.7);my=118+62*Math.sin(t*1.13);}solve(t);};}},
 ]},
 {t:'Type in motion',items:[
 {name:'Kinetic type',d:'Letters move as a group with a rolling delay.',use:'Headlines, intros, launch moments',how:'Split into spans, staggered CSS keyframes',tags:['CSS'],
@@ -1334,6 +1648,15 @@ vec2 v=u*(1.-u.yx);col*=pow(v.x*v.y*18.,.28);gl_FragColor=vec4(col,1.);}`,640,48
 <text font-family="'Trade Gothic Bold Cond 20', sans-serif" font-weight="700" font-size="26" fill="#E4572E" letter-spacing="1"><textPath id="tp-t" href="#tp-p" startOffset="0">Type that travels · along any curve · Type that travels · along any curve · </textPath></text>`);
   const tp=st.querySelector('#tp-t'),len=st.querySelector('#tp-p').getTotalLength(),tl=()=>tp.getComputedTextLength?tp.getComputedTextLength()/2:len;
   const set=t=>{const L=tl()||len;tp.setAttribute('startOffset',(-((t*55)%L)).toFixed(1));};set(0);return t=>set(t);}},
+{name:'Scroll-read highlight',look:'A paragraph whose words darken one by one as they scroll past a reading line, as if the text were being read aloud.',added:'2026-11-12',d:'Words turn from gray to ink as they scroll past the middle of the box. Scroll inside it.',use:'Manifestos and mission statements, long-form storytelling, product narratives',how:'JS on scroll (or CSS scroll-driven animations): each word’s opacity set from its distance to a reading line',tags:['CSS','JS'],try:true,
+ ctx:'Large type, one short paragraph. Words above the reading line are full ink, words below are faint, and a soft band of about one line blends between them, so the highlight sweeps word by word as you scroll. Nothing else moves; the reader sets the pace.',
+ init(st,card){const txt='Good work is mostly patience. You make a thing, look at it honestly, and make it again a little better. Nobody sees the drafts. They only see the version that finally reads as if it were easy, as if it simply arrived. That ease is the whole point, and it is never an accident.';
+  st.innerHTML=`<div class="srh"><div class="srh-sc" tabindex="0" aria-label="Scrollable example"><p>${txt.split(' ').map(w=>`<span>${w}</span>`).join(' ')}</p></div><i class="srh-ln"></i></div>`;
+  const sc=st.querySelector('.srh-sc'),ws=[...sc.querySelectorAll('span')];let last=-1e9,hold=0,acc=0;
+  const upd=()=>{const line=sc.scrollTop+sc.clientHeight*.5,lh=ws[0].offsetHeight||20;ws.forEach(w=>{const o=Math.max(0,Math.min(1,(line-(w.offsetTop+w.offsetHeight/2))/(lh*1.4)+.5));w.style.opacity=(.16+.84*o).toFixed(3);});};
+  ['wheel','touchstart','pointerdown','keydown'].forEach(ev=>sc.addEventListener(ev,()=>{last=performance.now();},{passive:true}));
+  sc.addEventListener('scroll',upd,{passive:true});upd();
+  return (t,dt)=>{if(performance.now()-last<3000)return;const m=sc.scrollHeight-sc.clientHeight;if(sc.scrollTop>=m-1){if((hold+=dt)>1.8){hold=0;sc.scrollTop=0;}}else{acc+=dt*28;if(acc>=1){sc.scrollTop+=acc|0;acc-=acc|0;}}};}},
 ]},
 {t:'Interaction',items:[
 {name:'Micro-interactions',d:'Small, quick feedback on a switch, a checkbox and a button press.',use:'Every interactive control',how:'CSS transitions with a springy bezier, JS ripple',tags:['CSS','JS'],try:true,
@@ -1429,6 +1752,166 @@ vec2 v=u*(1.-u.yx);col*=pow(v.x*v.y*18.,.28);gl_FragColor=vec4(col,1.);}`,640,48
    if(auto){auto.k=Math.min(1,auto.k+dt/auto.dur);const e=auto.k<.5?2*auto.k*auto.k:1-Math.pow(-2*auto.k+2,2)/2;p=auto.p0+(auto.to-auto.p0)*e;set();
     if(auto.k>=1){const vel=(auto.to-auto.p0)/auto.dur;auto=null;dot.hidden=true;decide(vel);lastUser=now;}return;}
    if(drag||target===null)return;const n=3,h=dt/n;for(let i=0;i<n;i++){v+=(K*(target-p)-C*v)*h;p+=v*h;}set();};}},
+{name:'Before and after',look:'Two versions of one image stacked exactly, split by a draggable divider that wipes between them.',added:'2026-11-12',d:'Drag the divider to wipe between the sketch and the finished art.',use:'Redesigns and retouching, product comparisons, renovation and case-study pages',how:'CSS clip-path on the top layer, driven by a native range input so it works by keyboard and touch',tags:['CSS','JS'],try:true,
+ ctx:'The two images must line up exactly. A thin divider with a round grab handle splits them, each side labeled. The whole surface is draggable, not only the handle, and the arrow keys move it too. The divider starts in the middle.',
+ init(st,card){let grid='';for(let i=0;i<=400;i+=20)grid+=`<path d="M${i} 0V300"/>`;for(let j=0;j<=300;j+=20)grid+=`<path d="M0 ${j}H400"/>`;
+  const S=fin=>{const f=c=>fin?`fill="${c}"`:'fill="none" stroke="#6A6F78" stroke-width="1.6"';
+   return svg(`<rect width="400" height="300" fill="${fin?'#BFE0F2':'#F7F5F0'}"/>${fin?'':`<g stroke="#DCE1E8" stroke-width=".8">${grid}</g>`}<circle cx="300" cy="78" r="30" ${f('#FFCF56')}/><path d="M-10 210L90 96L150 160L210 70L330 210Z" ${f('#5C6B8A')}/><path d="M210 70L236 100L222 98L210 112L196 96L184 102Z" ${f('#FFFFFF')}/><path d="M220 210L310 124L410 210Z" ${f('#3E4C6B')}/><rect y="206" width="400" height="94" ${f('#3A88B5')}/><path d="M40 236H140M180 252H300M90 270H210" ${fin?'stroke="#BFE3F5" stroke-width="3"':'stroke="#6A6F78" stroke-width="1.2"'} fill="none"/><path d="M332 214l22-66 22 66z" ${f('#2F7D55')}/><rect x="350" y="214" width="8" height="18" ${f('#6B4A3A')}/>`);};
+  st.innerHTML=`<div class="ba"><div class="ba-a">${S(false)}</div><div class="ba-b">${S(true)}</div><div class="ba-h"><i></i></div><span class="ba-l">Sketch</span><span class="ba-l r">Final</span><input type="range" min="0" max="100" step="0.5" value="50" aria-label="Divider position"></div>`;
+  const box=st.firstElementChild,rg=box.querySelector('input');let last=-1e9;
+  const set=v=>box.style.setProperty('--p',v+'%');
+  rg.addEventListener('input',()=>{last=performance.now();set(rg.value);});['pointerdown','keydown'].forEach(ev=>rg.addEventListener(ev,()=>{last=performance.now();}));
+  return t=>{if(performance.now()-last<4000)return;const v=(50+32*Math.sin(t*.8)).toFixed(1);rg.value=v;set(v);};}},
+{name:'Spotlight reveal',look:'A dark surface where a soft circle of light follows the pointer and shows the full-color picture underneath.',added:'2026-11-12',d:'A flashlight follows your pointer through a dark room and shows the color underneath.',use:'Hidden details and easter eggs, features revealed on hover, playful heroes',how:'CSS mask-image: a radial gradient at the pointer’s position on a lit copy, laid over a dimmed one',tags:['CSS','JS'],try:true,
+ ctx:'Two copies of the same picture: one dimmed almost to black, one in full color masked to a soft-edged circle at the pointer. The edge of the light is feathered, never hard. Hidden details reward exploring.',
+ init(st,card){const r=rng(19),pal=['#E63946','#F1C453','#2A9D8F','#457B9D','#F4A261','#8D5A97','#E9EDC9','#264653'];let books='';
+  [70,150,230].forEach(y=>{let X=34;while(X<366){const w=8+r()*12,h=46+r()*20;if(r()<.08){X+=10;continue;}books+=`<rect x="${X.toFixed(1)}" y="${(y-h).toFixed(1)}" width="${w.toFixed(1)}" height="${h.toFixed(1)}" fill="${pal[r()*pal.length|0]}"/><rect x="${X.toFixed(1)}" y="${(y-h+8).toFixed(1)}" width="${w.toFixed(1)}" height="3" fill="rgba(0,0,0,.18)"/>`;X+=w+1.5;}});
+  const scene=svg(`<rect width="400" height="300" fill="#C9B79C"/><rect x="24" y="12" width="352" height="246" fill="#7A4E2D"/>${[70,150,230].map(y=>`<rect x="24" y="${y}" width="352" height="9" fill="#5A361C"/>`).join('')}${books}<g fill="#1E1E1E"><ellipse cx="300" cy="216" rx="24" ry="15"/><circle cx="318" cy="200" r="11"/><path d="M311 192l3-10 5 8zM322 190l5-9 2 10z"/><path d="M276 220q-16 6-10 -14" stroke="#1E1E1E" stroke-width="5" fill="none"/></g><circle cx="315" cy="199" r="2" fill="#F1C453"/><circle cx="322" cy="199" r="2" fill="#F1C453"/><rect y="258" width="400" height="42" fill="#8C6E4F"/>`);
+  st.innerHTML=`<div class="spot"><div class="spot-d">${scene}</div><div class="spot-l">${scene}</div><span class="ph" style="color:#9C8F7A">Move the light</span></div>`;
+  const box=st.firstElementChild;let last=-1e9;const set=(X,Y)=>{box.style.setProperty('--x',(X/4).toFixed(2)+'%');box.style.setProperty('--y',(Y/3).toFixed(2)+'%');};
+  st.addEventListener('pointermove',e=>{const [X,Y]=ptr(st,e);last=performance.now();set(X,Y);});
+  set(200,150);return t=>{if(performance.now()-last<2500)return;set(200+150*Math.sin(t*.55),140+90*Math.sin(t*.9+.7));};}},
+{name:'Magnifier loupe',look:'A round lens follows the pointer and shows the detail under it enlarged, with a rim and a slight shadow.',added:'2026-11-12',d:'A lens follows your pointer and enlarges the fine print on a city map.',use:'Product detail and zoom, maps and dense charts, fine print and artwork close-ups',how:'Canvas: the scene is drawn once at high resolution offscreen; the lens draws a clipped, scaled copy of it',tags:['Canvas','JS'],try:true,
+ ctx:'The page shows the whole picture; the lens shows the same spot at two or three times the size, drawn from a sharper source so it stays crisp. It is centered on the pointer, with a clear rim and a soft shadow so it reads as glass above the surface.',
+ init(st,card){const [c,x]=cv(st,400,300,DPR()),K=4,off=document.createElement('canvas');off.width=400*K;off.height=300*K;const o=off.getContext('2d'),r=rng(27),Z=2.8,LR=54;let mx=230,my=140,last=-1e9;
+  o.scale(K,K);o.fillStyle='#F1EDE4';o.fillRect(0,0,400,300);
+  o.fillStyle='#CFE3C5';[[60,60,70,44],[260,190,90,56],[170,20,40,30]].forEach(([X,Y,w,h])=>o.fillRect(X,Y,w,h));
+  o.strokeStyle='#A9CDE6';o.lineWidth=16;o.beginPath();o.moveTo(-10,250);o.bezierCurveTo(120,190,200,300,410,170);o.stroke();
+  o.save();o.translate(200,150);o.rotate(-.12);o.translate(-200,-150);
+  const names=['Elm St','Oak Ave','Pine St','Main St','Cedar Ln','Birch Rd','Maple Ave','Ash St','Lake Dr','Mill Rd','Hill St','Park Ave','River Rd','Bay St','Union St'];
+  for(let i=-2;i<=17;i++){const X=-20+i*28;o.strokeStyle='#fff';o.lineWidth=i%4?3:6;o.beginPath();o.moveTo(X,-40);o.lineTo(X,340);o.stroke();}
+  for(let j=-2;j<=13;j++){const Y=-20+j*26;o.strokeStyle='#fff';o.lineWidth=j%4?3:6;o.beginPath();o.moveTo(-40,Y);o.lineTo(440,Y);o.stroke();}
+  o.fillStyle='#6B6458';o.font='500 3.4px "JetBrains Mono", monospace';
+  for(let j=0;j<12;j++)for(let i=0;i<14;i++){if(r()<.55)continue;o.fillText(names[(i*3+j*7)%names.length],-12+i*28+2,-20+j*26+2.4);}
+  const poi=['Café','Library','Post','Bakery','Books','Market','Gym','Bank','School','Park'];o.font='600 3.6px "Trade Gothic", sans-serif';
+  for(let k=0;k<40;k++){const X=r()*400,Y=r()*300;o.fillStyle=['#E4572E','#2D6CDF','#2A9D8F'][k%3];o.beginPath();o.arc(X,Y,1.6,0,TAU);o.fill();o.fillStyle='#3C372F';o.fillText(poi[k%poi.length],X+2.4,Y+1.2);}
+  o.restore();
+  const draw=()=>{x.drawImage(off,0,0,400,300);x.save();x.shadowColor='rgba(0,0,0,.35)';x.shadowBlur=14;x.shadowOffsetY=5;x.fillStyle='#fff';x.beginPath();x.arc(mx,my,LR+3,0,TAU);x.fill();x.restore();
+   x.save();x.beginPath();x.arc(mx,my,LR,0,TAU);x.clip();const s=LR/Z;x.drawImage(off,(mx-s)*K,(my-s)*K,2*s*K,2*s*K,mx-LR,my-LR,2*LR,2*LR);x.restore();
+   x.strokeStyle='#2B2B30';x.lineWidth=1.5;x.beginPath();x.arc(mx,my,LR+3,0,TAU);x.stroke();};
+  st.addEventListener('pointermove',e=>{[mx,my]=ptr(st,e);last=performance.now();if(!card.live)draw();});
+  draw();return t=>{if(performance.now()-last>2500){mx=200+120*Math.sin(t*.5);my=150+70*Math.sin(t*.83);}draw();};}},
+{name:'Scratch-off',look:'A metallic foil layer that wears away under the pointer like a lottery card, revealing what’s printed beneath.',added:'2026-11-12',d:'Scratch the foil to reveal what’s underneath. It covers itself again once most of it is gone.',use:'Promotions and rewards, reveals in onboarding, playful sign-ups',how:'Canvas: the foil is its own layer; pointer strokes erase it with destination-out, and a sampled pixel count tells how much is gone',tags:['Canvas','JS'],try:true,
+ ctx:'Two layers: the prize printed on the card and a silver foil panel over it. Strokes erase the foil with a round, slightly rough edge, like a coin. Once most of the panel is clear, the rest falls away so nobody has to scrub every corner.',
+ init(st,card){const d=DPR(),[c0,b]=cv(st,400,300,d),c1=document.createElement('canvas'),f=(c1.width=400*d,c1.height=300*d,st.appendChild(c1),c1.getContext('2d',{willReadFrequently:true})),r=rng(13),PX=70,PY=96,PW=260,PH=130;c1.style.cssText='position:absolute;inset:0;touch-action:none;cursor:crosshair';
+  b.fillStyle='#2B2D42';b.fillRect(0,0,400,300);b.fillStyle='#FFF4D6';b.fillRect(40,28,320,244);b.strokeStyle='#E4572E';b.lineWidth=2;b.setLineDash([5,4]);b.strokeRect(48,36,304,228);b.setLineDash([]);
+  b.fillStyle='#E4572E';b.font='700 22px "Trade Gothic", system-ui, sans-serif';b.textAlign='center';b.fillText('LUCKY DAY',200,72);
+  b.fillStyle='#FFE066';b.fillRect(PX,PY,PW,PH);for(let i=0;i<40;i++){b.fillStyle=['#E4572E','#2A9D8F','#2D6CDF'][i%3];b.fillRect(PX+r()*PW,PY+r()*PH,3,3);}
+  b.fillStyle='#2B2D42';b.font='700 15px "Trade Gothic", system-ui, sans-serif';b.fillText('YOU WIN',200,PY+34);b.font='700 46px "Trade Gothic", system-ui, sans-serif';b.fillText('20% OFF',200,PY+84);b.font='500 10px "JetBrains Mono", monospace';b.fillText('CODE SPRING',200,PY+110);
+  b.fillStyle='#6B5E48';b.font='500 9px "JetBrains Mono", monospace';b.fillText('SCRATCH TO REVEAL',200,254);
+  const foil=()=>{f.setTransform(d,0,0,d,0,0);f.globalCompositeOperation='source-over';f.clearRect(0,0,400,300);const g=f.createLinearGradient(PX,PY,PX+PW,PY+PH);g.addColorStop(0,'#B9BDC6');g.addColorStop(.5,'#E3E6EB');g.addColorStop(1,'#9EA3AE');f.fillStyle=g;f.fillRect(PX,PY,PW,PH);
+   for(let i=0;i<900;i++){f.fillStyle=`rgba(${r()<.5?255:90},${r()<.5?255:95},${r()<.5?255:105},.18)`;f.fillRect(PX+r()*PW,PY+r()*PH,1.2,1.2);}
+   f.fillStyle='rgba(80,84,96,.55)';f.font='700 16px "Trade Gothic", system-ui, sans-serif';f.textAlign='center';f.fillText('SCRATCH HERE',200,PY+PH/2+6);};
+  let lp=null,done=0,last=-1e9,auto=0;
+  const scratch=(X,Y)=>{f.globalCompositeOperation='destination-out';f.lineCap='round';f.lineJoin='round';f.lineWidth=24;f.beginPath();if(lp)f.moveTo(lp[0],lp[1]);else f.moveTo(X,Y);f.lineTo(X+(r()-.5),Y+(r()-.5));f.stroke();lp=[X,Y];};
+  const cleared=()=>{const im=f.getImageData(PX*d,PY*d,PW*d,PH*d).data;let n=0,z=0;for(let i=3;i<im.length;i+=4*9){n++;if(im[i]<128)z++;}return z/n;};
+  const check=()=>{if(!done&&cleared()>.55){done=performance.now();c1.animate?c1.animate([{opacity:1},{opacity:0}],{duration:400,fill:'forwards'}):0;f.clearRect(0,0,400,300);setTimeout(()=>{foil();c1.getAnimations&&c1.getAnimations().forEach(a=>a.cancel());done=0;auto=0;},2200);}};
+  let down=false,moves=0;
+  c1.addEventListener('pointerdown',e=>{down=true;c1.setPointerCapture(e.pointerId);lp=null;last=performance.now();scratch(...ptr(st,e));});
+  c1.addEventListener('pointermove',e=>{if(!down)return;last=performance.now();scratch(...ptr(st,e));if(++moves%12===0)check();});
+  const up=()=>{if(!down)return;down=false;lp=null;check();};c1.addEventListener('pointerup',up);c1.addEventListener('pointercancel',up);
+  foil();
+  // a ghost coin zigzags across the panel while nobody is scratching
+  return (t,dt)=>{if(done||down||performance.now()-last<2500)return;auto+=dt;const u=auto*.45,X=PX+16+(PW-32)*(.5-.5*Math.cos(u*TAU*2.2)),Y=PY+14+(u%1)*(PH-28);
+   if(auto<dt*1.5)lp=null;scratch(X,Y);if(((auto*60)|0)%15===0)check();if(u>=1){auto=0;lp=null;}};}},
+{name:'Ink drawing',look:'Pointer strokes laid down like ink from a nib: smooth curves that thin when you move fast and swell when you slow down.',added:'2026-11-12',d:'Draw with your pointer: the line smooths out and thins as you speed up, like a nib. Lines fade after a while.',use:'Signatures, annotation and markup, sketch tools, playful heroes',how:'Canvas: pointer samples smoothed into curves through their midpoints, with width set by speed (or pen pressure)',tags:['Canvas','JS'],try:true,
+ ctx:'Raw pointer samples are jagged, so the line is drawn as curves through the midpoints between them. Width follows speed (fast is thin, slow is heavy) and eases between samples so it never jumps; with a stylus, pressure sets it instead. Ends taper. Dark ink on paper.',
+ init(st,card){const [c,x]=cv(st,400,300,DPR());c.style.touchAction='none';c.style.cursor='crosshair';let S=[],cur=null,last=-1e9,auto=null,now=0;
+  const add=(X,Y,pr)=>{const p=cur.p,q=p[p.length-1];if(q&&Math.hypot(X-q.x,Y-q.y)<1.5)return;const v=q?Math.hypot(X-q.x,Y-q.y):0,tw=pr?1+pr*6:Math.max(1.2,Math.min(6,6.2-v*.45));p.push({x:X,y:Y,w:q?q.w*.65+tw*.35:tw*.5});};
+  const draw=()=>{x.fillStyle='#FBF8F1';x.fillRect(0,0,400,300);x.strokeStyle='rgba(120,150,200,.18)';x.lineWidth=1;for(let y=48;y<300;y+=28){x.beginPath();x.moveTo(0,y);x.lineTo(400,y);x.stroke();}
+   x.lineCap='round';S=S.filter(s=>s===cur||now-s.end<8);
+   for(const s of S){const a=s===cur?1:Math.max(0,Math.min(1,(8-(now-s.end))/2)),p=s.p;x.strokeStyle=`rgba(29,43,83,${a})`;
+    for(let i=1;i<p.length-1;i++){const m0=[(p[i-1].x+p[i].x)/2,(p[i-1].y+p[i].y)/2],m1=[(p[i].x+p[i+1].x)/2,(p[i].y+p[i+1].y)/2];x.lineWidth=p[i].w;x.beginPath();x.moveTo(m0[0],m0[1]);x.quadraticCurveTo(p[i].x,p[i].y,m1[0],m1[1]);x.stroke();}}};
+  c.addEventListener('pointerdown',e=>{c.setPointerCapture(e.pointerId);auto=null;last=performance.now();cur={p:[],end:Infinity};S.push(cur);const [X,Y]=ptr(st,e);add(X,Y,e.pointerType==='pen'?e.pressure:0);if(!card.live)draw();});
+  c.addEventListener('pointermove',e=>{if(!cur)return;last=performance.now();const [X,Y]=ptr(st,e);add(X,Y,e.pointerType==='pen'?e.pressure:0);if(!card.live)draw();});
+  const up=()=>{if(cur){cur.end=now;cur=null;}};c.addEventListener('pointerup',up);c.addEventListener('pointercancel',up);
+  // the demo writes a looping scribble, quick through the curves and slow at the turns
+  const scrib=u=>[46+u*300+20*Math.sin(u*TAU*6),150-34*Math.sin(u*TAU*2.1)-22*Math.cos(u*TAU*6)];
+  draw();
+  return (t,dt)=>{now=t;if(!cur&&!auto&&performance.now()-last>2500&&!S.length){auto={u:0,s:{p:[],end:Infinity}};S.push(auto.s);}
+   if(auto){const s=auto.s,save=cur;cur=s;for(let k=0;k<3;k++){auto.u+=dt/3/(3.2+Math.cos(auto.u*TAU*6)*.9);if(auto.u>=1)break;const [X,Y]=scrib(auto.u);add(X,Y,0);}cur=save;if(auto.u>=1){s.end=t;auto=null;}}
+   draw();};}},
+{name:'Infinite canvas',look:'A boundless board you drag to pan and pinch to zoom, with a dot grid that stays evenly spaced at every zoom level.',added:'2026-11-12',d:'A whiteboard you can pan and zoom forever. Drag to pan; pinch, Ctrl-scroll or the buttons zoom.',use:'Whiteboards and design tools, idea maps, large diagrams, galleries',how:'Canvas and JS: one camera (offset and scale) maps the world to the screen; zoom keeps the point under the pointer still',tags:['Canvas','JS'],try:true,
+ ctx:'One camera, an offset and a scale, maps everything. Zoom is anchored where you point or pinch, never at the corner. The background dot grid swaps to a coarser or finer spacing as you zoom, so it always looks the same density. Content lives in world units and scales with the view.',
+ init(st,card){const [c,x]=cv(st,400,300,DPR());c.style.touchAction='pan-y';c.style.cursor='grab';
+  st.insertAdjacentHTML('beforeend','<div class="pc sys-controls"><button type="button" class="sys-controls__btn" data-z="-1" aria-label="Zoom out">−</button><output class="sys-controls__readout">100%</output><button type="button" class="sys-controls__btn" data-z="1" aria-label="Zoom in">+</button><button type="button" class="sys-controls__btn" data-z="0">Reset</button></div>');
+  const out=st.querySelector('output'),r=rng(21),cols=['#FFE066','#FFADAD','#A0E7E5','#B4F8C8','#CDB4DB'],words=['Ideas','Research','Sketch','Ship it','Ask Jo','Fonts','Colors','Launch','Tests','Notes','Copy','Maps'];
+  const N=[];for(let i=0;i<28;i++)N.push({x:(r()-.5)*1400,y:(r()-.5)*1000,c:cols[i%5],t:words[i%words.length],a:(r()-.5)*.12});
+  const cam={x:0,y:0,z:1};let last=-1e9;const ptrs=new Map();let pinch=null;
+  const toW=(sx,sy)=>[(sx-200)/cam.z+cam.x,(sy-150)/cam.z+cam.y];
+  const zoomAt=(sx,sy,k)=>{const [wx,wy]=toW(sx,sy);cam.z=Math.max(.15,Math.min(6,cam.z*k));cam.x=wx-(sx-200)/cam.z;cam.y=wy-(sy-150)/cam.z;};
+  const draw=()=>{x.fillStyle='#F7F6F2';x.fillRect(0,0,400,300);let s=40;while(s*cam.z<16)s*=2;while(s*cam.z>=32)s/=2;
+   x.fillStyle='#C9C5BA';const [w0,h0]=toW(0,0);for(let gx=Math.floor(w0/s)*s;(gx-cam.x)*cam.z+200<=400;gx+=s)for(let gy=Math.floor(h0/s)*s;(gy-cam.y)*cam.z+150<=300;gy+=s){x.fillRect((gx-cam.x)*cam.z+200-1,(gy-cam.y)*cam.z+150-1,2,2);}
+   x.save();x.translate(200,150);x.scale(cam.z,cam.z);x.translate(-cam.x,-cam.y);
+   x.strokeStyle='#8A8578';x.lineWidth=1.5/cam.z;x.setLineDash([6/cam.z,4/cam.z]);for(let i=0;i<N.length-1;i+=3){x.beginPath();x.moveTo(N[i].x+40,N[i].y+40);x.lineTo(N[i+1].x+40,N[i+1].y+40);x.stroke();}x.setLineDash([]);
+   N.forEach(n=>{x.save();x.translate(n.x+40,n.y+40);x.rotate(n.a);x.fillStyle='rgba(0,0,0,.08)';x.fillRect(-38,-36,80,80);x.fillStyle=n.c;x.fillRect(-40,-40,80,80);x.fillStyle='#2A2A2A';x.font='700 12px "Trade Gothic", system-ui, sans-serif';x.fillText(n.t,-32,-20);
+    x.fillStyle='rgba(0,0,0,.18)';for(let k=0;k<3;k++)x.fillRect(-32,-6+k*12,48+((k*17+n.x)%16),3);x.restore();});
+   x.restore();out.textContent=Math.round(cam.z*100)+'%';};
+  const live=()=>{last=performance.now();if(!card.live)draw();};
+  c.addEventListener('pointerdown',e=>{c.setPointerCapture(e.pointerId);ptrs.set(e.pointerId,ptr(st,e));c.style.cursor='grabbing';live();});
+  c.addEventListener('pointermove',e=>{if(!ptrs.has(e.pointerId))return;const p=ptr(st,e),q=ptrs.get(e.pointerId);ptrs.set(e.pointerId,p);
+   if(ptrs.size===1){cam.x-=(p[0]-q[0])/cam.z;cam.y-=(p[1]-q[1])/cam.z;}else{const [a,b]=[...ptrs.values()],d=Math.hypot(a[0]-b[0],a[1]-b[1]);if(pinch)zoomAt((a[0]+b[0])/2,(a[1]+b[1])/2,d/pinch);pinch=d;}live();});
+  const up=e=>{ptrs.delete(e.pointerId);pinch=null;c.style.cursor='grab';};c.addEventListener('pointerup',up);c.addEventListener('pointercancel',up);
+  c.addEventListener('wheel',e=>{if(!e.ctrlKey&&!e.metaKey)return;e.preventDefault();const [sx,sy]=ptr(st,e);zoomAt(sx,sy,Math.exp(-e.deltaY*.01));live();},{passive:false});
+  st.querySelectorAll('[data-z]').forEach(bn=>bn.addEventListener('click',()=>{const z=+bn.dataset.z;if(z)zoomAt(200,150,z>0?1.4:1/1.4);else{cam.x=cam.y=0;cam.z=1;}live();}));
+  draw();return t=>{if(performance.now()-last>4000){cam.x=Math.sin(t*.13)*380;cam.y=Math.sin(t*.21)*260;cam.z=.75+.45*Math.sin(t*.17);}draw();};}},
+{name:'Swipe stack',look:'A stack of cards where the top one follows a drag, tilts with it and flies off when thrown far enough, while the next card rises into place.',added:'2026-11-12',d:'Drag the top card left or right and let go. Throw it far enough and it flies off; the next one rises.',use:'Quick sorting and triage, onboarding choices, discovery, flashcards',how:'JS pointer events: tilt follows the drag, a distance or speed threshold decides, a spring returns it otherwise',tags:['JS'],try:true,
+ ctx:'Only the top card moves. It follows the finger, rotating a few degrees with the horizontal offset, and a stamp on each side fades in to say what letting go will do. Past a distance or a quick flick it flies off in that direction; otherwise it springs back. The cards behind sit slightly smaller and lower, and step up as one leaves.',
+ init(st,card){const D=[['Sunset Café','Coffee · 0.4 mi','#F4A261'],['Night Market','Food · 1.2 mi','#2A9D8F'],['Book Swap','Books · 0.8 mi','#E76F51'],['Trail Run','Outdoors · 3 mi','#264653'],['Jazz Hall','Music · 2.1 mi','#8338EC']];
+  st.innerHTML=`<div class="swp">${D.map(([t,s,col])=>`<div class="swp-c"><div class="swp-i" style="background:${col}"></div><b>${t}</b><span>${s}</span><em class="swp-y">LIKE</em><em class="swp-n">NOPE</em></div>`).join('')}<span class="ph">Drag the top card</span></div>`;
+  const box=st.firstElementChild;let order=[...box.querySelectorAll('.swp-c')],drag=null,last=-1e9,side=1,busy=false;
+  const lay=()=>order.forEach((el,i)=>{el.style.zIndex=10-i;if(i===0&&drag)return;el.style.transition='transform .35s cubic-bezier(.16,1,.3,1)';el.style.transform=`translate(-50%,-50%) translateY(${Math.min(i,3)*3.2}cqw) scale(${1-Math.min(i,3)*.05})`;});
+  const pose=(el,dx,dy)=>{el.style.transform=`translate(-50%,-50%) translate(${dx}px,${dy}px) rotate(${dx*.06}deg)`;el.querySelector('.swp-y').style.opacity=Math.max(0,Math.min(1,dx/70));el.querySelector('.swp-n').style.opacity=Math.max(0,Math.min(1,-dx/70));};
+  const fly=(el,dir)=>{busy=true;el.style.transition='transform .4s cubic-bezier(.6,0,.9,.35)';pose(el,dir*box.clientWidth,40);
+   setTimeout(()=>{el.style.transition='none';order.push(order.shift());el.querySelectorAll('em').forEach(m=>m.style.opacity=0);lay();busy=false;},420);};
+  box.addEventListener('pointerdown',e=>{const el=order[0];if(busy||!el.contains(e.target))return;box.setPointerCapture(e.pointerId);drag={el,sx:e.clientX,sy:e.clientY,h:[[e.clientX,performance.now()]]};el.style.transition='none';last=performance.now();});
+  box.addEventListener('pointermove',e=>{if(!drag)return;const now=performance.now();drag.h.push([e.clientX,now]);while(drag.h.length>2&&now-drag.h[0][1]>100)drag.h.shift();pose(drag.el,e.clientX-drag.sx,(e.clientY-drag.sy)*.4);last=now;});
+  const up=e=>{if(!drag)return;const dx=e.clientX-drag.sx,a=drag.h[0],b=drag.h[drag.h.length-1],v=(b[0]-a[0])/Math.max(16,b[1]-a[1]),el=drag.el;drag=null;last=performance.now();
+   if(Math.abs(dx)>box.clientWidth*.22||Math.abs(v)>.6)fly(el,Math.sign(dx||v));else{el.querySelectorAll('em').forEach(m=>m.style.opacity=0);lay();}};
+  box.addEventListener('pointerup',up);box.addEventListener('pointercancel',up);
+  lay();return ()=>{if(busy||drag||performance.now()-last<2600)return;last=performance.now();const el=order[0];el.style.transition='transform .5s cubic-bezier(.65,0,.35,1)';pose(el,side*60,6);setTimeout(()=>{if(!drag)fly(el,side);side=-side;},520);};}},
+{name:'Radial menu',look:'Press and hold to open a ring of options around the finger; slide toward one and release to choose it.',added:'2026-11-12',d:'Press and hold anywhere: a ring of actions opens around the pointer. Slide to one and let go.',use:'Touch and pen tools, games, canvas apps, quick actions on large surfaces',how:'Canvas and JS: a hold timer opens the ring; the angle from the press point picks the slice',tags:['Canvas','JS'],try:true,
+ ctx:'Nothing shows until you press and hold; a ring fills around the finger to show the hold, then the options fan out around that exact point, all the same distance away. Direction, not precision, picks: slide toward a slice and it lights up, release to choose, release in the middle to cancel. A short confirmation follows.',
+ init(st,card){const [c,x]=cv(st,400,300,DPR());c.style.touchAction='none';const IT=['Copy','Pin','Share','Tag','Edit','Delete'],HOLD=.4,R0=24,R1=78;
+  let s='idle',p0=[200,150],pt=[200,150],k=0,sel=-1,toast='',tt=0,last=-1e9,demo=0,now=0;
+  const pick=()=>{const dx=pt[0]-p0[0],dy=pt[1]-p0[1];if(Math.hypot(dx,dy)<R0)return -1;return Math.floor(((Math.atan2(dy,dx)+Math.PI/2+Math.PI/6+TAU*2)%TAU)/(TAU/6));};
+  const press=(X,Y)=>{p0=[Math.max(R1+6,Math.min(400-R1-6,X)),Math.max(R1+6,Math.min(300-R1-6,Y))];pt=[X,Y];s='hold';k=0;sel=-1;};
+  const move=(X,Y)=>{pt=[X,Y];if(s==='open')sel=pick();};
+  const release=()=>{if(s==='open'&&sel>=0){toast={Copy:'Copied',Pin:'Pinned',Share:'Shared',Tag:'Tagged',Edit:'Editing',Delete:'Deleted'}[IT[sel]];tt=1.4;}s='idle';sel=-1;};
+  const draw=()=>{x.fillStyle='#E9EDF2';x.fillRect(0,0,400,300);x.fillStyle='#D3DAE3';for(let i=0;i<400;i+=20)for(let j=0;j<300;j+=20)x.fillRect(i,j,1.5,1.5);
+   x.font='500 10px "JetBrains Mono", monospace';x.fillStyle='#8A93A0';x.textAlign='center';if(s==='idle'&&tt<=0)x.fillText('Press and hold',200,286);
+   if(s==='hold'){x.strokeStyle='#E4148C';x.lineWidth=4;x.lineCap='round';x.beginPath();x.arc(p0[0],p0[1],18,-Math.PI/2,-Math.PI/2+TAU*Math.min(1,k/HOLD));x.stroke();}
+   if(s==='open'){const o=Math.min(1,k*6),e=1-Math.pow(1-o,3);x.globalAlpha=o;
+    for(let i=0;i<6;i++){const a0=-Math.PI/2-Math.PI/6+i*TAU/6+.03,a1=a0+TAU/6-.06,ri=R0*e,ro=R0+(R1-R0)*e;
+     x.fillStyle=i===sel?'#E4148C':'#1E2430';x.beginPath();x.arc(p0[0],p0[1],ro,a0,a1);x.arc(p0[0],p0[1],ri,a1,a0,true);x.closePath();x.fill();
+     const am=(a0+a1)/2,rm=(ri+ro)/2;x.fillStyle='#fff';x.font='700 10px "Trade Gothic", system-ui, sans-serif';x.fillText(IT[i].toUpperCase(),p0[0]+Math.cos(am)*rm,p0[1]+Math.sin(am)*rm+3.5);}
+    x.globalAlpha=1;}
+   if(demo||s!=='idle'){x.fillStyle='rgba(30,36,48,.25)';x.beginPath();x.arc(pt[0],pt[1],s==='idle'?6:9,0,TAU);x.fill();}
+   if(tt>0){x.globalAlpha=Math.min(1,tt*3);x.fillStyle='#1E2430';x.fillRect(150,256,100,26);x.fillStyle='#fff';x.font='700 11px "Trade Gothic", system-ui, sans-serif';x.fillText(toast,200,273);x.globalAlpha=1;}
+   x.textAlign='left';};
+  c.addEventListener('pointerdown',e=>{c.setPointerCapture(e.pointerId);demo=0;last=performance.now();press(...ptr(st,e));});
+  c.addEventListener('pointermove',e=>{if(s==='idle')return;last=performance.now();move(...ptr(st,e));});
+  c.addEventListener('pointerup',()=>{last=performance.now();release();});c.addEventListener('pointercancel',()=>{s='idle';});
+  // the demo: press, hold, slide to a slice, let go
+  const script=u=>{const tgt=[[150,130],[262,170],[210,120]][Math.floor(demo/1)%3],j=(Math.floor(demo)+2)%6,a=-Math.PI/2+j*TAU/6;
+   if(u<.15){pt=[tgt[0]-30+u/.15*30,tgt[1]+20-u/.15*20];}else if(u<.2){if(s==='idle')press(tgt[0],tgt[1]);}else if(u<.75){if(s==='open'){const v=Math.min(1,(u-.45)/.2);move(p0[0]+Math.cos(a)*55*Math.max(0,v),p0[1]+Math.sin(a)*55*Math.max(0,v));}}else if(s==='open')release();};
+  draw();return (t,dt)=>{now=t;if(s==='hold'){k+=dt;if(k>=HOLD){s='open';k=0;}}else if(s==='open')k+=dt;tt=Math.max(0,tt-dt);
+   if(s==='idle'&&!demo&&performance.now()-last>3000)demo=1e-6;if(demo){const prev=demo;demo+=dt/2.6;if(Math.floor(demo)!==Math.floor(prev)){s='idle';}script(demo%1);}draw();};}},
+{name:'Pull to refresh',look:'Pulling a list past its top stretches it with growing resistance and fills a spinner; let go past the mark and it refreshes, then snaps back.',added:'2026-11-12',d:'Drag the list down: it stretches with rising resistance, refreshes, and a new item slides in.',use:'Feeds, inboxes and any list that updates, on touch and pointer',how:'JS pointer events: offset = pull × limit ÷ (limit + pull) for the rubber band, a threshold to trigger, a spring back',tags:['JS'],try:true,
+ ctx:'The list follows the finger at first, then resists more and more: the offset approaches a limit but never reaches it. A spinner above the list fills as you pull, so you can see when letting go will count. Released past the mark, it spins in place while loading, the new item slides in on top, and the list springs home.',
+ init(st,card){const P=[['Ana','Photos from the weekend'],['Sam','Re: Thursday plans'],['Lee','Your order shipped'],['Kim','Draft for review'],['Jo','Lunch?'],['Max','Invoice 1042'],['Ivy','New comment on Home'],['Ray','Meeting moved to 3']];let pi=4;
+  const row=([n,m])=>`<li><i style="background:hsl(${(n.charCodeAt(0)*37)%360} 55% 62%)">${n[0]}</i><b>${n}</b><span>${m}</span></li>`;
+  st.innerHTML=`<div class="ptr"><div class="ptr-h">Inbox<span>Pull down to refresh</span></div><div class="ptr-b"><svg class="ptr-s" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" pathLength="100"/></svg><ul>${P.slice(0,4).map(row).join('')}</ul></div></div>`;
+  const body=st.querySelector('.ptr-b'),ul=body.querySelector('ul'),sp=st.querySelector('.ptr-s'),ring=sp.querySelector('circle');let o=0,drag=null,state='idle',last=-1e9,demo=0;
+  const LIM=()=>body.clientHeight*.42,TH=()=>body.clientHeight*.2;
+  const set=(v,anim)=>{o=v;ul.style.transition=sp.style.transition=anim?'transform .35s cubic-bezier(.16,1,.3,1)':'none';ul.style.transform=`translateY(${v}px)`;sp.style.transform=`translate(-50%,${v*.5-30}px) rotate(${v*3}deg)`;ring.style.strokeDashoffset=100-Math.min(1,v/TH())*85;};
+  const refresh=()=>{state='load';sp.classList.add('is-spin');set(TH(),true);setTimeout(()=>{const li=document.createElement('template');li.innerHTML=row(P[pi++%P.length]);const el=li.content.firstChild;el.classList.add('is-new');ul.prepend(el);if(ul.children.length>6)ul.lastElementChild.remove();
+   sp.classList.remove('is-spin');set(0,true);state='idle';},1100);};
+  body.addEventListener('pointerdown',e=>{if(state!=='idle')return;body.setPointerCapture(e.pointerId);drag={y:e.clientY};demo=0;last=performance.now();});
+  body.addEventListener('pointermove',e=>{if(!drag)return;last=performance.now();const d=Math.max(0,e.clientY-drag.y),L=LIM();set(d*L/(L+d));});
+  const up=()=>{if(!drag)return;drag=null;last=performance.now();if(o>=TH())refresh();else set(0,true);};body.addEventListener('pointerup',up);body.addEventListener('pointercancel',up);
+  set(0);return (t,dt)=>{if(state!=='idle'||drag)return;if(!demo&&performance.now()-last>2800)demo=1e-6;if(!demo)return;demo+=dt;
+   const d=Math.min(1,demo/1.1)*body.clientHeight*.75,L=LIM();set(d*L/(L+d));if(demo>1.4){demo=0;last=performance.now();refresh();}};}},
 ]},
 {t:'Layout and page',items:[
 {name:'FLIP reorder',d:'Tiles glide to their new spots when the order changes.',use:'Sorting, filtering, drag-and-drop grids',how:'First, Last, Invert, Play with the Web Animations API',tags:['JS'],try:true,
@@ -1522,6 +2005,34 @@ vec2 v=u*(1.-u.yx);col*=pow(v.x*v.y*18.,.28);gl_FragColor=vec4(col,1.);}`,640,48
    if(!auto)auto={from:T,to:T<.5?1:0,k:0,hold:0};
    if(auto.k<1){auto.k=Math.min(1,auto.k+dt/2.2);const e=auto.k<.5?4*auto.k**3:1-Math.pow(-2*auto.k+2,3)/2;set(auto.from+(auto.to-auto.from)*e);}
    else if((auto.hold+=dt)>1.6)auto=null;};}},
+{name:'Page curl',look:'A page corner peels back to show the paper’s underside and the page beneath, with a soft shadow along the fold.',added:'2026-11-12',d:'Drag the corner to peel the page back and see the next one. It turns by itself while you’re away.',use:'Digital magazines and books, onboarding steps, playful reveals',how:'Canvas: the fold is the line halfway between the corner and the pointer; the page is clipped to one side and the flap mirrored across it',tags:['Canvas','JS'],try:true,
+ ctx:'The fold is always the perpendicular bisector between the page corner and where it’s being pulled, so the page behaves like real paper. The lifted flap shows the plain back of the sheet, lit brighter near the fold, and casts a soft shadow on the page below. The page underneath is already there, revealed, not drawn in.',
+ init(st,card){const [c,x]=cv(st,400,300,DPR());c.style.touchAction='none';const L=70,T=22,R=330,B=278,O=[R,B];let C=[R,B],drag=false,last=-1e9;
+  const rect=[[L,T],[R,T],[R,B],[L,B]];
+  // keep the part of polygon P where n·p <= k
+  const clip=(P,n,k)=>{const o=[];for(let i=0;i<P.length;i++){const p=P[i],q=P[(i+1)%P.length],sp=n[0]*p[0]+n[1]*p[1]-k,sq=n[0]*q[0]+n[1]*q[1]-k;if(sp<=0)o.push(p);if(sp*sq<0){const t=sp/(sp-sq);o.push([p[0]+(q[0]-p[0])*t,p[1]+(q[1]-p[1])*t]);}}return o;};
+  const path=P=>{x.beginPath();P.forEach((p,i)=>i?x.lineTo(p[0],p[1]):x.moveTo(p[0],p[1]));x.closePath();};
+  const content=(k)=>{x.fillStyle='#FFFDF7';x.fillRect(L,T,R-L,B-T);x.fillStyle='#1E1E24';x.font='700 18px "Trade Gothic", system-ui, sans-serif';x.fillText(k?'Chapter 5':'Chapter 4',L+20,T+34);
+   x.fillStyle=k?'#2A9D8F':'#E4572E';x.fillRect(L+20,T+48,R-L-40,78);x.fillStyle='rgba(255,255,255,.5)';x.beginPath();x.arc(L+70+k*90,T+87,20,0,TAU);x.fill();
+   x.fillStyle='#C9C4B8';for(let i=0;i<8;i++)x.fillRect(L+20,T+142+i*13,(R-L-40)*(i===7?.55:.9+((i*7+k*3)%5)/50),4);
+   x.fillStyle='#8A857A';x.font='500 9px "JetBrains Mono", monospace';x.fillText(String(k?13:12),R-34,B-12);};
+  const lim=p=>{let [px,py]=p;for(let it=0;it<3;it++){let dx=px-L,dy=py-B,d=Math.hypot(dx,dy),m=R-L;if(d>m){px=L+dx/d*m;py=B+dy/d*m;}dx=px-L;dy=py-T;d=Math.hypot(dx,dy);m=Math.hypot(R-L,B-T);if(d>m){px=L+dx/d*m;py=T+dy/d*m;}}return [px,py];};
+  const draw=()=>{x.fillStyle='#3B4252';x.fillRect(0,0,400,300);x.fillStyle='rgba(0,0,0,.25)';x.fillRect(L+4,T+6,R-L,B-T);
+   C=lim(C);const dx=O[0]-C[0],dy=O[1]-C[1],d=Math.hypot(dx,dy);
+   content(1);if(d<1){x.save();path(rect);x.clip();content(0);x.restore();return;}
+   const n=[dx/d,dy/d],M=[(O[0]+C[0])/2,(O[1]+C[1])/2],k=n[0]*M[0]+n[1]*M[1];
+   const front=clip(rect,n,k),lift=clip(rect,[-n[0],-n[1]],-k),flap=lift.map(p=>{const s=2*(n[0]*p[0]+n[1]*p[1]-k);return [p[0]-s*n[0],p[1]-s*n[1]];});
+   // shade the page underneath along the fold
+   x.save();path(lift);x.clip();const g0=x.createLinearGradient(M[0],M[1],M[0]+n[0]*40,M[1]+n[1]*40);g0.addColorStop(0,'rgba(0,0,0,.28)');g0.addColorStop(1,'rgba(0,0,0,0)');x.fillStyle=g0;x.fillRect(0,0,400,300);x.restore();
+   if(front.length>2){x.save();path(front);x.clip();content(0);x.restore();}
+   if(flap.length>2){x.save();x.shadowColor='rgba(0,0,0,.35)';x.shadowBlur=14;path(flap);x.fillStyle='#ECE6D8';x.fill();x.restore();
+    x.save();path(flap);x.clip();const g=x.createLinearGradient(M[0],M[1],C[0],C[1]);g.addColorStop(0,'rgba(255,255,255,.55)');g.addColorStop(.35,'rgba(255,255,255,0)');g.addColorStop(1,'rgba(0,0,0,.14)');x.fillStyle=g;x.fillRect(0,0,400,300);x.restore();}};
+  c.addEventListener('pointerdown',e=>{const p=ptr(st,e);if(Math.hypot(p[0]-C[0],p[1]-C[1])>70&&Math.hypot(p[0]-R,p[1]-B)>70)return;c.setPointerCapture(e.pointerId);drag=true;C=p;last=performance.now();if(!card.live)draw();});
+  c.addEventListener('pointermove',e=>{if(!drag)return;C=ptr(st,e);last=performance.now();if(!card.live)draw();});
+  const up=()=>{drag=false;last=performance.now();};c.addEventListener('pointerup',up);c.addEventListener('pointercancel',up);
+  C=[R-90,B-60];draw();
+  return (t,dt)=>{if(!drag&&performance.now()-last>2500){const ph=(t*.32)%1,p=ph<.5?.5-.5*Math.cos(ph*2*TAU):0;C=[R-p*(R-L)*1.7,B-p*40-Math.sin(p*Math.PI)*70];}
+   else if(!drag){C=[C[0]+(R-C[0])*.12,C[1]+(B-C[1])*.12];}draw();};}},
 ]},
 {t:'Effects and simulation',items:[
 {name:'Particles',look:'A fountain of short-lived particles.',d:'A fountain of short-lived particles. Tap for a burst.',use:'Celebrations, ambient sparkle, feedback',how:'Canvas, velocity, gravity and additive blending',tags:['Canvas'],try:true,
@@ -1619,6 +2130,84 @@ vec2 o=vec2(nz-.5,nz-.45)*.38;gl_FragColor=vec4(mix(A(u+o*P*(1.-m)),B(u-o*(1.-P)
   const draw=p=>{const d=im.data;for(let y=0;y<H;y++)for(let X=0;X<W;X++){const i=(y*W+X)*4,th=(M[((y>>1)%8)*8+((X>>1)%8)]+.5)/64,S=th<p?B:A;d[i]=S[i];d[i+1]=S[i+1];d[i+2]=S[i+2];d[i+3]=255;}x.putImageData(im,0,0);};
   const ss=(a,b,v)=>{const k=Math.max(0,Math.min(1,(v-a)/(b-a)));return k*k*(3-2*k);};
   draw(.5);return t=>{const ph=(t/6)%1;draw(ss(.08,.42,ph)-ss(.58,.92,ph));};}},
+{name:'Soft body',look:'A jelly-like blob that squashes on landing, wobbles and slowly regains its round shape, keeping its volume as it deforms.',added:'2026-11-12',d:'A jelly blob hops, squashes, wobbles and keeps its volume. Drag it and fling it.',use:'Playful mascots and buttons, game objects, friendly loading moments',how:'JS: a ring of Verlet points joined by springs, with an inside pressure that pushes back toward the starting area',tags:['Canvas','JS'],try:true,
+ ctx:'The shape is an outline of points on springs with a pressure inside, so it flattens on impact and bulges out sideways rather than shrinking, then rings like jelly before settling round. Motion has weight: gravity, a bounce that loses energy, a little friction on the floor.',
+ init(st,card){const [c,x]=cv(st,400,300,DPR());c.style.touchAction='none';const N=28,RAD=44,FL=268;let P=[],grab=-1,gp=null,last=-1e9,rest=0;
+  for(let i=0;i<N;i++){const a=i/N*TAU,X=200+Math.cos(a)*RAD,Y=90+Math.sin(a)*RAD;P.push({x:X,y:Y,px:X,py:Y});}
+  const L0=2*RAD*Math.sin(Math.PI/N),area=()=>{let s=0;for(let i=0;i<N;i++){const a=P[i],b=P[(i+1)%N];s+=a.x*b.y-b.x*a.y;}return s/2;},A0=area();
+  const cen=()=>P.reduce((s,p)=>[s[0]+p.x/N,s[1]+p.y/N],[0,0]);
+  const step=()=>{for(const p of P){const vx=(p.x-p.px)*.995,vy=(p.y-p.py)*.995+.32;p.px=p.x;p.py=p.y;p.x+=vx;p.y+=vy;}
+   if(grab>=0){const p=P[grab];p.x+=(gp[0]-p.x)*.5;p.y+=(gp[1]-p.y)*.5;}
+   for(let it=0;it<8;it++){
+    for(let i=0;i<N;i++){const a=P[i],b=P[(i+1)%N],dx=b.x-a.x,dy=b.y-a.y,d=Math.hypot(dx,dy)||1,f=(d-L0)/d*.5;a.x+=dx*f;a.y+=dy*f;b.x-=dx*f;b.y-=dy*f;}
+    const k=(A0-area())/A0*2.2,[cx,cy]=cen();
+    for(let i=0;i<N;i++){const a=P[(i+N-1)%N],b=P[(i+1)%N],p=P[i];let nx=b.y-a.y,ny=-(b.x-a.x);const l=Math.hypot(nx,ny)||1;nx/=l;ny/=l;if(nx*(p.x-cx)+ny*(p.y-cy)<0){nx=-nx;ny=-ny;}p.x+=nx*k;p.y+=ny*k;}
+    for(const p of P){if(p.y>FL){p.y=FL;p.px=p.x-(p.x-p.px)*.8;}if(p.x<8){p.x=8;}if(p.x>392){p.x=392;}if(p.y<8)p.y=8;}}};
+  const draw=()=>{x.fillStyle='#FFF4E6';x.fillRect(0,0,400,300);x.fillStyle='#F2DFC6';x.fillRect(0,FL,400,32);
+   const [cx,cy]=cen(),h=Math.max(0,FL-cy-RAD);x.fillStyle=`rgba(120,80,40,${.18*Math.max(.2,1-h/180)})`;x.beginPath();x.ellipse(cx,FL+3,RAD*(1-Math.min(.5,h/300)),5,0,0,TAU);x.fill();
+   x.beginPath();for(let i=0;i<=N;i++){const a=P[i%N],b=P[(i+1)%N],m=[(a.x+b.x)/2,(a.y+b.y)/2];i?x.quadraticCurveTo(a.x,a.y,m[0],m[1]):x.moveTo(m[0],m[1]);}x.closePath();
+   x.fillStyle='#5ED3A8';x.fill();x.strokeStyle='#1F7A5C';x.lineWidth=3;x.stroke();
+   x.fillStyle='rgba(255,255,255,.55)';x.beginPath();x.ellipse(cx-14,cy-16,10,6,-.5,0,TAU);x.fill();
+   x.fillStyle='#1B3A2F';[-9,9].forEach(o=>{x.beginPath();x.ellipse(cx+o,cy-2,3.2,4.4,0,0,TAU);x.fill();});};
+  c.addEventListener('pointerdown',e=>{const q=ptr(st,e),[cx,cy]=cen();if(Math.hypot(q[0]-cx,q[1]-cy)>RAD+24)return;let b=0,bd=1e9;P.forEach((p,i)=>{const d=Math.hypot(p.x-q[0],p.y-q[1]);if(d<bd){bd=d;b=i;}});grab=b;gp=q;c.setPointerCapture(e.pointerId);last=performance.now();});
+  c.addEventListener('pointermove',e=>{if(grab<0)return;gp=ptr(st,e);last=performance.now();});
+  const up=()=>{grab=-1;last=performance.now();};c.addEventListener('pointerup',up);c.addEventListener('pointercancel',up);
+  for(let i=0;i<120;i++)step();draw();
+  // left alone, it hops now and then
+  return (t,dt)=>{const n=dt>.025?2:1;for(let i=0;i<n;i++)step();const [cx]=cen();
+   if(grab<0&&performance.now()-last>2000){rest+=dt;if(rest>1.6){rest=0;const vx=(200-cx)*.02+(Math.random()-.5)*3;for(const p of P){p.px=p.x-vx;p.py=p.y+9;}}}draw();};}},
+{name:'Rope and chain',look:'A hanging rope that swings, sags and trails behind the weight on its end, every link following the one before.',added:'2026-11-12',d:'A rope hangs from a pin with a weight on its end. Grab the weight and swing it.',use:'Hanging signs and tags, physics toys, pull-cord switches, game props',how:'JS: Verlet points joined by fixed-length links, solved a few times a frame',tags:['Canvas','JS'],try:true,
+ ctx:'A rope is a chain of points that only care about their distance to the next one. Gravity sags it into a curve, a heavier end weight makes it swing like a pendulum, and fast moves send a ripple down its length. It never stretches. Drawn as a thick cord with a twist pattern so its motion reads.',
+ init(st,card){const [c,x]=cv(st,400,300,DPR());c.style.touchAction='none';const N=24,SEG=8.6,PIN=[200,26];let grab=-1,gp=null,last=-1e9,kick=0,side=1;
+  const P=Array.from({length:N},(_,i)=>({x:PIN[0]+i*SEG*.6,y:PIN[1]+i*SEG*.8,px:PIN[0]+i*SEG*.6,py:PIN[1]+i*SEG*.8}));
+  const step=()=>{for(let i=1;i<N;i++){const p=P[i],vx=(p.x-p.px)*.996,vy=(p.y-p.py)*.996+.3;p.px=p.x;p.py=p.y;p.x+=vx;p.y+=vy;}
+   for(let it=0;it<12;it++){P[0].x=PIN[0];P[0].y=PIN[1];if(grab>=0){P[grab].x=gp[0];P[grab].y=gp[1];}
+    for(let i=0;i<N-1;i++){const a=P[i],b=P[i+1],dx=b.x-a.x,dy=b.y-a.y,d=Math.hypot(dx,dy)||1,df=(d-SEG)/d;
+     // the pin and the held point don't move; the end weight moves less than a link
+     const wa=i===0||i===grab?0:1,wb=i+1===grab?0:i+1===N-1?.25:1,s=wa+wb;if(!s)continue;a.x+=dx*df*wa/s;a.y+=dy*df*wa/s;b.x-=dx*df*wb/s;b.y-=dy*df*wb/s;}}};
+  const draw=()=>{x.fillStyle='#E8EEF3';x.fillRect(0,0,400,300);x.fillStyle='#4A4F57';x.fillRect(170,14,60,8);x.beginPath();x.arc(PIN[0],PIN[1],4,0,TAU);x.fill();
+   x.lineCap='round';x.lineJoin='round';x.beginPath();P.forEach((p,i)=>i?x.lineTo(p.x,p.y):x.moveTo(p.x,p.y));x.strokeStyle='#7A5230';x.lineWidth=6;x.stroke();x.setLineDash([3,5]);x.strokeStyle='#C4935C';x.lineWidth=3.5;x.stroke();x.setLineDash([]);
+   const e=P[N-1],a=Math.atan2(e.y-P[N-2].y,e.x-P[N-2].x)-Math.PI/2;x.save();x.translate(e.x,e.y);x.rotate(a);
+   x.fillStyle='#D9A441';x.beginPath();x.arc(0,20,18,0,TAU);x.fill();x.fillStyle='#B07D22';x.fillRect(-5,0,10,6);x.fillStyle='rgba(255,255,255,.45)';x.beginPath();x.arc(-6,14,5,0,TAU);x.fill();x.restore();};
+  c.addEventListener('pointerdown',e=>{const q=ptr(st,e);let b=-1,bd=48;P.forEach((p,i)=>{const d=Math.hypot(p.x-q[0],p.y-q[1]-(i===N-1?20:0));if(i&&d<bd){bd=d;b=i;}});if(b<0)return;grab=b;gp=q;c.setPointerCapture(e.pointerId);last=performance.now();});
+  c.addEventListener('pointermove',e=>{if(grab<0)return;gp=ptr(st,e);last=performance.now();if(!card.live){step();draw();}});
+  const up=()=>{grab=-1;last=performance.now();};c.addEventListener('pointerup',up);c.addEventListener('pointercancel',up);
+  for(let i=0;i<30;i++)step();draw();
+  return (t,dt)=>{if(grab<0&&performance.now()-last>2500&&(kick+=dt)>3){kick=0;const e=P[N-1];e.px=e.x-side*7;side=-side;}const n=dt>.025?2:1;for(let i=0;i<n;i++)step();draw();};}},
+{name:'Cellular automata',look:'A grid where every cell updates from its neighbors by one simple rule, so rich behavior emerges: here grains of sand that fall, slide and pile into dunes.',added:'2026-11-12',d:'Sand piles up grain by grain, each cell following one rule: fall if you can, else slide. Drag to pour.',use:'Toys and playful heroes, generative textures, simulations and teaching',how:'Canvas and JS: a grid of cells updated bottom-up each frame, written straight into pixel data',tags:['Canvas','JS'],try:true,
+ ctx:'A grid, a few cell states and one local rule applied everywhere at once. Nothing at the large scale is scripted: slopes, dunes or living patterns emerge from the rule. Cells stay visible as small square pixels, here colored in bands by when they arrived.',
+ init(st,card){const W=160,H=120,[c,x]=raw(st,W,H,'px'),im=x.createImageData(W,H),d=im.data,G=new Uint8Array(W*H),r=rng(29);c.style.touchAction='none';
+  const PAL=[[244,239,230],[58,63,74],[233,196,106],[244,162,97],[231,111,81],[42,157,143],[138,177,125],[38,70,83]];let band=2,pour=null,last=-1e9,tb=0;
+  const walls=()=>{G.fill(0);const ln=(x0,y0,x1,y1)=>{const n=Math.max(Math.abs(x1-x0),Math.abs(y1-y0));for(let k=0;k<=n;k++){const X=Math.round(x0+(x1-x0)*k/n),Y=Math.round(y0+(y1-y0)*k/n);G[Y*W+X]=1;G[Y*W+X+1]=1;}};ln(20,52,70,66);ln(140,40,96,56);ln(60,92,104,84);};
+  const emit=(X,Y)=>{for(let k=0;k<5;k++){const xx=Math.round(X+(r()-.5)*5),yy=Math.round(Y+(r()-.5)*3);if(xx>0&&xx<W-1&&yy>0&&yy<H&&!G[yy*W+xx])G[yy*W+xx]=band;}};
+  const step=()=>{let n=0;for(let y=H-2;y>=0;y--){const dir=r()<.5,o=y*W;for(let k=0;k<W;k++){const X=dir?k:W-1-k,i=o+X,v=G[i];if(v<2)continue;n++;
+    if(!G[i+W]){G[i+W]=v;G[i]=0;continue;}const a=r()<.5?-1:1;if(X+a>=0&&X+a<W&&!G[i+W+a]){G[i+W+a]=v;G[i]=0;}else if(X-a>=0&&X-a<W&&!G[i+W-a]){G[i+W-a]=v;G[i]=0;}}}return n;};
+  const draw=()=>{for(let i=0;i<W*H;i++){const p=PAL[G[i]],o=i*4;d[o]=p[0];d[o+1]=p[1];d[o+2]=p[2];d[o+3]=255;}x.putImageData(im,0,0);};
+  c.addEventListener('pointerdown',e=>{c.setPointerCapture(e.pointerId);const [X,Y]=ptr(st,e);pour=[X*W/400,Y*H/300];last=performance.now();});
+  c.addEventListener('pointermove',e=>{if(!pour)return;const [X,Y]=ptr(st,e);pour=[X*W/400,Y*H/300];last=performance.now();});
+  const up=()=>{pour=null;};c.addEventListener('pointerup',up);c.addEventListener('pointercancel',up);
+  walls();for(let f=0;f<400;f++){if(f<300)emit(80+40*Math.sin(f*.03),3);if((f%60)===59)band=band%6+2;step();}draw();
+  return (t,dt)=>{tb+=dt;if(tb>1.6){tb=0;band=band%6+2;}
+   if(pour)emit(pour[0],pour[1]);else if(performance.now()-last>2000)emit(80+56*Math.sin(t*.5),3);
+   const n=step();if(n>W*H*.5)walls();draw();};}},
+{name:'Lightning',look:'Jagged branching bolts that flash bright, light up the scene for an instant and fade, with a white core and a colored glow.',added:'2026-11-12',d:'Branching bolts strike over a night skyline and flash the sky. Tap to strike where you point.',use:'Weather and energy themes, power-ups, alerts, dramatic hero art',how:'Canvas: midpoint displacement splits a line into jagged segments with random branches; drawn with a glow and faded out',tags:['Canvas','JS'],try:true,
+ ctx:'A bolt is a line split again and again, each midpoint pushed sideways by a shrinking random amount, with thinner branches peeling off. It appears all at once, flickers once or twice and fades in a fraction of a second, briefly lighting everything around it. Thin white core, wider blue-violet glow, dark scene.',
+ init(st,card){const [c,x]=cv(st,400,300,DPR()),r=rng(37);let bolts=[],flash=0,next=.6,last=-1e9;
+  const sky=[];let X=0;while(X<400){const w=14+r()*30,h=30+r()*70;sky.push([X,300-h,w,h]);X+=w;}
+  const make=(tx,ty)=>{const segs=[];const split=(ax,ay,bx,by,off,w,lv)=>{if(lv===0){segs.push([ax,ay,bx,by,w]);return;}
+    const mx=(ax+bx)/2+(r()-.5)*off,my=(ay+by)/2+(r()-.5)*off*.4;split(ax,ay,mx,my,off/2,w,lv-1);split(mx,my,bx,by,off/2,w,lv-1);
+    if(lv>2&&r()<.35){const a=Math.atan2(by-ay,bx-ax)+(r()<.5?-1:1)*(.4+r()*.5),L=Math.hypot(bx-ax,by-ay)*(.5+r()*.4);split(mx,my,mx+Math.cos(a)*L,my+Math.sin(a)*L,off/2,w*.5,lv-2);}};
+   split(tx+(r()-.5)*120,-6,tx,ty,110,2.4,7);bolts.push({segs,life:1});flash=1;};
+  const draw=()=>{const f=Math.max(0,flash);x.fillStyle=`rgb(${14+60*f|0},${16+66*f|0},${36+90*f|0})`;x.fillRect(0,0,400,300);
+   x.lineCap='round';for(const b of bolts){const a=b.life>.75?1:b.life>.6?.35:b.life;
+    x.strokeStyle=`rgba(150,160,255,${a*.55})`;x.shadowColor='#8C9BFF';x.shadowBlur=16;for(const s of b.segs){x.lineWidth=s[4]*3.2;x.beginPath();x.moveTo(s[0],s[1]);x.lineTo(s[2],s[3]);x.stroke();}
+    x.shadowBlur=0;x.strokeStyle=`rgba(255,255,255,${a})`;for(const s of b.segs){x.lineWidth=s[4];x.beginPath();x.moveTo(s[0],s[1]);x.lineTo(s[2],s[3]);x.stroke();}}
+   x.fillStyle=`rgb(${8+30*f|0},${9+30*f|0},${18+40*f|0})`;for(const [bx,by,bw,bh] of sky)x.fillRect(bx,by,bw-1,bh);
+   x.fillStyle=`rgba(255,214,120,${.55-.3*f})`;for(const [bx,by,bw,bh] of sky)for(let wy=by+8;wy<296;wy+=11)for(let wx=bx+4;wx<bx+bw-6;wx+=7)if(((wx*7+wy*13)|0)%5===0)x.fillRect(wx,wy,3,4);};
+  c.addEventListener('pointerdown',e=>{const [X,Y]=ptr(st,e);make(X,Math.max(60,Y));last=performance.now();if(!card.live)draw();});
+  make(250,230);bolts[0].life=.85;flash=.4;draw();
+  return (t,dt)=>{next-=dt;if(next<=0){next=1.1+r()*1.6;make(60+r()*280,200+r()*70);}
+   for(const b of bolts)b.life-=dt*2.2;bolts=bolts.filter(b=>b.life>0);flash-=dt*3.2;draw();};}},
 ]},
 {t:'Play and spectacle',items:[
 {name:'Confetti burst',look:'Paper bits that flip, flutter and drift down.',d:'Paper bits that flip, flutter and drift down. Tap to fire another.',use:'Success moments, milestones, sign-up complete',how:'Canvas particles with drag, sway and a fake 3D flip from scaling',tags:['Canvas'],try:true,
@@ -1703,6 +2292,14 @@ vec2 o=vec2(nz-.5,nz-.45)*.38;gl_FragColor=vec4(mix(A(u+o*P*(1.-m)),B(u-o*(1.-P)
    for(const g of rings)g.r+=3.2*f;while(rings.length&&rings[0].r>520)rings.shift();
    for(const d of D){push(d,mx,my,70,1.3);for(const g of rings){const dx=d.x-g.x,dy=d.y-g.y,dd=Math.hypot(dx,dy)||1,w=Math.exp(-((dd-g.r)**2)/180)*.9*Math.max(0,1-g.r/520);d.vx+=dx/dd*w;d.vy+=dy/dd*w;}
     d.vx+=(d.hx-d.x)*.08;d.vy+=(d.hy-d.y)*.08;d.vx*=.82;d.vy*=.82;d.x+=d.vx*f;d.y+=d.vy*f;}draw();};}},
+{name:'Infinite zoom',look:'A picture that contains a smaller copy of itself, zooming in forever without ever arriving.',added:'2026-11-12',d:'Frames inside frames, turning a little as they shrink, zooming in forever.',use:'Loading and transition moments, music visuals, hypnotic heroes, recursive brand marks',how:'Canvas: each level is the same frame scaled and turned by a fixed step; the zoom wraps every step, so the loop is seamless',tags:['Canvas'],
+ ctx:'Every level is the same picture at a fixed smaller scale and a slight turn, nested inside the last. Zooming by exactly one level brings the scene back to where it started, so the loop has no seam. Colors step through a short palette, one per level.',
+ init(st){const [c,x]=cv(st),S=.78,ROT=.16,PAL=['#F94144','#F3722C','#F9C74F','#90BE6D','#43AA8B','#577590','#2E3A59'];
+  const draw=t=>{const z=t*.35,u=z%1,b=Math.floor(z);x.fillStyle=PAL[((b-2)%7+7)%7];x.fillRect(0,0,400,300);
+   for(let k=-1;k<17;k++){const s=560*Math.pow(S,k-u),a=(k-u)*ROT,ci=((k+b)%7+7)%7;x.save();x.translate(200,150);x.rotate(a);
+    x.fillStyle=PAL[ci];x.fillRect(-s/2,-s/2,s,s);x.fillStyle='rgba(0,0,0,.18)';x.fillRect(-s/2,-s/2,s,s*.035);x.fillRect(-s/2,-s/2,s*.035,s);
+    x.fillStyle='rgba(255,255,255,.75)';x.beginPath();x.arc(s*.36,-s*.36,s*.045,0,TAU);x.fill();x.restore();}};
+  draw(.6);return t=>draw(t);}},
 ]}
 ]}
 ];
