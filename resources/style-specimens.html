@@ -1786,8 +1786,12 @@ function apply(){const words=norm(q.value).split(/\s+/).filter(Boolean);let show
   document.querySelectorAll('.group').forEach(g=>{const vis=[...g.querySelectorAll('.card')].filter(a=>!a.hidden).length;g.querySelector('.g-n').textContent=vis+(vis===1?' style':' styles');g.hidden=vis===0;});
   none.hidden=shown>0;}
 const fsel=document.getElementById('sp-f');
-fsel.addEventListener('change',()=>{f=fsel.value;apply();});
-q.addEventListener('input',apply);
+// The filter and search live in the URL (?filter=new&q=glass) so a filtered view can be shared; a #section still works after it
+const url=()=>{const u=new URL(location.href);u.search='';if(f!=='All')u.searchParams.set('filter',f.toLowerCase());if(q.value.trim())u.searchParams.set('q',q.value.trim());history.replaceState(null,'',u);};
+{const sp=new URLSearchParams(location.search),opt=[...fsel.options].find(o=>o.value.toLowerCase()===(sp.get('filter')||'').toLowerCase());
+  if(opt){f=fsel.value=opt.value;}if(sp.get('q'))q.value=sp.get('q');if(opt||sp.get('q'))apply();}
+fsel.addEventListener('change',()=>{f=fsel.value;apply();url();});
+q.addEventListener('input',()=>{apply();url();});
 
 // Copy a style as AI context: name, look, use, how it's built, what sets it apart (ctx, where a specimen has one), technique. Read from the card so new specimens get it too.
 const plain=el=>el?el.textContent.replace(/\s+/g,' ').trim():'';
