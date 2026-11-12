@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/svg+xml" href="../icons/jonesco-system.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="../icons/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="../icons/favicon-96.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="../icons/apple-touch-icon.png">
+  <link rel="manifest" href="../manifest.webmanifest">
+  <meta name="theme-color" content="#000000">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <title>Control bar &amp; slider · Jonesco.design</title>
+  <link rel="stylesheet" href="../system.css">
+  <link rel="stylesheet" href="../patterns.css">
+  <link rel="stylesheet" href="../docs/docs.css">
+</head>
+<body data-root="../" data-page="components/control-bar">
+<main class="docs-main">
+<h1>Control bar &amp; slider</h1>
+<p class="lead">The black strip that drives an interactive example: caps labels, a slider with a round magenta knob, a readout, outlined buttons, and a frame strip for stepped motion.</p>
+<h3>Scrubber</h3>
+<div class="demo"><div class="demo-stage">
+<div class="sys-controls"><label for="cb-a">Assembly</label><input type="range" class="sys-slider" id="cb-a" min="0" max="100" value="55"><output for="cb-a">55%</output></div>
+</div></div>
+<h3>Frame controls</h3>
+<div class="demo"><div class="demo-stage">
+<div class="sys-controls"><ol class="sys-frames" aria-hidden="true"><li></li><li></li><li class="is-marked"></li><li class="is-marked is-on"></li><li class="is-marked"></li><li></li><li></li><li></li></ol><span class="sys-controls__readout">4/8</span><button type="button" class="sys-controls__btn" aria-pressed="false">Slow</button><button type="button" class="sys-controls__btn">Replay</button></div>
+</div></div>
+<h3>Slider on its own</h3>
+<div class="demo"><div class="demo-stage">
+<input type="range" class="sys-slider" min="0" max="30" step="0.5" value="8" aria-label="Angle" style="max-width:360px">
+</div></div>
+<h2>Parts</h2>
+<table><tr><th>Part</th><th>Markup</th><th>Look</th></tr>
+<tr><td>Control bar</td><td><code>.sys-controls</code></td><td>Black strip, 40px tall, 12px Bold No. 2 caps in white</td></tr>
+<tr><td>Label</td><td><code>&lt;label for&gt;</code> inside the bar</td><td>Names what the slider changes</td></tr>
+<tr><td>Slider</td><td><code>input[type=range].sys-slider</code></td><td>4px gray track (dark gray on black), 16px magenta circle knob</td></tr>
+<tr><td>Readout</td><td><code>&lt;output&gt;</code> (right-aligned) or <code>.sys-controls__readout</code> (fills the gap, gray)</td><td>Tabular figures, so the numbers don’t jitter</td></tr>
+<tr><td>Button</td><td><code>button.sys-controls__btn</code>, <code>aria-pressed</code> for an on/off mode</td><td>2px white outline, magenta on hover, white fill when pressed</td></tr>
+<tr><td>Frame strip</td><td><code>ol.sys-frames</code> of <code>li</code>; <code>.is-on</code> for the current frame, <code>.is-marked</code> for frames worth calling out</td><td>10px circles: gray outline, white when current, magenta outline when marked, magenta fill when a marked frame is current</td></tr>
+</table>
+<h2>Stipulations</h2>
+<ul>
+<li><b>One bar per example, along its bottom edge.</b> It belongs to the example it drives, not to the page; page-wide settings go in the header or a <a href="toggle.html">toggle</a>.</li>
+<li><b>Label the slider with what it changes</b> (“Angle”, “Assembly”), and show the value at the right end. When the ends mean more than the number, name the current end instead (“Assembled”, “Exploded”).</li>
+<li><b>The knob is the one round, magenta thing.</b> The track stays gray; don’t fill it up to the knob.</li>
+<li><b>Buttons say what they do</b> in a word or two: Step, Replay, Slow. A mode that stays on (Slow) uses <code>aria-pressed</code> and fills white while on.</li>
+<li><b>Frame strip:</b> one dot per frame of a short loop. Mark the frames that teach something (a smear, a key pose) with <code>.is-marked</code>; it’s decorative, so hide it from screen readers and say the frame in the readout.</li>
+<li>Labels and buttons are Trade Gothic caps; readouts may use <code>--font-mono</code> when the digits change while you watch.</li>
+<li>Anything that moves on its own stops for reduced motion; the controls still work and step instead.</li>
+</ul>
+</main>
+<script src="../docs/docs.js"></script>
+<script>
+// the scrubber demo shows its value; the Slow button toggles
+document.querySelectorAll('.docs-main .sys-controls').forEach(bar => {
+  const r = bar.querySelector('.sys-slider'), o = bar.querySelector('output');
+  if (r && o) r.addEventListener('input', () => { o.textContent = r.value + '%'; });
+  bar.querySelectorAll('.sys-controls__btn[aria-pressed]').forEach(b => b.addEventListener('click', () => b.setAttribute('aria-pressed', String(b.getAttribute('aria-pressed') !== 'true'))));
+});
+</script>
+</body>
+</html>

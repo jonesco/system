@@ -55,6 +55,7 @@
   --font-display: 'Trade Gothic Bold Cond 20', 'Trade Gothic', system-ui, sans-serif;
   --font-label: 'Trade Gothic Bold 2', 'Trade Gothic', system-ui, sans-serif;
   --font-body: 'Trade Gothic', system-ui, sans-serif;   /* Jonesco is all Trade Gothic (2.0.0; was Libre Franklin) */
+  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;   /* 3.5.0: code and readouts only. Load JetBrains Mono from Google Fonts; without it the system mono takes over */
   --track-display: -.01em;
   --track-label: .03em;
   --size-h1: clamp(44px, 6.4vw, 88px);

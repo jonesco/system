@@ -34,6 +34,7 @@ const NAV = [
     ["components/meter", "Meter"],
     ["components/content-switcher", "Content switcher"],
     ["components/toggle", "Toggle"],
+    ["components/control-bar", "Control bar & slider"],
     ["components/text-input", "Text input"],
     ["components/buttons-small", "Label & icon buttons"],
     ["components/tooltip", "Tooltip"],
@@ -137,6 +138,6 @@ const NAV = [
 
   const foot = document.createElement("div");
   foot.className = "docs-foot";
-  foot.innerHTML = `Jonesco.design · v3.4.0 · <a href="${root}changelog.html">Changelog</a>`;
+  foot.innerHTML = `Jonesco.design · v3.5.0 · <a href="${root}changelog.html">Changelog</a>`;
   main.append(foot);
 })();

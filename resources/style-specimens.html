@@ -24,10 +24,12 @@
   --bg:#ECEEE9; --surface:#F9FAF7; --ink:#16181C; --muted:#5A6068; --line:#D1D5CD; --accent:#2D43D9; --stage:#D5E6F7; --chip:#E5E8E1;
   --f-display:"Bricolage Grotesque","Arial Narrow",system-ui,sans-serif;
   --f-body:"Instrument Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
-  --f-mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  --f-mono:var(--font-mono);   /* the system mono, JetBrains Mono */
   font-family:var(--f-body);
 }
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .stage{--bg:#111316;--surface:#181B1F;--ink:#E8EAE5;--muted:#9AA0A7;--line:#2B2F35;--accent:#8E9DFF;--stage:#1F2226;--chip:#262A30;color-scheme:dark}}
+/* Interaction examples (the Motion group) use the system type: Trade Gothic for UI text, the system mono for readouts */
+#motion .stage{--f-display:var(--font-body);--f-body:var(--font-body)}
 :root[data-theme="dark"] .stage{--bg:#111316;--surface:#181B1F;--ink:#E8EAE5;--muted:#9AA0A7;--line:#2B2F35;--accent:#8E9DFF;--stage:#1F2226;--chip:#262A30;color-scheme:dark}
 
 /* ---------- Page ---------- */
@@ -48,7 +50,6 @@ body{font-size:16px}
 .sys-header{position:static}
 .sp-pin{position:sticky;top:0;z-index:10}
 .sp-pin .sys-section-nav{position:static}
-.sp-pin .sys-nav a span{margin-left:6px;font-family:var(--font-body);font-weight:400;letter-spacing:0;color:#bbb}
 .sp-pin .sys-nav a.is-current span{color:inherit}
 
 /* The top of the page, intro and pinned bar, is reversed: black under the black header, white type.
@@ -72,7 +73,7 @@ body{font-size:16px}
   .sys-brand .sp-mark{height:30px}
   .sp-filter{order:3;flex:0 0 auto;min-width:132px}
   .bar-in{gap:8px 16px;padding-top:8px;padding-bottom:20px}
-  .sp-pin .sys-nav a span{display:none}
+
   .sp-pin .sys-nav{gap:16px}
   .sp-search{order:4;flex:1 1 0;max-width:none}
 }
@@ -518,23 +519,11 @@ body{font-size:16px}
 .dm-t{position:absolute;left:0;top:50%;display:flex;gap:3cqw;padding:0 6cqw;transform:translate(0,-50%);will-change:transform}
 .dm-c{flex:none;width:22cqw;aspect-ratio:3/4;border-radius:2.4cqw;display:grid;align-content:end;padding:2.4cqw;font:600 3.4cqw var(--f-display);color:#fff;user-select:none;-webkit-user-select:none}
 .dm-h{position:absolute;left:0;right:0;bottom:4cqw;text-align:center;font:500 2.6cqw var(--f-mono);color:#7A808A;pointer-events:none}
-/* Plate controls: a strip along the bottom of an interactive plate (Moiré, Smear frames, Exploded view).
-   It's page chrome, not artwork, so it uses the system look (black bar, Trade Gothic labels, square controls, magenta)
-   in both themes. --sp-ink and --sp-accent carry the system values past the .stage palette. */
+/* Plate controls: the system control bar (.sys-controls, .sys-slider, .sys-frames) pinned to the bottom of an interactive plate.
+   The .stage palette renames --ink and --accent for the artwork, so the bar gets the system values back. */
 :root{--sp-ink:var(--ink);--sp-accent:var(--accent)}
-.pc{position:absolute;left:0;right:0;bottom:0;display:flex;align-items:center;gap:12px;min-height:40px;padding:6px 12px;box-sizing:border-box;background:var(--sp-ink);color:var(--paper);
-  font-family:var(--font-label);font-weight:700;font-size:11px;letter-spacing:var(--track-label);text-transform:uppercase}
-.pc input[type=range]{flex:1;min-width:0;margin:0;height:24px;background:transparent;cursor:pointer;-webkit-appearance:none;appearance:none}
-.pc input[type=range]::-webkit-slider-runnable-track{height:4px;background:#555}
-.pc input[type=range]::-moz-range-track{height:4px;background:#555}
-.pc input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:14px;height:14px;margin-top:-5px;background:var(--sp-accent);border:0;border-radius:0}
-.pc input[type=range]::-moz-range-thumb{width:14px;height:14px;background:var(--sp-accent);border:0;border-radius:0}
-.pc input[type=range]:focus-visible{outline:2px solid var(--sp-accent);outline-offset:2px}
-.pc output{min-width:4.6em;text-align:right;font-variant-numeric:tabular-nums}
-.pc .pbtn{font:inherit;letter-spacing:inherit;text-transform:inherit;padding:5px 10px;color:var(--paper);background:transparent;border:2px solid var(--paper);border-radius:0;transition:background var(--quick),color var(--quick)}
-.pc .pbtn:hover{background:var(--sp-accent);border-color:var(--sp-accent)}
-.pc .pbtn[aria-pressed="true"]{background:var(--paper);color:var(--sp-ink);border-color:var(--paper)}
-.pc .pbtn:focus-visible{outline:2px solid var(--sp-accent);outline-offset:2px}
+.pc{position:absolute;left:0;right:0;bottom:0;--ink:var(--sp-ink);--accent:var(--sp-accent)}
+
 .pbtn[aria-pressed="true"]{background:var(--ink);color:var(--surface)}
 /* Screen print: plate toggles beside the poster */
 .ssp{position:absolute;inset:0}
@@ -550,12 +539,6 @@ body{font-size:16px}
 /* Moiré, Smear frames, Exploded view: the drawing fills the plate behind the control strip */
 .mo,.sm,.cx,.ft{position:absolute;inset:0}
 .mo>svg,.sm>svg,.cx>svg,.ft>svg{display:block;width:100%;height:100%}
-.sm-st{display:flex;gap:3px;margin:0;padding:0;list-style:none}
-.sm-st li{width:9px;height:12px;border:1px solid #777;background:transparent}
-.sm-st li.sm-x{border-color:var(--sp-accent)}   /* smear frames */
-.sm-st li.on{background:var(--paper);border-color:var(--paper)}
-.sm-st li.sm-x.on{background:var(--sp-accent);border-color:var(--sp-accent)}
-.sm-n{flex:1;min-width:0;white-space:nowrap;overflow:hidden;color:#aaa}
 /* Follow-through: the pole's grab handle, also a keyboard slider */
 .ft-hit{position:absolute;width:13%;touch-action:none;cursor:grab}
 .ft-hit:active{cursor:grabbing}
@@ -617,7 +600,7 @@ body{font-size:16px}
 
 <div class="sp-pin on-black">
   <nav class="sys-section-nav" aria-label="Sections"><div class="sys-wrap sys-nav">
-    <a href="#illustration">Illustration<span id="n-ill"></span></a><a href="#motion">Motion<span id="n-mot"></span></a><a href="#limits">Limits</a>
+    <a href="#illustration">Illustration</a><a href="#motion">Motion</a><a href="#limits">Limits</a>
       <button type="button" id="motion-toggle" class="mt sys-toggle" role="switch" aria-checked="true"><span class="sys-toggle__track" aria-hidden="true"></span><span class="mt-l">Motion</span></button>
   </div></nav>
   <div class="bar" role="search" aria-label="Filter specimens"><div class="sys-wrap bar-in">
@@ -833,7 +816,7 @@ const G=[
 {name:'Moiré interference',added:'2026-11-12',d:'Two fine line grids, one turned over the other. The broad bands aren’t drawn anywhere; they come from the interference. Change the angle to move them.',use:'Op-art backgrounds, music and tech posters, scanning and signal motifs, used sparingly',how:'Two SVG pattern fills, the top one rotated by a slider. Band spacing is the line pitch over 2·sin(angle/2)',tags:['SVG','JS'],try:true,
  ctx:'Only two sets of evenly spaced thin parallel lines are drawn, in one ink on paper. The large soft bands are an emergent interference pattern: at a small angle they are wide and run nearly perpendicular to the lines; as the angle grows they get narrower and turn. At 0° the bands vanish into an even tint. Keep the lines fine and high-contrast; it shimmers, so keep it away from text.',
  init(st,card){const id='mo'+Math.random().toString(36).slice(2,7);
-  st.innerHTML=`<div class="mo">${svg(`<defs><pattern id="${id}" width="8" height="8" patternUnits="userSpaceOnUse"><rect width="8" height="3.6" fill="#141414"/></pattern></defs><rect width="400" height="300" fill="#F3EFE4"/><rect width="400" height="300" fill="url(#${id})"/><g class="mo-r"><rect x="-300" y="-250" width="1000" height="800" fill="url(#${id})"/></g>`)}<div class="pc"><label for="${id}-a">Angle</label><input type="range" id="${id}-a" min="0" max="30" step="0.5" value="5"><output for="${id}-a">5°</output></div></div>`;
+  st.innerHTML=`<div class="mo">${svg(`<defs><pattern id="${id}" width="8" height="8" patternUnits="userSpaceOnUse"><rect width="8" height="3.6" fill="#141414"/></pattern></defs><rect width="400" height="300" fill="#F3EFE4"/><rect width="400" height="300" fill="url(#${id})"/><g class="mo-r"><rect x="-300" y="-250" width="1000" height="800" fill="url(#${id})"/></g>`)}<div class="pc sys-controls"><label for="${id}-a">Angle</label><input type="range" class="sys-slider" id="${id}-a" min="0" max="30" step="0.5" value="5"><output for="${id}-a">5°</output></div></div>`;
   const g=st.querySelector('.mo-r'),inp=st.querySelector('input'),o=st.querySelector('output');let a=5,last=-1e9,ph=0;
   const set=v=>{a=v;g.setAttribute('transform',`rotate(${a.toFixed(2)} 200 150)`);o.textContent=(Math.round(a*2)/2)+'°';};
   const phase=()=>{ph=Math.acos(Math.max(-1,Math.min(1,(6.5-a)/4.5)));};   // resume the drift from wherever the angle is
@@ -1287,14 +1270,14 @@ vec2 v=u*(1.-u.yx);col*=pow(v.x*v.y*18.,.28);gl_FragColor=vec4(col,1.);}`,640,48
    im:`<ellipse cx="3" rx="22" ry="31" fill="${BODY}"/><circle cx="9" cy="-9" r="4.5" fill="${INK}"/>`};
   // [drawing, x, frames held]: hold, wind-up, three fast frames (two smears), landing squash, settle, hold
   const SEQ=[['n',90,6],['sq',84,2],['a',150,1],['b',240,1],['a',294,1],['im',318,2],['n',312,1],['n',310,6]],SM=k=>k==='a'||k==='b';
-  st.innerHTML=`<div class="sm">${svg(`<rect width="400" height="300" fill="#FDF1DC"/><path d="M30 196H370" stroke="#E2CDA8" stroke-width="3" stroke-linecap="round"/><ellipse class="sm-sh" cx="90" cy="196" rx="22" ry="4" fill="#000" opacity=".12"/><g class="sm-on"></g><g class="sm-ch"></g>`)}<div class="pc"><ol class="sm-st" aria-hidden="true">${SEQ.map(s=>`<li${SM(s[0])?' class="sm-x"':''}></li>`).join('')}</ol><span class="sm-n"></span><button type="button" class="pbtn sm-slow" aria-pressed="false" hidden>Slow</button><button type="button" class="pbtn sm-go">Step</button></div></div>`;
-  const ch=st.querySelector('.sm-ch'),sh=st.querySelector('.sm-sh'),on=st.querySelector('.sm-on'),cells=[...st.querySelectorAll('.sm-st li')],go=st.querySelector('.sm-go'),slow=st.querySelector('.sm-slow'),lab=st.querySelector('.sm-n');
+  st.innerHTML=`<div class="sm">${svg(`<rect width="400" height="300" fill="#FDF1DC"/><path d="M30 196H370" stroke="#E2CDA8" stroke-width="3" stroke-linecap="round"/><ellipse class="sm-sh" cx="90" cy="196" rx="22" ry="4" fill="#000" opacity=".12"/><g class="sm-on"></g><g class="sm-ch"></g>`)}<div class="pc sys-controls"><ol class="sys-frames" aria-hidden="true">${SEQ.map(s=>`<li${SM(s[0])?' class="is-marked"':''}></li>`).join('')}</ol><span class="sm-n sys-controls__readout"></span><button type="button" class="sys-controls__btn sm-slow" aria-pressed="false" hidden>Slow</button><button type="button" class="sys-controls__btn sm-go">Step</button></div></div>`;
+  const ch=st.querySelector('.sm-ch'),sh=st.querySelector('.sm-sh'),on=st.querySelector('.sm-on'),cells=[...st.querySelectorAll('.sys-frames li')],go=st.querySelector('.sm-go'),slow=st.querySelector('.sm-slow'),lab=st.querySelector('.sm-n');
   let dir=1,si=SEQ.length-1,held=0,acc=0,wait=.8,playing=false,still=true,lastUser=-1e9;
   const X=x=>dir>0?x:400-x;
   const show=i=>{const [k,x]=SEQ[i];still=false;on.innerHTML='';ch.innerHTML=D[k];ch.setAttribute('transform',`translate(${X(x)} 166) scale(${dir} 1)`);
-   sh.setAttribute('cx',X(x)-dir*(k==='b'?60:k==='a'?30:0));sh.setAttribute('rx',k==='b'?70:k==='a'?44:22);cells.forEach((c,j)=>c.classList.toggle('on',j===i));lab.textContent=`${i+1}/${SEQ.length}${SM(k)?' smear':''}`;};
+   sh.setAttribute('cx',X(x)-dir*(k==='b'?60:k==='a'?30:0));sh.setAttribute('rx',k==='b'?70:k==='a'?44:22);cells.forEach((c,j)=>c.classList.toggle('is-on',j===i));lab.textContent=`${i+1}/${SEQ.length}${SM(k)?' smear':''}`;};
   // The still: one trip as onion skins, with the long smear drawn solid
-  const composite=()=>{still=true;dir=1;ch.innerHTML='';sh.setAttribute('cx',90);sh.setAttribute('rx',22);cells.forEach(c=>c.classList.remove('on'));lab.textContent='';
+  const composite=()=>{still=true;dir=1;ch.innerHTML='';sh.setAttribute('cx',90);sh.setAttribute('rx',22);cells.forEach(c=>c.classList.remove('is-on'));lab.textContent='';
    on.innerHTML=[0,2,3,7].map(i=>{const [k,x]=SEQ[i];return `<g transform="translate(${x} 166)" opacity="${i===3||i===7?1:.28}">${D[k]}</g>`;}).join('')+`<path d="M236 112V128" stroke="${INK}" stroke-width="1.2"/><text x="236" y="104" text-anchor="middle" font-size="11" fill="${INK}" ${MO}>smear frame</text>`;};
   const begin=()=>{if(still)dir=1;else if(!playing)dir=-dir;si=0;held=0;acc=0;playing=true;show(0);};
   go.addEventListener('click',()=>{lastUser=performance.now();if(card.live){begin();return;}
@@ -1338,8 +1321,8 @@ vec2 v=u*(1.-u.yx);col*=pow(v.x*v.y*18.,.28);gl_FragColor=vec4(col,1.);}`,640,48
   st.addEventListener('pointermove',e=>{[mx,my]=ptr(st,e);last=performance.now();});st.addEventListener('pointerleave',()=>{mx=my=-999;});
   st.addEventListener('pointerdown',()=>{burst=1;});
   const draw=()=>{x.fillStyle='#0E0F1A';x.fillRect(0,0,400,300);for(const p of P){x.fillStyle=p.c;x.fillRect(p.x-1.2,p.y-1.2,2.4,2.4);}};
-  return fontsReady('800 120px "Bricolage Grotesque"').then(()=>{const o=document.createElement('canvas');o.width=400;o.height=300;const ox=o.getContext('2d');
-   ox.font='800 128px "Bricolage Grotesque", Arial Black, sans-serif';ox.textAlign='center';ox.textBaseline='middle';ox.fillText('SPARK',200,152);
+  return fontsReady('700 120px "Trade Gothic Bold Cond 20"').then(()=>{const o=document.createElement('canvas');o.width=400;o.height=300;const ox=o.getContext('2d');
+   ox.font='700 128px "Trade Gothic Bold Cond 20", Arial Black, sans-serif';ox.textAlign='center';ox.textBaseline='middle';ox.fillText('SPARK',200,152);
    const d=ox.getImageData(0,0,400,300).data,r=rng(5);for(let y=0;y<300;y+=4)for(let X=0;X<400;X+=4)if(d[(y*400+X)*4+3]>128)P.push({tx:X,ty:y,x:X,y:y,vx:0,vy:0,c:`hsl(${200+X/400*120},90%,${62+r()*14}%)`});
    draw();let nextAuto=performance.now()+3500;
    return (t,dt)=>{const now=performance.now(),idle=now-last>2500;if(idle&&now>nextAuto){burst=1;nextAuto=now+5000;}
@@ -1348,7 +1331,7 @@ vec2 v=u*(1.-u.yx);col*=pow(v.x*v.y*18.,.28);gl_FragColor=vec4(col,1.);}`,640,48
      p.vx+=(p.tx-p.x)*.035;p.vy+=(p.ty-p.y)*.035;p.vx*=.86;p.vy*=.86;p.x+=p.vx;p.y+=p.vy;}burst=0;draw();};});}},
 {name:'Text on a path',added:'2026-11-08',d:'A line of type flowing along a curve.',use:'Badges, playful headers, packaging, motion titles',how:'SVG textPath, its startOffset moved each frame',tags:['SVG'],
  init(st){st.innerHTML=svg(`<rect width="400" height="300" fill="#FAE9CD"/><path id="tp-p" d="M-40 190 C 60 60, 160 60, 200 150 S 340 250, 440 110" fill="none" stroke="#F4C7A1" stroke-width="2" stroke-dasharray="3 6"/>
-<text font-family="Bricolage Grotesque, Arial Black, sans-serif" font-weight="700" font-size="26" fill="#E4572E" letter-spacing="1"><textPath id="tp-t" href="#tp-p" startOffset="0">Type that travels · along any curve · Type that travels · along any curve · </textPath></text>`);
+<text font-family="'Trade Gothic Bold Cond 20', sans-serif" font-weight="700" font-size="26" fill="#E4572E" letter-spacing="1"><textPath id="tp-t" href="#tp-p" startOffset="0">Type that travels · along any curve · Type that travels · along any curve · </textPath></text>`);
   const tp=st.querySelector('#tp-t'),len=st.querySelector('#tp-p').getTotalLength(),tl=()=>tp.getComputedTextLength?tp.getComputedTextLength()/2:len;
   const set=t=>{const L=tl()||len;tp.setAttribute('startOffset',(-((t*55)%L)).toFixed(1));};set(0);return t=>set(t);}},
 ]},
@@ -1516,7 +1499,7 @@ vec2 v=u*(1.-u.yx);col*=pow(v.x*v.y*18.,.28);gl_FragColor=vec4(col,1.);}`,640,48
   const lab=(y,txt,cls)=>`<text class="${cls}" x="14" y="${y}" font-size="10" letter-spacing="1" fill="#4A5059" ${MO}>${txt}</text>`;
   st.innerHTML=`<div class="cx">${svg(`<rect width="400" height="300" fill="#E8ECEF"/><ellipse class="cx-shadow" cx="${CX}" cy="${CY+52}" rx="120" ry="16" fill="#000" opacity=".08"/><g class="cx-gd" fill="none" stroke="#7D8794" stroke-width="1" stroke-dasharray="3 3"></g>
    <g class="cx-p" data-k="bot">${parts.bot}</g><g class="cx-p" data-k="rl">${parts.rl}</g><g class="cx-p" data-k="rr">${parts.rr}</g><g class="cx-p" data-k="top">${parts.top}</g>${SCREWS.map((_,i)=>`<g class="cx-s">${screw}</g>`).join('')}
-   <g class="cx-lb">${lab(0,'TOP SHELL','l-top')}${lab(0,'REELS','l-reel')}${lab(0,'BOTTOM SHELL','l-bot')}<text class="l-scr" x="386" y="16" text-anchor="end" font-size="10" letter-spacing="1" fill="#4A5059" ${MO}>SCREWS ×5</text></g>`)}<div class="pc"><label for="${id}">Assembly</label><input type="range" id="${id}" min="0" max="100" step="1" value="55"><output for="${id}"></output></div></div>`;
+   <g class="cx-lb">${lab(0,'TOP SHELL','l-top')}${lab(0,'REELS','l-reel')}${lab(0,'BOTTOM SHELL','l-bot')}<text class="l-scr" x="386" y="16" text-anchor="end" font-size="10" letter-spacing="1" fill="#4A5059" ${MO}>SCREWS ×5</text></g>`)}<div class="pc sys-controls"><label for="${id}">Assembly</label><input type="range" class="sys-slider" id="${id}" min="0" max="100" step="1" value="55"><output for="${id}"></output></div></div>`;
   const P={};st.querySelectorAll('.cx-p').forEach(g=>P[g.dataset.k]=g);
   const S=[...st.querySelectorAll('.cx-s')],gd=st.querySelector('.cx-gd'),lb=st.querySelector('.cx-lb'),inp=st.querySelector('input'),o=st.querySelector('output'),sh=st.querySelector('.cx-shadow');
   const L={top:lb.querySelector('.l-top'),reel:lb.querySelector('.l-reel'),bot:lb.querySelector('.l-bot')};
@@ -1640,11 +1623,11 @@ vec2 o=vec2(nz-.5,nz-.45)*.38;gl_FragColor=vec4(mix(A(u+o*P*(1.-m)),B(u-o*(1.-P)
 {t:'Play and spectacle',items:[
 {name:'Confetti burst',d:'Paper bits that flip, flutter and drift down. Tap to fire another.',use:'Success moments, milestones, sign-up complete',how:'Canvas particles with drag, sway and a fake 3D flip from scaling',tags:['Canvas'],try:true,
  async init(st,card){const [c,x]=cv(st),P=[],pal=['#FF5E5B','#FFD23F','#3BCEAC','#4D7CFF','#B15CFF','#FF8FB1'],r=Math.random;let acc=0;
-  await fontsReady('800 34px "Bricolage Grotesque"');
+  await fontsReady('700 34px "Trade Gothic Bold Cond 20"');
   const burst=(px,py,n,a0)=>{for(let i=0;i<n;i++){const a=a0+(r()-.5)*1.1,s=260+r()*300;P.push({x:px,y:py,vx:Math.cos(a)*s,vy:Math.sin(a)*s,rot:r()*TAU,vr:(r()-.5)*12,fl:r()*TAU,vf:6+r()*8,w:5+r()*5,h:8+r()*6,c:pal[r()*6|0],sw:r()*TAU});}if(P.length>500)P.splice(0,P.length-500);};
   const both=()=>{burst(60,300,90,-Math.PI/2+.45);burst(340,300,90,-Math.PI/2-.45);};
   const step=dt=>{for(let i=P.length-1;i>=0;i--){const p=P[i];p.vy+=420*dt;p.vx*=1-2.2*dt;p.vy*=1-1.6*dt;p.sw+=dt*3;p.x+=p.vx*dt+Math.sin(p.sw)*22*dt;p.y+=p.vy*dt;p.rot+=p.vr*dt;p.fl+=p.vf*dt;if(p.y>320)P.splice(i,1);}};
-  const draw=()=>{x.fillStyle='#F9E9CB';x.fillRect(0,0,400,300);x.fillStyle='#1E1B2E';x.font='800 34px "Bricolage Grotesque", sans-serif';x.textAlign='center';x.fillText('You’re in!',200,160);
+  const draw=()=>{x.fillStyle='#F9E9CB';x.fillRect(0,0,400,300);x.fillStyle='#1E1B2E';x.font='700 34px "Trade Gothic Bold Cond 20", sans-serif';x.textAlign='center';x.fillText('You’re in!',200,160);
    for(const p of P){x.save();x.translate(p.x,p.y);x.rotate(p.rot);x.scale(1,Math.cos(p.fl));x.fillStyle=p.c;x.fillRect(-p.w/2,-p.h/2,p.w,p.h);x.restore();}};
   st.addEventListener('pointerdown',e=>{const b=st.getBoundingClientRect();burst((e.clientX-b.left)/b.width*400,(e.clientY-b.top)/b.height*300,110,-Math.PI/2);if(!card.live){for(let k=0;k<30;k++)step(1/60);draw();}});
   both();for(let k=0;k<45;k++)step(1/60);draw();
@@ -1740,7 +1723,6 @@ G.forEach(g=>{const sec=document.createElement('section');sec.className='group';
       if(it.stage)c.stage.innerHTML=it.stage;cards.push(c);byEl.set(a,c);});
     ss.appendChild(grid);sec.appendChild(ss);});
   main.appendChild(sec);
-  const cnt=document.getElementById(g.key==='illustration'?'n-ill':'n-mot');if(cnt)cnt.textContent=total;
   const big=document.getElementById(g.key==='illustration'?'st-ill':'st-mot');if(big)big.textContent=total;});
 
 function setLive(c){const l=motionOn&&c.visible&&c.inited&&!c.el.hidden;if(l===c.live)return;c.live=l;c.el.classList.toggle('live',l);if(c.onLive){try{c.onLive(l);}catch(e){console.error(e);}}}
@@ -1762,12 +1744,18 @@ mt.addEventListener('click',()=>{motionOn=!motionOn;syncMT();});
 const pin=document.querySelector('.sp-pin'),setPin=()=>document.documentElement.style.setProperty('--pin',pin.offsetHeight+'px');
 setPin();if('ResizeObserver' in window)new ResizeObserver(setPin).observe(pin);
 const navA=[...document.querySelectorAll('.sp-pin .sys-nav a')],secs=navA.map(a=>document.querySelector(a.getAttribute('href')));
+// a link that opens on a #section keeps it until the reader scrolls or clicks
+let hashSync=!location.hash;['wheel','touchmove','keydown','pointerdown'].forEach(t=>addEventListener(t,()=>{hashSync=true;},{once:true,passive:true}));
 const markNav=()=>{const y=pin.offsetHeight+80;let cur=null;secs.forEach((x,i)=>{if(x&&x.getBoundingClientRect().top<=y)cur=i;});
  if(innerHeight+scrollY>=document.documentElement.scrollHeight-2)cur=secs.length-1;   /* Limits is short: at the page end it's current even below the line */
- navA.forEach((a,i)=>{a.classList.toggle('is-current',i===cur);if(i===cur)a.setAttribute('aria-current','true');else a.removeAttribute('aria-current');});};
+ navA.forEach((a,i)=>{a.classList.toggle('is-current',i===cur);if(i===cur)a.setAttribute('aria-current','true');else a.removeAttribute('aria-current');});
+ // the #section in the URL follows the scroll (no new history entries), so a copied link opens where you were
+ const h=cur===null?'':navA[cur].getAttribute('href');if(hashSync&&location.hash!==h)history.replaceState(null,'',location.pathname+location.search+h);};
 if('IntersectionObserver' in window){const sio=new IntersectionObserver(markNav,{threshold:[0,1],rootMargin:'0px 0px -50% 0px'});secs.forEach(x=>x&&sio.observe(x));
  secs.forEach(x=>x&&x.querySelectorAll('.g-head,.sec').forEach(h=>sio.observe(h)));}
 addEventListener('scrollend',markNav);
+// and on every scroll, once a frame, so the current link changes as you pass each section (Safari has no scrollend)
+let navRaf=0;addEventListener('scroll',()=>{if(!navRaf)navRaf=requestAnimationFrame(()=>{navRaf=0;markNav();});},{passive:true});
 /* Back to top: shown once the black intro is out of view */
 const toTop=document.querySelector('.sys-to-top'),topH=document.getElementById('top');
 if('IntersectionObserver' in window)new IntersectionObserver(([e])=>toTop.classList.toggle('is-shown',!e.isIntersecting)).observe(document.querySelector('.sp-hero'));

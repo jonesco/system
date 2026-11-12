@@ -18,7 +18,7 @@
 <body data-root="../" data-page="foundations/type">
 <main class="docs-main">
 <h1>Typography</h1>
-<p class="lead">All Trade Gothic: Bold Condensed No. 20 for headlines, Bold No. 2 for titles and labels, the regular weight for reading.</p>
+<p class="lead">Trade Gothic: Bold Condensed No. 20 for headlines, Bold No. 2 for titles and labels, the regular weight for reading. JetBrains Mono only for code and readouts.</p>
 <div class="demo"><div class="demo-stage ">
 <div class="sys-display" style="font-size:88px">Display headline</div>
 <div class="sys-display" style="font-size:44px;margin-top:16px">Section heading</div>
@@ -31,10 +31,17 @@
 <tr><td><code>--font-display</code></td><td>Trade Gothic Bold Cond 20</td><td>Headlines, wordmarks, tile titles</td></tr>
 <tr><td><code>--font-label</code></td><td>Trade Gothic Bold 2</td><td>Nav, buttons, tags, list labels</td></tr>
 <tr><td><code>--font-body</code></td><td>Trade Gothic (regular, oblique, bold)</td><td>Everything you read</td></tr>
+<tr><td><code>--font-mono</code></td><td>JetBrains Mono (3.5.0)</td><td>Code, and live readouts in tools and examples</td></tr>
 <tr><td><code>--track-display</code></td><td>-.01em</td><td>Headlines</td></tr>
 <tr><td><code>--track-label</code></td><td>.03em</td><td>Labels</td></tr>
 <tr><td><code>--size-h1</code> / <code>--size-h2</code> / <code>--size-section</code></td><td>clamp(44–88) / clamp(30–44) / clamp(36–58)</td><td>Page title / sub head / section heading</td></tr>
 </table>
+<h3>Mono</h3>
+<div class="demo"><div class="demo-stage">
+<p style="font-family:var(--font-mono);font-size:15px;margin:0">--accent: #e4148c;</p>
+<p style="font-family:var(--font-mono);font-size:13px;margin:10px 0 0;color:var(--muted)">top: open · let go at 38%, 0.8/s · 1/8</p>
+</div></div>
+<p>JetBrains Mono, through <code>--font-mono</code>, only where characters need to line up: code, token values, and readouts that change as you drag or play. Load it from Google Fonts (<code>family=JetBrains+Mono:wght@400;500;700</code>); without it the system’s own mono takes over.</p>
 <h2>Case</h2>
 <p>One rule: <b>caps for the hero, sentence case for titles you read, caps for short labels.</b></p>
 <table>
@@ -54,7 +61,7 @@
 <li>Condensed caps read smaller than their size: set headlines larger than you would a regular face.</li>
 <li>The fonts carry a metric fix so caps sit centered in their boxes; don’t nudge them with padding.</li>
 <li>Characters outside the trimmed fonts fall back to the system sans. All the cuts include Ō.</li>
-<li>Jonesco uses only Trade Gothic. Don’t add another typeface, including for body copy.</li>
+<li>Jonesco uses only Trade Gothic, plus JetBrains Mono for code and readouts. Don’t add another typeface, and never set headlines, labels or body copy in the mono.</li>
 </ul>
 </main>
 <script src="../docs/docs.js"></script>
