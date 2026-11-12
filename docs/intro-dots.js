@@ -8,6 +8,10 @@
   const ink = getComputedStyle(document.documentElement).getPropertyValue("--accent").trim() || "#e4148c";
   const still = matchMedia("(prefers-reduced-motion: reduce)").matches;
 
+  // the release number sits in the bottom right corner, on a patch kept clear of dots
+  const tag = canvas.parentElement.querySelector(".intro-dots__v");
+  if (tag) tag.textContent = "v" + (document.documentElement.dataset.version || "");
+
   // J© mark, logos/jonesco-j-black.svg: 224.457 x 166.797, offset by (-623.488, -522.441)
   const MARK = [
   'M 623.488281 658.867188 L 628.832031 658.867188 C 638.695312 658.867188 642.191406 654.757812 642.191406 646.535156 L 642.191406 530.621094 L 667.675781 530.621094 L 667.675781 649.414062 C 667.675781 668.320312 660.070312 681.0625 631.914062 681.0625 L 623.488281 681.0625 Z M 623.488281 658.867188 ',
@@ -40,11 +44,24 @@
     MARK.forEach(p => mc.fill(p));
     const alpha = mc.getImageData(0, 0, m.width, m.height).data;
 
-    dots = [];
     const cols = Math.floor(W / PITCH), rows = Math.floor(H / PITCH);
     const ox = (W - (cols - 1) * PITCH) / 2, oy = (H - (rows - 1) * PITCH) / 2;
+    // the label sits three rows of dots in from the right and bottom, centered in a patch of whole grid cells cleared for it
+    let clear = null;
+    if (tag && tag.textContent.length > 1) {
+      tag.style.left = tag.style.top = "0px"; tag.style.right = tag.style.bottom = "auto";
+      const t = tag.getBoundingClientRect();
+      const n = Math.ceil((t.width + PITCH * 1.2) / PITCH), m = Math.ceil((t.height + PITCH * 0.8) / PITCH);   // columns and rows to clear
+      const i1 = cols - 4, i0 = i1 - n + 1, j1 = rows - 4, j0 = j1 - m + 1;
+      clear = { i0, i1, j0, j1 };
+      // centered between the nearest dots left on each side
+      const cx = ox + ((i0 - 1) + (i1 + 1)) / 2 * PITCH, cy = oy + ((j0 - 1) + (j1 + 1)) / 2 * PITCH;
+      tag.style.left = (cx - t.width / 2) + "px"; tag.style.top = (cy - t.height / 2) + "px";
+    }
+    dots = [];
     for (let j = 0; j < rows; j++) for (let i = 0; i < cols; i++) {
       const x = ox + i * PITCH, y = oy + j * PITCH;
+      if (clear && i >= clear.i0 && i <= clear.i1 && j >= clear.j0 && j <= clear.j1) continue;
       const a = alpha[((Math.round(y) * m.width + Math.round(x)) << 2) + 3] / 255;
       dots.push({ hx: x, hy: y, x, y, vx: 0, vy: 0, r: R_MIN + (R_MAX - R_MIN) * a * a * (3 - 2 * a) });
     }
@@ -107,5 +124,6 @@
   new ResizeObserver(() => { build(); draw(); }).observe(canvas);
 
   build(); draw();
+  document.fonts.ready.then(() => { build(); draw(); });   // the clear patch follows the label once Trade Gothic is in
   if (!still) { ripples.push({ ...ring, t: 0 }); wake(); }   // one ring on arrival, out of the ©
 })();

@@ -56,6 +56,8 @@ const NAV = [
 ];
 
 (function () {
+  const VERSION = "3.5.0";   // the latest release; the footer and the intro banner show it
+  document.documentElement.dataset.version = VERSION;
   const root = document.body.dataset.root || "";
   const page = document.body.dataset.page || "index";
   const main = document.querySelector(".docs-main");
@@ -138,6 +140,6 @@ const NAV = [
 
   const foot = document.createElement("div");
   foot.className = "docs-foot";
-  foot.innerHTML = `Jonesco.design · v3.5.0 · <a href="${root}changelog.html">Changelog</a>`;
+  foot.innerHTML = `Jonesco.design · v${VERSION} · <a href="${root}changelog.html">Changelog</a>`;
   main.append(foot);
 })();
