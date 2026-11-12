@@ -1,0 +1,472 @@
+/* Jonesco system: opt-in patterns. Load after system.css.
+   Each pattern is a small, proven block from jonescoartdept.com or jonesco.com,
+   under a sys- prefix so it never collides with a site's own classes.
+   Use what fits; restyle freely in the site's stylesheet. */
+
+/* ---------- Wrap: the centered column ---------- */
+.sys-wrap { max-width: var(--wrap); margin: 0 auto; padding: 0 var(--gutter); }
+
+/* ---------- Type helpers ---------- */
+.sys-display { font-family: var(--font-display); font-weight: 700; text-transform: uppercase; letter-spacing: var(--track-display); line-height: .95; }
+.sys-label { font-family: var(--font-label); font-weight: 700; text-transform: uppercase; letter-spacing: var(--track-label); font-size: var(--size-label); }
+
+/* Sentence-case title: for titles read in groups or inside content (tiles, in-page headings, list titles).
+   The page hero stays .sys-display / condensed caps. */
+.sys-title { font-family: var(--font-label); font-weight: 700; text-transform: none; letter-spacing: 0; line-height: 1.15; }
+
+/* ---------- Header: black bar, white wordmark, label nav ----------
+   <header class="sys-header"><div class="sys-wrap sys-bar">
+     <a class="sys-brand" href="/">…wordmark…</a>
+     <nav class="sys-nav"><a href="…">Work</a>…</nav>
+   </div></header>
+   Add .sys-header--grow and toggle .is-scrolled on <html> for the big-then-shrink home header. */
+.sys-header { position: sticky; top: 0; z-index: 10; background: var(--ink); color: var(--paper); }
+.sys-bar { display: flex; align-items: center; justify-content: space-between; gap: 16px; height: var(--hdr); }
+.sys-brand { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+.sys-brand img { height: 52px; width: auto; filter: brightness(0) invert(1); }   /* dark logo art, shown pure white */
+.sys-brand span { font-family: var(--font-display); font-weight: 700; text-transform: uppercase; font-size: 32px; line-height: 1; white-space: nowrap; padding-top: 1px; }
+.sys-nav { display: flex; gap: 28px; }
+/* transparent top border balances the hover underline so the text stays vertically centered */
+.sys-nav a { font-family: var(--font-label); font-weight: 700; font-size: var(--size-label); letter-spacing: var(--track-label);
+  text-transform: uppercase; text-decoration: none; padding: 5px 0 3px; border-top: 3px solid transparent; border-bottom: 3px solid transparent; }
+.sys-nav a:hover { color: var(--highlight); border-bottom-color: var(--highlight); }
+.sys-header--grow { --hdr: 192px; }
+.sys-header--grow .sys-bar, .sys-header--grow .sys-brand img { transition: height var(--shrink); }
+.sys-header--grow .sys-brand img { height: 82px; }
+.is-scrolled .sys-header--grow .sys-bar { height: 80px; }
+.is-scrolled .sys-header--grow .sys-brand img { height: 34px; }
+@media (prefers-reduced-motion: reduce) { .sys-header--grow .sys-bar, .sys-header--grow .sys-brand img { transition: none; } }
+
+/* ---------- Section heading ---------- */
+.sys-section-head { padding: var(--space-section) 0 var(--space-head); }
+.sys-section-head h2 { font-family: var(--font-display); font-weight: 700; text-transform: uppercase; letter-spacing: var(--track-display);
+  font-size: var(--size-section); line-height: .95; margin: 0; }
+.sys-section-head p { margin: 8px 0 0; font-family: var(--font-label); font-weight: 700; text-transform: uppercase; letter-spacing: var(--track-label); font-size: var(--size-label); }
+
+/* ---------- Tag (3.0.0): a pill with no border; dark or light, small or medium ----------
+   <span class="sys-tag">Critical</span>                        dark: black, yellow type (the default)
+   <span class="sys-tag sys-tag--light">Working</span>          light: newsprint, black type (white on a newsprint panel)
+   <span class="sys-tag sys-tag--white">SVG</span>              white: white, black type, for newsprint or a color behind it
+   <span class="sys-tag sys-tag--accent">New</span>             accent (3.2.0): magenta, white type; one per group, for what's new or featured
+   <span class="sys-tag sys-tag--md">Case Study #5487</span>    medium: 32px, the height of a small content switcher
+   Small (24px) is the default. Tags are the one rounded thing in the system, so they never read as buttons. */
+.sys-tag { display: inline-flex; align-items: center; height: 24px; padding: 0 10px; border-radius: 999px; background: var(--ink); color: var(--highlight);
+  font-family: var(--font-label); font-weight: 700; font-size: 12px; line-height: 1; letter-spacing: var(--track-label); text-transform: uppercase; white-space: nowrap; vertical-align: middle; }
+.sys-tag--md { height: 32px; padding: 0 14px; font-size: var(--size-tag); }
+.sys-tag--light, .sys-tag--plain { background: var(--newsprint); color: var(--ink); }
+.sys-tag--white { background: var(--paper); color: var(--ink); }
+.sys-tag--accent { background: var(--accent); color: var(--paper); }
+
+/* ---------- Button: black block; magenta on hover; secondary is a newsprint block; ghost is an outline ----------
+   Three sizes (3.0.0). Large (64px) is the default and the page call to action. Medium (.sys-btn--md, 40px) and
+   small (.sys-btn--sm, 32px) match the medium and small content switchers, so a button lines up in a row with one. */
+.sys-btn { display: inline-flex; align-items: center; justify-content: space-between; gap: 24px; min-height: 64px; padding: 10px 18px;
+  background: var(--ink); color: var(--paper); border: var(--thin); cursor: pointer; text-decoration: none;
+  font-family: var(--font-label); font-weight: 700; font-size: 15px; letter-spacing: var(--track-label); text-transform: uppercase;
+  transition: background var(--quick), color var(--quick), border-color var(--quick); }
+.sys-btn:hover { background: var(--accent); border-color: var(--accent); }
+.sys-btn--ghost { background: transparent; color: var(--ink); border-color: var(--ink); }
+.sys-btn--ghost:hover { background: var(--ink); border-color: var(--ink); color: var(--paper); }
+/* secondary (3.4.0): a newsprint block beside the black one, black on hover. From jonesco.com's hero ("Apps I've built"). */
+.sys-btn--secondary { background: var(--newsprint); color: var(--ink); border-color: var(--newsprint); }
+.sys-btn--secondary:hover { background: var(--ink); border-color: var(--ink); color: var(--paper); }
+.sys-btn .plus { font-size: 28px; font-weight: 400; line-height: 1; }
+.sys-btn--md { min-height: 40px; padding: 0 14px; gap: 16px; font-size: var(--size-tag); }
+.sys-btn--md .plus { font-size: 20px; }
+.sys-btn--sm { min-height: 32px; padding: 0 10px; gap: 12px; font-size: var(--size-tag); }
+.sys-btn--sm .plus { font-size: 17px; }
+/* Icon only (3.0.0): a square button with one glyph, in any size; pair it with a tooltip and aria-label.
+   <button class="sys-btn sys-btn--md sys-btn--icon sys-tooltip" aria-label="Download" data-tip="Download"><svg …/></button>
+   Glyphs: 24px large, 20px medium, 16px small, drawn in currentColor. */
+.sys-btn--icon { justify-content: center; gap: 0; padding: 0; width: 64px; }
+.sys-btn--icon.sys-btn--md { width: 40px; }
+.sys-btn--icon.sys-btn--sm { width: 32px; }
+.sys-btn--icon svg { display: block; width: 24px; height: 24px; flex: none; }
+.sys-btn--icon.sys-btn--md svg { width: 20px; height: 20px; }
+.sys-btn--icon.sys-btn--sm svg { width: 16px; height: 16px; }
+
+/* ---------- Tile: bordered image, small id, title over a thick rule ---------- */
+.sys-tiles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; }
+.sys-tile { display: flex; flex-direction: column; text-decoration: none; color: inherit; }
+.sys-tile__art { aspect-ratio: 4 / 3; border: var(--rule); overflow: hidden; background: var(--ink); }
+.sys-tile__art img { width: 100%; height: 100%; object-fit: cover; object-position: top; transition: transform .25s; }
+.sys-tile:hover .sys-tile__art img { transform: scale(1.04); }
+.sys-tile__id { margin: 14px 0 6px; font-family: var(--font-label); font-weight: 700; font-size: var(--size-tag); letter-spacing: var(--track-label); color: #888; }
+.sys-tile__title { margin: 0; padding-bottom: 12px; border-bottom: var(--rule); font-family: var(--font-label); font-weight: 700;
+  text-transform: none; letter-spacing: 0; font-size: 26px; line-height: 1.15; transition: color var(--quick); }
+.sys-tile:hover .sys-tile__title { color: var(--accent); }
+.sys-tile__text { margin: 12px 0 0; font-size: 15px; line-height: 1.45; color: var(--muted); }
+
+/* ---------- Spec list: label / value rows on thin rules ---------- */
+.sys-specs { list-style: none; margin: 0; padding: 0; }
+.sys-specs li { display: flex; justify-content: space-between; gap: 16px; padding: 10px 0; border-bottom: var(--thin); font-size: 15px; }
+.sys-specs b { font-family: var(--font-label); font-weight: 700; font-size: var(--size-tag); letter-spacing: var(--track-label); text-transform: uppercase; padding-top: 2px; }
+
+/* ---------- Paper: newsprint panel; scanned line art multiplies onto it ---------- */
+.sys-paper { background: var(--newsprint); border: var(--rule); }
+.sys-paper img { mix-blend-mode: multiply; }
+
+/* ---------- Band: full-width black block that runs into the footer ---------- */
+.sys-band { background: var(--ink); color: var(--paper); border-bottom: 1px solid var(--line-dark); }
+.sys-band--next { display: block; text-decoration: none; }
+.sys-band--next .sys-wrap { display: flex; flex-direction: column; align-items: flex-start; gap: 16px; padding-top: 48px; padding-bottom: 44px; min-height: 292px; }
+.sys-band--next .sys-label { line-height: 1; }
+.sys-band--next .sys-display { font-size: clamp(32px, 4.4vw, 56px); transition: color var(--quick); }
+.sys-band--next:hover .sys-display, .sys-band--next:hover .sys-label { color: var(--highlight); }
+
+/* ---------- Footer: black, label links, small © ---------- */
+.sys-footer { background: var(--ink); color: var(--paper); }
+.sys-footer .sys-wrap { display: flex; justify-content: space-between; align-items: center; gap: 24px; flex-wrap: wrap; padding-top: 32px; padding-bottom: 32px; }
+.sys-footer .links { display: flex; gap: 28px; flex-wrap: wrap; }
+.sys-footer a { font-family: var(--font-label); font-weight: 700; font-size: var(--size-label); letter-spacing: var(--track-label); text-transform: uppercase; text-decoration: none; }
+.sys-footer a:hover { color: var(--highlight); }
+.sys-footer small { font-size: 13px; }
+
+/* ---------- Phones ---------- */
+@media (max-width: 900px) { .sys-tiles { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 640px) {
+  :root { --gutter: var(--gutter-sm); --hdr: var(--hdr-sm); --space-section: 40px; --space-head: 24px; }
+  .sys-tiles { grid-template-columns: 1fr; row-gap: 80px; }
+  .sys-nav { gap: 16px; }
+  .sys-nav .opt { display: none; }
+  .sys-brand span { font-size: 22px; }
+  .sys-brand img { height: 42px; }
+  .sys-header--grow { --hdr: 115px; }
+  .sys-header--grow .sys-brand img { height: 43px; }
+  .is-scrolled .sys-header--grow .sys-bar { height: 64px; }
+  .is-scrolled .sys-header--grow .sys-brand img { height: 24px; }
+  .sys-band--next .sys-wrap { padding-top: 36px; padding-bottom: 32px; min-height: 290px; }
+}
+
+
+/* ======================================================================
+   DASHBOARD PATTERNS (1.2.0), from the Financial Dashboard.
+   Numbers, meters and controls for data-heavy pages. Built only from the
+   tokens above: square, thick rule for titles, thin for rows, one data color.
+   ====================================================================== */
+
+/* ---------- Block title: sentence-case title over a thick rule ----------
+   For titles inside a section (a card, a chart, a table). Same voice as a tile title. */
+.sys-block-title { margin: 0; padding-bottom: 10px; border-bottom: var(--rule); font-family: var(--font-label); font-weight: 700;
+  text-transform: none; letter-spacing: 0; font-size: 22px; line-height: 1.15; }
+.on-black .sys-block-title, .sys-band .sys-block-title { border-bottom-color: var(--paper); }
+
+/* ---------- Stat: caps label over a condensed figure ----------
+   <div class="sys-stat"><p class="sys-stat__label">Monthly surplus</p><p class="sys-stat__fig">+$2,250</p><p class="sys-stat__note">…</p></div> */
+.sys-stat { min-width: 0; }
+.sys-stat__label { margin: 0 0 8px; font-family: var(--font-label); font-weight: 700; font-size: var(--size-tag); letter-spacing: var(--track-label);
+  text-transform: uppercase; line-height: 1.2; }
+.sys-stat__fig { margin: 0; font-family: var(--font-display); font-weight: 700; letter-spacing: var(--track-display); line-height: .95;
+  font-size: 40px; font-variant-numeric: tabular-nums; }
+.sys-stat--sm .sys-stat__fig { font-size: 28px; }
+.sys-stat--lg .sys-stat__fig { font-size: 52px; }
+.sys-stat--xl .sys-stat__fig { font-size: clamp(64px, 7.4vw, 88px); }
+.sys-stat__note { margin: 8px 0 0; font-size: 15px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.on-black .sys-stat__note, .sys-band .sys-stat__note { color: #bbb; }
+
+/* ---------- Mark: the one headline figure on a yellow block ---------- */
+.sys-mark { display: inline-block; background: var(--highlight); color: var(--ink); padding: .06em .08em .02em; }
+
+/* ---------- Meter: data fill on the gray track, optional target ----------
+   <div class="sys-meter" role="meter" …>
+     <div class="sys-meter__fill" style="width:87%"></div>
+     <div class="sys-meter__over" style="left:67%;width:20%"></div>   (only past the target)
+     <div class="sys-meter__target" style="left:67%"></div>
+   </div> */
+.sys-meter { position: relative; height: 32px; background: var(--gray); }
+.sys-meter__fill { height: 100%; background: var(--data); }
+.sys-meter__over { position: absolute; top: 0; bottom: 0; background: repeating-linear-gradient(-45deg, rgb(255 255 255 / .6) 0 2px, transparent 2px 7px); }
+.sys-meter__target { position: absolute; top: 0; bottom: 0; width: 0; }
+.sys-meter__target::before { content: ""; position: absolute; top: 0; bottom: 0; left: -1.5px; width: 3px; background: var(--paper); }
+.sys-meter__target::after { content: ""; position: absolute; top: -10px; left: -6px; border: 6px solid transparent; border-top: 8px solid var(--ink); border-bottom: 0; }
+.on-black .sys-meter, .sys-band .sys-meter { background: var(--line-dark); }
+.on-black .sys-meter__fill, .sys-band .sys-meter__fill { background: var(--data-300); }
+.on-black .sys-meter__over, .sys-band .sys-meter__over { background: repeating-linear-gradient(-45deg, rgb(0 0 0 / .5) 0 2px, transparent 2px 7px); }
+.on-black .sys-meter__target::before, .sys-band .sys-meter__target::before { background: var(--ink); }
+.on-black .sys-meter__target::after, .sys-band .sys-meter__target::after { border-top-color: var(--highlight); }
+
+/* ---------- Split bar: one whole in two or three parts, darkest first ---------- */
+.sys-split { display: flex; height: 32px; gap: 3px; }
+.sys-split > * { height: 100%; background: var(--data); }
+.sys-split > :nth-child(2) { background: var(--data-300); }
+.sys-split > :nth-child(3) { background: var(--data-100); }
+.sys-split--remainder { gap: 0; }
+.sys-split--remainder > :nth-child(2) { background: var(--data-100); }
+
+/* ---------- Content switcher: segmented choice; the chosen option is filled black ----------
+   For /mo /yr and for tabs. <div class="sys-content-switcher" role="group|tablist"><button aria-pressed|aria-selected="true">…</button>…</div>
+   Named Switch until 3.0.0: .sys-switch and .sys-switch--tabs still work as deprecated aliases. */
+.sys-content-switcher, .sys-switch { display: inline-flex; border: var(--thin); }
+.sys-content-switcher > button, .sys-switch > button { padding: 6px 12px; border: 0; background: none; color: var(--ink); cursor: pointer; line-height: 1.2;
+  font-family: var(--font-label); font-weight: 700; font-size: var(--size-tag); letter-spacing: var(--track-label); text-transform: uppercase;
+  transition: color var(--quick); }
+.sys-content-switcher > button:hover, .sys-switch > button:hover { color: var(--accent); }
+.sys-content-switcher > [aria-pressed="true"], .sys-content-switcher > [aria-selected="true"],
+.sys-switch > [aria-pressed="true"], .sys-switch > [aria-selected="true"] { background: var(--ink); color: var(--paper); }
+.sys-content-switcher > [aria-pressed="true"]:hover, .sys-content-switcher > [aria-selected="true"]:hover,
+.sys-switch > [aria-pressed="true"]:hover, .sys-switch > [aria-selected="true"]:hover { color: var(--paper); }
+.sys-content-switcher .count, .sys-switch .count { margin-left: 6px; font-family: var(--font-body); font-weight: 400; color: var(--muted); }
+.sys-content-switcher [aria-selected="true"] .count, .sys-content-switcher [aria-pressed="true"] .count,
+.sys-switch [aria-selected="true"] .count, .sys-switch [aria-pressed="true"] .count { color: #bbb; }
+/* Tabs: three or more options split the width evenly on phones and may wrap, so the row never scrolls. */
+.sys-content-switcher--tabs > button, .sys-switch--tabs > button { padding: 8px 16px; }
+/* Sizes (3.0.0): small is the default (about 32px tall). Medium is 40px tall, the height of a text field,
+   so a switcher that sits beside a search or text field matches it. */
+.sys-content-switcher--md > button { min-height: 36px; padding: 0 16px; }
+
+/* ---------- Toggle (3.0.0): one setting, on or off ----------
+   <button class="sys-toggle" type="button" role="switch" aria-checked="true"><span class="sys-toggle__track" aria-hidden="true"></span>Motion</button>
+   A pill track in a thin black border with a round knob. On: the track fills black and the knob moves right and turns white.
+   The label names the setting ("Motion"), never its state; the track shows the state. It acts at once, with no Save. */
+.sys-toggle { display: inline-flex; align-items: center; gap: 10px; min-height: 44px; padding: 0; border: 0; background: none; color: inherit; cursor: pointer;
+  font-family: var(--font-label); font-weight: 700; font-size: var(--size-tag); letter-spacing: var(--track-label); text-transform: uppercase;
+  transition: color var(--quick); }
+.sys-toggle__track { position: relative; flex: none; width: 40px; height: 22px; border: var(--thin); border-radius: 999px; background: var(--paper); transition: background var(--quick); }
+.sys-toggle__track::after { content: ""; position: absolute; top: 2px; left: 2px; width: 14px; height: 14px; border-radius: 50%; background: var(--ink);
+  transition: transform 260ms cubic-bezier(.34, 1.56, .64, 1), width 160ms ease, background var(--quick); }
+.sys-toggle[aria-checked="true"] .sys-toggle__track { background: var(--ink); }
+.sys-toggle[aria-checked="true"] .sys-toggle__track::after { background: var(--paper); transform: translateX(18px); }
+/* micro animation: the knob slides with a small overshoot, and stretches toward its far side while pressed */
+.sys-toggle:not(:disabled):active .sys-toggle__track::after { width: 18px; }
+.sys-toggle[aria-checked="true"]:not(:disabled):active .sys-toggle__track::after { transform: translateX(14px); }
+.sys-toggle:hover { color: var(--accent); }
+.sys-toggle:disabled { opacity: .4; cursor: default; }
+.sys-toggle:disabled:hover { color: inherit; }
+.on-black .sys-toggle__track, .sys-band .sys-toggle__track, .sys-header .sys-toggle__track { border-color: var(--paper); background: var(--ink); }
+.on-black .sys-toggle__track::after, .sys-band .sys-toggle__track::after, .sys-header .sys-toggle__track::after { background: var(--paper); }
+.on-black .sys-toggle[aria-checked="true"] .sys-toggle__track, .sys-band .sys-toggle[aria-checked="true"] .sys-toggle__track,
+.sys-header .sys-toggle[aria-checked="true"] .sys-toggle__track { background: var(--paper); }
+.on-black .sys-toggle[aria-checked="true"] .sys-toggle__track::after, .sys-band .sys-toggle[aria-checked="true"] .sys-toggle__track::after,
+.sys-header .sys-toggle[aria-checked="true"] .sys-toggle__track::after { background: var(--ink); }
+.on-black .sys-toggle:hover, .sys-band .sys-toggle:hover, .sys-header .sys-toggle:hover { color: var(--highlight); }
+@media (prefers-reduced-motion: reduce) { .sys-toggle__track, .sys-toggle__track::after { transition: none; } }
+
+/* ---------- Text input (3.0.0): a 40px field on newsprint ----------
+   <label class="sys-field"><span class="sys-field__label">Email</span><input class="sys-input" type="email"><span class="sys-field__help">…</span></label>
+   Newsprint fill, no border, square. Focus draws a thin black border. 40px tall, the height of a medium content switcher,
+   so the two line up in a row. A textarea takes the same class and grows taller. */
+.sys-input { display: block; width: 100%; min-width: 0; height: 40px; margin: 0; padding: 0 12px; border: var(--thin-w) solid transparent; border-radius: 0;
+  background: var(--newsprint); color: var(--ink); font-family: var(--font-body); font-size: 16px; line-height: 1.2;
+  -webkit-appearance: none; appearance: none; transition: border-color var(--quick); }
+textarea.sys-input { height: auto; min-height: 112px; padding: 10px 12px; line-height: 1.45; resize: vertical; }
+.sys-input::placeholder { color: var(--muted); opacity: 1; }
+.sys-input:focus { outline: none; border-color: var(--ink); }
+/* on a newsprint panel the field turns white so it still shows */
+:is(.sys-table, .sys-card, .sys-paper) .sys-input { background: var(--paper); }
+.sys-input:disabled { opacity: .5; cursor: not-allowed; }
+/* a search field leads with a magnifying glass */
+.sys-input[type="search"] { padding-left: 38px; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16' fill='none' stroke='%23000' stroke-width='2'%3E%3Ccircle cx='6.5' cy='6.5' r='5'/%3E%3Cpath d='M10.2 10.2L15 15'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: 12px 50%; background-size: 16px 16px; }
+.sys-input::-webkit-search-cancel-button { filter: grayscale(1) brightness(0); cursor: pointer; }
+.sys-input[aria-invalid="true"], .sys-input[aria-invalid="true"]:focus { border-color: var(--accent); }   /* error: a magenta rule all the way around, kept on focus */
+.sys-field { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.sys-field__label { font-family: var(--font-label); font-weight: 700; font-size: var(--size-tag); letter-spacing: var(--track-label); text-transform: uppercase; }
+.sys-field__help { font-size: 14px; line-height: 1.4; color: var(--muted); }
+.sys-field__error { font-family: var(--font-label); font-weight: 700; font-size: 14px; line-height: 1.4; color: var(--accent); }
+
+/* ---------- Label button: caps text button ("Details +", "Show all") ---------- */
+.sys-link { padding: 4px 0; border: 0; background: none; color: inherit; cursor: pointer;
+  font-family: var(--font-label); font-weight: 700; font-size: var(--size-tag); letter-spacing: var(--track-label); text-transform: uppercase;
+  transition: color var(--quick); }
+.sys-link:hover { color: var(--accent); }
+.on-black .sys-link:hover, .sys-band .sys-link:hover { color: var(--highlight); }
+
+/* ---------- Tooltip (3.0.0): a black label with white type and a tail ----------
+   <button class="sys-tooltip" data-tip="Copy style" aria-label="Copy style">…</button>
+   Shows on hover and keyboard focus. The tail's tip always sits 4px from the control.
+   Side: below (default), --above, --left, --right. Along the edge: middle (default), --start, --end;
+   at the start or end the tail's center sits 22px in, the center of a 44px icon button.
+   On an icon button the gap is measured from the glyph, not the 44px hit area: set --icon-size if the glyph isn't 24px.
+   On black it turns white with black type. Icon buttons get it from data-tip alone, lined up at the end. */
+.sys-tooltip, .sys-icon-btn[data-tip] { --tip-gap: 4px; --tip-edge: 0px; --tip-border: 0px; --tip-off: calc(var(--tip-gap) + var(--tip-edge)); --tip-tail: 6px; --tip-inset: 22px; --tip-bg: var(--ink); --tip-fg: var(--paper); position: relative; }
+.on-black :is(.sys-tooltip, .sys-icon-btn[data-tip]), .sys-band :is(.sys-tooltip, .sys-icon-btn[data-tip]),
+.sys-header :is(.sys-tooltip, .sys-icon-btn[data-tip]) { --tip-bg: var(--paper); --tip-fg: var(--ink); }
+:is(.sys-tooltip, .sys-icon-btn[data-tip])::after,
+:is(.sys-tooltip, .sys-icon-btn[data-tip])::before { position: absolute; z-index: 30; pointer-events: none; opacity: 0; transition: opacity var(--quick); }
+/* the label */
+:is(.sys-tooltip, .sys-icon-btn[data-tip])::after { content: attr(data-tip); top: calc(100% + var(--tip-off) + var(--tip-tail)); left: 50%; transform: translateX(-50%);
+  background: var(--tip-bg); color: var(--tip-fg); padding: 5px 8px; white-space: nowrap;
+  font-family: var(--font-label); font-weight: 700; font-size: 12px; line-height: 1.2; letter-spacing: var(--track-label); text-transform: uppercase; }
+/* the tail: a triangle pointing at the control */
+:is(.sys-tooltip, .sys-icon-btn[data-tip])::before { content: ""; width: 0; height: 0; border: var(--tip-tail) solid transparent;
+  top: calc(100% + var(--tip-off)); left: 50%; transform: translateX(-50%); border-top-width: 0; border-bottom-color: var(--tip-bg); }
+:is(.sys-tooltip, .sys-icon-btn[data-tip]):is(:hover, :focus-visible)::after,
+:is(.sys-tooltip, .sys-icon-btn[data-tip]):is(:hover, :focus-visible)::before { opacity: 1; transition-delay: .15s; }
+/* above */
+:is(.sys-tooltip, .sys-icon-btn[data-tip]).sys-tooltip--above::after { top: auto; bottom: calc(100% + var(--tip-off) + var(--tip-tail)); }
+:is(.sys-tooltip, .sys-icon-btn[data-tip]).sys-tooltip--above::before { top: auto; bottom: calc(100% + var(--tip-off));
+  border-bottom-width: 0; border-top-width: var(--tip-tail); border-bottom-color: transparent; border-top-color: var(--tip-bg); }
+/* start / end, for above or below */
+:is(.sys-tooltip, .sys-icon-btn[data-tip]).sys-tooltip--start::after { left: calc(0px - var(--tip-border)); right: auto; transform: none; }
+:is(.sys-tooltip, .sys-icon-btn[data-tip]).sys-tooltip--start::before { left: calc(var(--tip-inset) - var(--tip-tail) - var(--tip-border)); right: auto; transform: none; }
+.sys-icon-btn[data-tip]::after, :is(.sys-tooltip, .sys-icon-btn[data-tip]).sys-tooltip--end::after { left: auto; right: calc(0px - var(--tip-border)); transform: none; }
+.sys-icon-btn[data-tip]::before, :is(.sys-tooltip, .sys-icon-btn[data-tip]).sys-tooltip--end::before { left: auto; right: calc(var(--tip-inset) - var(--tip-tail) - var(--tip-border)); transform: none; }
+.sys-icon-btn[data-tip].sys-tooltip--middle::after { left: 50%; right: auto; transform: translateX(-50%); }
+.sys-icon-btn[data-tip].sys-tooltip--middle::before { left: 50%; right: auto; transform: translateX(-50%); }
+/* left / right: beside the control, centered on it */
+:is(.sys-tooltip, .sys-icon-btn[data-tip]):is(.sys-tooltip--left, .sys-tooltip--right)::after,
+:is(.sys-tooltip, .sys-icon-btn[data-tip]):is(.sys-tooltip--left, .sys-tooltip--right)::before { top: 50%; bottom: auto; transform: translateY(-50%); }
+:is(.sys-tooltip, .sys-icon-btn[data-tip]).sys-tooltip--left::after { left: auto; right: calc(100% + var(--tip-off) + var(--tip-tail)); }
+:is(.sys-tooltip, .sys-icon-btn[data-tip]).sys-tooltip--left::before { left: auto; right: calc(100% + var(--tip-off));
+  border-width: var(--tip-tail) 0 var(--tip-tail) var(--tip-tail); border-color: transparent transparent transparent var(--tip-bg); }
+:is(.sys-tooltip, .sys-icon-btn[data-tip]).sys-tooltip--right::after { right: auto; left: calc(100% + var(--tip-off) + var(--tip-tail)); }
+:is(.sys-tooltip, .sys-icon-btn[data-tip]).sys-tooltip--right::before { right: auto; left: calc(100% + var(--tip-off));
+  border-width: var(--tip-tail) var(--tip-tail) var(--tip-tail) 0; border-color: transparent var(--tip-bg) transparent transparent; }
+/* positions are measured from inside the border, so a bordered control adds its border back to keep the 4px gap */
+.sys-btn.sys-tooltip, .sys-content-switcher.sys-tooltip, .sys-input.sys-tooltip { --tip-edge: var(--thin-w); --tip-border: var(--thin-w); }
+/* an icon button's glyph sits centered in its 44px hit area, so the gap starts at the glyph */
+.sys-icon-btn[data-tip] { --tip-edge: calc((var(--icon-size, 24px) - 44px) / 2); }
+@media (prefers-reduced-motion: reduce) { :is(.sys-tooltip, .sys-icon-btn[data-tip])::after, :is(.sys-tooltip, .sys-icon-btn[data-tip])::before { transition: none; } }
+
+/* ---------- Icon button: icon only, with a tooltip ----------
+   <button class="sys-icon-btn" aria-label="Changelog" data-tip="Changelog"><svg …/></button>
+   The 44px hit area is larger than the glyph; pull it out with negative margin to align the glyph. */
+.sys-icon-btn { position: relative; flex: none; display: grid; place-items: center; width: 44px; height: 44px;
+  border: 0; background: none; color: inherit; cursor: pointer; transition: color var(--quick); }
+.sys-icon-btn:hover, .sys-icon-btn:focus-visible { color: var(--accent); }
+.on-black .sys-icon-btn:hover, .on-black .sys-icon-btn:focus-visible,
+.sys-header .sys-icon-btn:hover, .sys-header .sys-icon-btn:focus-visible { color: var(--highlight); }
+
+/* ---------- Slider (3.5.0): a range input with a gray track and a round magenta knob ----------
+   <input type="range" class="sys-slider" min="0" max="100" value="40" aria-label="…">
+   On black (.on-black, or inside a control bar) the track darkens. */
+.sys-slider { --track: #ccc; -webkit-appearance: none; appearance: none; width: 100%; height: 24px; margin: 0; background: transparent; cursor: pointer; }
+.sys-slider::-webkit-slider-runnable-track { height: 4px; background: var(--track); }
+.sys-slider::-moz-range-track { height: 4px; background: var(--track); }
+.sys-slider::-webkit-slider-thumb { -webkit-appearance: none; width: 16px; height: 16px; margin-top: -6px; border: 0; border-radius: 50%; background: var(--accent); }
+.sys-slider::-moz-range-thumb { width: 16px; height: 16px; border: 0; border-radius: 50%; background: var(--accent); }
+.sys-slider:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.on-black .sys-slider, .sys-controls .sys-slider { --track: #555; }
+
+/* ---------- Control bar (3.5.0): the black strip that drives an interactive example ----------
+   Caps labels, a slider, a readout, outlined buttons, and a frame strip for stepped motion.
+   <div class="sys-controls"><label for="a">Angle</label><input type="range" class="sys-slider" id="a"><output for="a">5°</output></div>
+   <div class="sys-controls"><ol class="sys-frames"><li class="is-on"></li><li class="is-marked"></li>…</ol>
+     <span class="sys-controls__readout">1/8</span><button class="sys-controls__btn" aria-pressed="false">Slow</button></div> */
+.sys-controls { display: flex; align-items: center; gap: 12px; min-height: 40px; padding: 6px 12px; box-sizing: border-box; background: var(--ink); color: var(--paper);
+  font-family: var(--font-label); font-weight: 700; font-size: 12px; letter-spacing: var(--track-label); text-transform: uppercase; }
+.sys-controls .sys-slider { flex: 1; min-width: 0; }
+.sys-controls output, .sys-controls__readout { min-width: 4.6em; font-variant-numeric: tabular-nums; }
+.sys-controls output { text-align: right; }
+.sys-controls__readout { flex: 1; min-width: 0; white-space: nowrap; overflow: hidden; color: #aaa; }
+.sys-controls__btn { min-height: 28px; padding: 0 10px; color: var(--paper); background: transparent; border: 2px solid var(--paper); cursor: pointer;
+  font: inherit; letter-spacing: inherit; text-transform: inherit; transition: background var(--quick), color var(--quick), border-color var(--quick); }
+.sys-controls__btn:hover { background: var(--accent); border-color: var(--accent); }
+.sys-controls__btn[aria-pressed="true"] { background: var(--paper); color: var(--ink); border-color: var(--paper); }
+.sys-controls__btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+/* Frame strip: one dot per frame. The current frame fills white; a marked frame (a smear, a key) is magenta. */
+.sys-frames { display: flex; gap: 4px; margin: 0; padding: 0; list-style: none; }
+.sys-frames li { width: 10px; height: 10px; border: 1px solid #777; border-radius: 50%; box-sizing: border-box; }
+.sys-frames li.is-marked { border-color: var(--accent); }
+.sys-frames li.is-on { background: var(--paper); border-color: var(--paper); }
+.sys-frames li.is-marked.is-on { background: var(--accent); border-color: var(--accent); }
+
+/* ---------- Section nav: pinned jump links under the header ----------
+   The current section takes the yellow underline. Pair with .sys-section (below).
+   <nav class="sys-section-nav"><div class="sys-wrap sys-nav"><a href="#income" class="is-current">Income</a>…</div></nav> */
+.sys-section-nav { --section-nav-h: 52px; position: sticky; top: 0; z-index: 10; background: var(--ink); color: var(--paper); border-top: 1px solid var(--line-dark); }
+.sys-section-nav .sys-nav { height: var(--section-nav-h); align-items: center; gap: 24px; overflow-x: auto; scrollbar-width: none; }
+.sys-section-nav .sys-nav::-webkit-scrollbar { display: none; }
+.sys-section-nav .sys-nav a { white-space: nowrap; flex-shrink: 0; transition: color var(--quick), border-color var(--quick); }
+.sys-section-nav .sys-nav a.is-current { color: var(--highlight); border-bottom-color: var(--highlight); }
+/* A section divided by the thick rule. Jumps land one rule-width higher than the nav,
+   so the rule tucks behind it instead of showing as a short line under the nav. */
+.sys-section { border-top: var(--rule); scroll-margin-top: calc(52px - var(--rule-w)); }
+
+/* ---------- Back to top (3.3.0): a floating pill that returns to the top of a long page ----------
+   <a class="sys-to-top" href="#top"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M6 11V1.5M1.5 6 6 1.5 10.5 6"/></svg>Top</a>
+   Black with white caps and a white stroke, so it shows on white, newsprint and black alike. Fixed bottom right,
+   clear of the iPhone toolbar. Hidden until a script adds .is-shown (once the page's opening block is out of view). */
+.sys-to-top { position: fixed; z-index: 20; right: calc(16px + env(safe-area-inset-right, 0px)); bottom: calc(16px + env(safe-area-inset-bottom, 0px));
+  display: inline-flex; align-items: center; gap: 6px; height: 40px; padding: 0 16px 0 14px; border: 1.5px solid var(--paper); border-radius: 999px;
+  background: var(--ink); color: var(--paper); text-decoration: none; cursor: pointer;
+  font-family: var(--font-label); font-weight: 700; font-size: var(--size-tag); letter-spacing: var(--track-label); text-transform: uppercase; line-height: 1;
+  opacity: 0; visibility: hidden; transform: translateY(8px); pointer-events: none;
+  transition: opacity .2s, transform .2s cubic-bezier(.16, 1, .3, 1), visibility .2s, color var(--quick); }
+.sys-to-top::before { content: ""; position: absolute; inset: -3px; }   /* 44px tall hit area */
+.sys-to-top svg { width: 12px; height: 12px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: square; }
+.sys-to-top.is-shown { opacity: 1; visibility: visible; transform: none; pointer-events: auto; }
+.sys-to-top:hover { color: var(--highlight); }
+.sys-to-top:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+@media (prefers-reduced-motion: reduce) { .sys-to-top { transition: none; } }
+/* 3.3.1: the title it sends focus to (tabindex="-1") takes focus without a ring; Safari drew one around the heading */
+[tabindex="-1"]:focus { outline: none; }
+
+/* ---------- Status tags: three levels by weight, not by color ----------
+   Critical is the dark tag, Working the light tag, Warning a pill outline between them.
+   .sys-tag--plain is the 2.x name for the light tag and still works. */
+.sys-tag--outline { background: none; color: var(--ink); box-shadow: inset 0 0 0 var(--thin-w) var(--ink); }   /* inset, so it stays the same height */
+
+@media (max-width: 640px) {
+  .sys-content-switcher--tabs, .sys-switch--tabs { display: grid; grid-auto-columns: 1fr; grid-auto-flow: column; }
+  .sys-content-switcher--tabs > button, .sys-switch--tabs > button { padding: 8px 10px; text-align: center; }
+  .sys-stat--xl .sys-stat__fig { font-size: 64px; }
+}
+
+/* ---------- Inline notification: a note (context) or an alert (needs attention) ----------
+   <div class="sys-note">The demo is built from the same code with made-up data.</div>
+   <div class="sys-note sys-note--alert" role="status"><span class="sys-tag">Critical</span><p>July charges still not recorded</p></div>
+   Both share one container: a yellow rule on pale yellow. An alert adds a status tag at the front
+   (.sys-tag Critical / .sys-tag--outline Warning / .sys-tag--light Working). No icons. */
+.sys-note { border-left: var(--rule-w) solid var(--highlight); background: var(--highlight-soft); padding: 12px 16px; margin: 16px 0; }   /* full width of the container it refers to */
+.sys-note > :first-child { margin-top: 0; }
+.sys-note > :last-child { margin-bottom: 0; }
+.sys-note--alert { display: flex; align-items: center; gap: 14px; }
+.sys-note--alert p { margin: 0; }
+.sys-note--alert .sys-tag { flex: none; }
+.sys-note .sys-tag--light, .sys-note .sys-tag--plain { background: var(--paper); }   /* on the pale yellow, the light tag turns white */
+
+/* ---------- Table (2.1.0): rows of data on a newsprint panel ----------
+   <div class="sys-table"><table>
+     <thead><tr><th>Month</th>…</tr></thead>
+     <tbody><tr><td>January</td>…</tr></tbody>
+     <tfoot><tr><td>Total</td>…</tr></tfoot>       (optional)
+   </table></div>
+   The panel has padding and no border. Headers sit on the thick rule, rows on thin rules.
+   Every column is left-aligned; tabular digits keep amounts lined up. Wide tables scroll inside the panel. */
+.sys-table { background: var(--newsprint); color: var(--ink); padding: 24px 28px 28px; overflow-x: auto; }
+.sys-table > .sys-block-title { margin-bottom: 4px; }
+.sys-table table { width: 100%; border-collapse: collapse; font-size: 15px; line-height: 1.4; font-variant-numeric: tabular-nums; }
+.sys-table th, .sys-table td { text-align: left; vertical-align: top; padding: 12px 24px 12px 0; }
+.sys-table th:last-child, .sys-table td:last-child { padding-right: 0; }
+.sys-table th { vertical-align: bottom; padding-top: 16px; padding-bottom: 10px; border-bottom: var(--rule); white-space: nowrap;
+  font-family: var(--font-label); font-weight: 700; font-size: var(--size-tag); letter-spacing: var(--track-label); text-transform: uppercase; }
+.sys-table tbody td { border-bottom: var(--thin); }
+.sys-table tfoot td { padding-top: 14px; border-top: var(--rule); font-family: var(--font-label); font-weight: 700; }
+.sys-table .sys-tag--light, .sys-table .sys-tag--plain { background: var(--paper); }   /* a newsprint tag would vanish on the newsprint panel */
+.sys-table__note { color: var(--muted); }
+.sys-table a { color: inherit; transition: color var(--quick); }
+.sys-table a:hover { color: var(--accent); }
+@media (max-width: 640px) { .sys-table { padding: 16px 16px 20px; } .sys-table table { font-size: 14px; } }
+
+/* ---------- Card (3.0.0): art on top, the words below on newsprint ----------
+   From jonesco.com's work cards; also the style specimens. No border: the art meets the newsprint edge to edge.
+   <a class="sys-card" href="…">                       (an <article> when the card isn't a link)
+     <span class="sys-card__art"><img src="…" alt="…"></span>
+     <span class="sys-card__body">
+       <span class="sys-card__id">#5487</span>          (optional)
+       <h3 class="sys-card__title">Fund manager workspace</h3>
+       <p class="sys-card__text">…</p>
+       <span class="sys-card__foot"><span class="sys-tag">Enterprise UX</span><span class="sys-card__more">View case →</span></span>
+     </span>
+   </a>
+   .sys-card--sm for dense grids (four or more across): smaller title and padding. */
+.sys-card { display: flex; flex-direction: column; min-width: 0; background: var(--newsprint); color: var(--ink); text-decoration: none; }
+.sys-card__art { display: block; position: relative; aspect-ratio: 4 / 3; overflow: hidden; background: var(--ink); }
+.sys-card__art > img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: top; transition: transform .25s; }
+.sys-card__body { display: flex; flex-direction: column; flex: 1; padding: 20px 24px 24px; border-top: 1px solid var(--paper); }   /* 3.1.0: a white hairline where the art meets the newsprint */
+.sys-card__id { display: block; margin: 0 0 6px; font-family: var(--font-label); font-weight: 700; font-size: var(--size-tag); letter-spacing: var(--track-label);
+  color: var(--muted); font-variant-numeric: tabular-nums; }
+.sys-card__title { margin: 0 0 10px; font-family: var(--font-label); font-weight: 700; text-transform: none; letter-spacing: 0; font-size: 26px; line-height: 1.15;
+  transition: color var(--quick); }
+.sys-card__text { margin: 0 0 20px; font-size: 16px; line-height: 1.5; }
+.sys-card__foot { margin-top: auto; display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
+.sys-card__more { font-family: var(--font-label); font-weight: 700; font-size: var(--size-tag); letter-spacing: var(--track-label); text-transform: uppercase;
+  transition: color var(--quick); }
+.sys-card .sys-tag--light, .sys-card .sys-tag--plain { background: var(--paper); }   /* a newsprint tag would vanish on the newsprint body */
+a.sys-card:hover .sys-card__more { color: var(--accent); }   /* the title stays black; only the "View" label changes */
+a.sys-card:hover .sys-card__art > img { transform: scale(1.04); }
+.sys-card--sm .sys-card__body { padding: 16px 18px 18px; }
+.sys-card--sm .sys-card__title { font-size: 20px; margin-bottom: 8px; }
+.sys-card--sm .sys-card__text { font-size: 15px; line-height: 1.45; margin-bottom: 14px; }
+@media (max-width: 640px) { .sys-card__body { padding: 18px 18px 20px; } .sys-card__title { font-size: 22px; } }
+@media (prefers-reduced-motion: reduce) { a.sys-card:hover .sys-card__art > img { transform: none; } }
